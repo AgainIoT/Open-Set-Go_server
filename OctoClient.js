@@ -125,9 +125,26 @@ export class OctoClient {
         allow_fork_syncing: true,
       });
       console.log(response);
-      console.log(`Branch protection for ${branch} has been updated successfully.`);
+      console.log(
+        `Branch protection for ${branch} has been updated successfully.`,
+      );
     } catch (error) {
       console.log(`Faild to update branch protection. Error: ${error.message}`);
+    }
+  };
+
+  // create a milestone
+  createMilstone = async (repoName, title) => {
+    try {
+      const response = await this.octokit.repos.createMilstone({
+        owner: this.userName,
+        repo: repoName,
+        title: title,
+      });
+      console.log(response);
+      console.log(`Milestone ${title} has been created successfully.`);
+    } catch (error) {
+      console.log(`Faild to create a milstone. Error: ${error.message}`);
     }
   };
 }
