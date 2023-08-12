@@ -3,7 +3,7 @@ import { Octokit } from '@octokit/rest';
 
 @Injectable()
 export class AppService {
-  // Check whether this repository does exist already.
+  // Check whether this repository name does exist already.
   checkRepo = async (
     octokit: Octokit,
     userName: string,
@@ -16,7 +16,7 @@ export class AppService {
       });
       // This repository already exists.
       if (response.status === 200) {
-        return false;
+        throw new Error('This repository name already exists');
       }
     } catch (error) {
       // You can make a repository of this name.
@@ -24,8 +24,7 @@ export class AppService {
         return true;
       }
       // Something got wrong.
-      console.log(error.message);
-      return false;
+      throw error;
     }
   };
 
@@ -36,18 +35,17 @@ export class AppService {
     repoName: string,
   ): Promise<void> => {
     const octokit = new Octokit({ auth: GHtoken });
-    const validate = await this.checkRepo(octokit, userName, repoName);
     try {
+      const validate = await this.checkRepo(octokit, userName, repoName);
       // Validate the repository name.
       if (validate) {
         const response = await octokit.repos.createForAuthenticatedUser({
           name: repoName,
           auto_init: true,
         });
-        console.log(response.status, 'ok');
-        console.log(`Repository '${repoName}' has been created successfully.`);
-      } else {
-        throw Error;
+        console.log(
+          `[${response.status}] Repository '${repoName}' has been created successfully.`,
+        );
       }
     } catch (error) {
       console.error(`Failed to create repository. Error: ${error.message}`);
