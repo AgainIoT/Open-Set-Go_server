@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Octokit } from '@octokit/rest';
 
 @Injectable()
-export class AppService {
+export class RepoService {
   // Check whether this repository name does exist already.
   checkRepo = async (
     octokit: Octokit,
