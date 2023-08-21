@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { Octokit } from '@octokit/rest';
 
+type file = { path: string; content: string };
 @Injectable()
 export class FilesService {
   constructor(private readonly httpService: HttpService) {}
@@ -10,7 +11,7 @@ export class FilesService {
     userName: string,
     repoName: string,
     files: { path: string; content: string }[],
-  ) => {
+  ): Promise<void> => {
     const octokit = new Octokit({ auth: GHtoken });
     try {
       // get the branch data including current commit hash
@@ -34,6 +35,8 @@ export class FilesService {
         })),
       });
 
+      console.log(`[${tree.status}] Tree has been created successfully`);
+
       // create a new commit
       const newCommit = await octokit.rest.git.createCommit({
         owner: userName,
@@ -43,34 +46,31 @@ export class FilesService {
         parents: [branchData.commit.sha],
       });
 
+      console.log(`[${newCommit.status}] Commit has been created successfully`);
+
       // update the branch
-      await octokit.rest.git.updateRef({
+      const response = await octokit.rest.git.updateRef({
         owner: userName,
         repo: repoName,
         ref: 'heads/main',
         sha: newCommit.data.sha,
       });
 
-      console.log('Files uploaded and committed successfully.');
+      console.log(`[${response.status}] Branch has been updated succesfully`);
     } catch (error) {
       console.error('Error uploading files:', error);
     }
   };
-  makeGitignore = async (
-    content: string,
-  ): Promise<{ path: string; content: string }> => {
-    return await { path: '.gitignore', content: content };
+
+  makeGitignore = async (content: string): Promise<file> => {
+    return { path: '.gitignore', content: content };
   };
 
-  makeReadmeMd = async (
-    content: string,
-  ): Promise<{ path: string; content: string }> => {
+  makeReadmeMd = async (content: string): Promise<file> => {
     return { path: 'README.md', content: content };
   };
 
-  makeContributingMd = async (
-    content: string,
-  ): Promise<{ path: string; content: string }> => {
+  makeContributingMd = async (content: string): Promise<file> => {
     return { path: 'CONTRIBUTING.md', content: content };
   };
 }
