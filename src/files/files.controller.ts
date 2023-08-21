@@ -10,14 +10,41 @@ export class FilesController {
     @Body('token') token: string,
     @Body('userName') userName: string,
     @Body('repoName') repoName: string,
+    @Body('gitignore') gitignore: string,
+    @Body('readmeMd') readmeMd: string,
+    @Body('contributingMd') contributingMd: string,
     @Res() res: Response,
   ) {
-    this.filesService.uploadFiles(token, userName, repoName, [
-      { path: '1.txt', content: 'example1' },
-      { path: '2.txt', content: 'example2' },
-      { path: '3.txt', content: 'example3' },
-      { path: '4.txt', content: 'example4' },
-    ]);
+    const contents = [];
+
+    this.filesService
+      .makeGitignore(gitignore)
+      .then((result) => {
+        contents.push(result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    this.filesService
+      .makeReadmeMd(readmeMd)
+      .then((result) => {
+        contents.push(result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    this.filesService
+      .makeContributingMd(contributingMd)
+      .then((result) => {
+        contents.push(result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    this.filesService.uploadFiles(token, userName, repoName, contents);
     res.status(200).send('ok');
   }
 }

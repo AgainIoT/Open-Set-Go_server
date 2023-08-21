@@ -56,4 +56,21 @@ export class FilesService {
       console.error('Error uploading files:', error);
     }
   };
+  makeGitignore = async (
+    content: string,
+  ): Promise<{ path: string; content: string }> => {
+    return await { path: '.gitignore', content: content };
+  };
+
+  makeReadmeMd = async (
+    content: string,
+  ): Promise<{ path: string; content: string }> => {
+    return { path: 'README.md', content: content };
+  };
+
+  makeContributingMd = async (
+    content: string,
+  ): Promise<{ path: string; content: string }> => {
+    return { path: 'CONTRIBUTING.md', content: content };
+  };
 }
