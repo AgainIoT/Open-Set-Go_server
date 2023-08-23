@@ -66,6 +66,10 @@ export class FilesService {
     return { path: '.gitignore', content: content };
   };
 
+  makePRTemplate = async (content: string): Promise<file> => {
+    return { path: 'pull_request_template.md', content: content };
+  };
+
   makeReadmeMd = async (content: string): Promise<file> => {
     return { path: 'README.md', content: content };
   };
