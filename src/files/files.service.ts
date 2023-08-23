@@ -77,4 +77,12 @@ export class FilesService {
   makeContributingMd = async (content: string): Promise<file> => {
     return { path: 'CONTRIBUTING.md', content: content };
   };
+
+  getGitignoreio = async (ignorelist: string[]) => {
+    const ignorestr = ignorelist.join();
+    const GITIGNOREIO_URL =
+      `https://www.toptal.com/developers/gitignore/api/` + ignorestr;
+    const result = await this.httpService.get(GITIGNOREIO_URL).toPromise();
+    return { path: '.gitignore', content: result.data };
+  };
 }
