@@ -11,27 +11,27 @@ export class FilesController {
     @Body('token') token: string,
     @Body('userName') userName: string,
     @Body('repoName') repoName: string,
-    @Body('gitignore') gitignore: string,
+    @Body('gitignore') gitignore: string[],
+    @Body('PRTemplate') PRTemplate: string,
     @Body('readmeMd') readmeMd: string,
-    @Body('ignorelist') ignorelist: string[],
     @Body('contributingMd') contributingMd: string,
     @Res() res: Response,
   ) {
-    const contents = [];
+    const files = [];
 
     this.filesService
-      .getGitignoreio(ignorelist)
+      .makeGitignore(gitignore)
       .then((result) => {
-        contents.push(result);
+        files.push(result);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
 
     this.filesService
-      .makeGitignore(gitignore)
+      .makePRTemplate(PRTemplate)
       .then((result) => {
-        contents.push(result);
+        files.push(result);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -40,7 +40,7 @@ export class FilesController {
     this.filesService
       .makeReadmeMd(readmeMd)
       .then((result) => {
-        contents.push(result);
+        files.push(result);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -49,13 +49,13 @@ export class FilesController {
     this.filesService
       .makeContributingMd(contributingMd)
       .then((result) => {
-        contents.push(result);
+        files.push(result);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
 
-    this.filesService.uploadFiles(token, userName, repoName, contents);
+    this.filesService.uploadFiles(token, userName, repoName, files);
     res.status(200).send('ok');
   }
 }

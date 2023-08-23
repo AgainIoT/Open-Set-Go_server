@@ -3,6 +3,11 @@ import { HttpService } from '@nestjs/axios';
 import { Octokit } from '@octokit/rest';
 
 type file = { path: string; content: string };
+
+const prTemplates = {
+  preset1: 'lsakjfldskfj',
+  preset2: 'adsfdsaf',
+};
 @Injectable()
 export class FilesService {
   constructor(private readonly httpService: HttpService) {}
@@ -62,12 +67,19 @@ export class FilesService {
     }
   };
 
-  makeGitignore = async (content: string): Promise<file> => {
-    return { path: '.gitignore', content: content };
+  makeGitignore = async (ignoreList: string[]): Promise<file> => {
+    const ignorestr = ignoreList.join();
+    const GITIGNOREIO_URL =
+      `https://www.toptal.com/developers/gitignore/api/` + ignorestr;
+    const result = await this.httpService.get(GITIGNOREIO_URL).toPromise();
+    return { path: '.gitignore', content: result.data };
   };
 
-  makePRTemplate = async (content: string): Promise<file> => {
-    return { path: 'pull_request_template.md', content: content };
+  makePRTemplate = async (title: string): Promise<file> => {
+    return {
+      path: '.github/pull_request_template.md',
+      content: prTemplates[title],
+    };
   };
 
   makeReadmeMd = async (content: string): Promise<file> => {
@@ -76,13 +88,5 @@ export class FilesService {
 
   makeContributingMd = async (content: string): Promise<file> => {
     return { path: 'CONTRIBUTING.md', content: content };
-  };
-
-  getGitignoreio = async (ignorelist: string[]) => {
-    const ignorestr = ignorelist.join();
-    const GITIGNOREIO_URL =
-      `https://www.toptal.com/developers/gitignore/api/` + ignorestr;
-    const result = await this.httpService.get(GITIGNOREIO_URL).toPromise();
-    return { path: '.gitignore', content: result.data };
   };
 }
