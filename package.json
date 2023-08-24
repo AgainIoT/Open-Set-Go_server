@@ -26,10 +26,12 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/mongoose": "^10.0.1",
     "@nestjs/platform-express": "^10.0.0",
     "@octokit/rest": "^20.0.1",
     "@octokit/types": "^11.1.0",
     "axios": "^1.4.0",
+    "mongoose": "^7.4.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },
