@@ -13,6 +13,7 @@ export class FilesController {
     @Body('repoName') repoName: string,
     @Body('gitignore') gitignore: string[],
     @Body('PRTemplate') PRTemplate: string,
+    @Body('IssueTemplate') IssueTemplate: string[],
     @Body('readmeMd') readmeMd: string,
     @Body('contributingMd') contributingMd: string,
     @Res() res: Response,
@@ -32,6 +33,15 @@ export class FilesController {
       .makePRTemplate(PRTemplate)
       .then((result) => {
         files.push(result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    this.filesService
+      .makeIssueTemplate(IssueTemplate)
+      .then((result) => {
+        files.push(...result);
       })
       .catch((error) => {
         console.error('Error:', error);

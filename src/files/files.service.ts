@@ -8,6 +8,13 @@ const prTemplates = {
   preset1: 'lsakjfldskfj',
   preset2: 'adsfdsaf',
 };
+
+const issueTemplate = {
+  type1: 'type1',
+  type2: 'type2',
+  type3: 'type3',
+  type4: 'type4',
+};
 @Injectable()
 export class FilesService {
   constructor(private readonly httpService: HttpService) {}
@@ -80,6 +87,17 @@ export class FilesService {
       path: '.github/pull_request_template.md',
       content: prTemplates[title],
     };
+  };
+
+  makeIssueTemplate = async (titles: string[]): Promise<file[]> => {
+    const result = [];
+    for (const title of titles) {
+      result.push({
+        path: '.github/ISSUE_TEMPLATE/' + title + '.yml',
+        content: issueTemplate[title],
+      });
+    }
+    return result;
   };
 
   makeReadmeMd = async (content: string): Promise<file> => {
