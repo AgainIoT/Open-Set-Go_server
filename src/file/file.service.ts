@@ -4,17 +4,17 @@ import { Octokit } from '@octokit/rest';
 
 type file = { path: string; content: string };
 
-const prTemplates = {
-  preset1: 'lsakjfldskfj',
-  preset2: 'adsfdsaf',
-};
+// const prTemplates = {
+//   preset1: 'lsakjfldskfj',
+//   preset2: 'adsfdsaf',
+// };
 
-const issueTemplate = {
-  type1: 'type1',
-  type2: 'type2',
-  type3: 'type3',
-  type4: 'type4',
-};
+// const issueTemplate = {
+//   type1: 'type1',
+//   type2: 'type2',
+//   type3: 'type3',
+//   type4: 'type4',
+// };
 @Injectable()
 export class FilesService {
   constructor(private readonly httpService: HttpService) {}
@@ -82,29 +82,29 @@ export class FilesService {
     return { path: '.gitignore', content: result.data };
   };
 
-  makePRTemplate = async (title: string): Promise<file> => {
-    return {
-      path: '.github/pull_request_template.md',
-      content: prTemplates[title],
-    };
-  };
+  // makePRTemplate = async (title: string): Promise<file> => {
+  //   return {
+  //     path: '.github/pull_request_template.md',
+  //     content: prTemplates[title],
+  //   };
+  // };
 
-  makeIssueTemplate = async (titles: string[]): Promise<file[]> => {
-    const result = [];
-    for (const title of titles) {
-      result.push({
-        path: '.github/ISSUE_TEMPLATE/' + title + '.yml',
-        content: issueTemplate[title],
-      });
-    }
-    return result;
-  };
+  // makeIssueTemplate = async (titles: string[]): Promise<file[]> => {
+  //   const result = [];
+  //   for (const title of titles) {
+  //     result.push({
+  //       path: '.github/ISSUE_TEMPLATE/' + title + '.yml',
+  //       content: issueTemplate[title],
+  //     });
+  //   }
+  //   return result;
+  // };
 
-  makeReadmeMd = async (content: string): Promise<file> => {
-    return { path: 'README.md', content: content };
-  };
+  // makeReadmeMd = async (content: string): Promise<file> => {
+  //   return { path: 'README.md', content: content };
+  // };
 
-  makeContributingMd = async (content: string): Promise<file> => {
-    return { path: 'CONTRIBUTING.md', content: content };
-  };
+  // makeContributingMd = async (content: string): Promise<file> => {
+  //   return { path: 'CONTRIBUTING.md', content: content };
+  // };
 }
