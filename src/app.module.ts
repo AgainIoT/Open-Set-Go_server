@@ -2,15 +2,16 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { RepoModule } from './repo/repo.module';
 import { FilesModule } from './files/files.module';
-import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CommonModule } from './commons/common.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     RepoModule,
     FilesModule,
-    AuthModule,
+    CommonModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
@@ -24,6 +25,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       }),
       inject: [ConfigService],
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [ConfigService],
