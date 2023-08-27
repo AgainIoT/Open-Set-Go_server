@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { TokenPayload } from './tokenPayload.interface';
+import { TokenPayload } from './jwt/tokenPayload.interface';
 import { Octokit } from '@octokit/rest';
 import axios from 'axios';
 
@@ -115,9 +115,13 @@ export class AuthService {
     }
   };
 
-  getCookieWithJwtToken(userId: string) {
+  getCookieWithJwtToken = async (userId: string) => {
     const payload: TokenPayload = { userId };
     const token = this.jwtService.sign(payload);
     return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_EXPIRATION_TIME}`;
-  }
+  };
+
+  getCookieForLogOut = () => {
+    return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
+  };
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
 import { Model } from 'mongoose';
@@ -34,7 +34,7 @@ export class UserService {
       };
     }
 
-    const result = await this.updateUser(user);
+    const result = await this.updateUser(user, accessToken);
     if (!result.retunValue) {
       return {
         returnValue: false,
@@ -72,16 +72,26 @@ export class UserService {
     }
   };
 
-  updateUser = async (user: {
-    id: string;
-    name: string;
-    avatar: string;
-    orgs: any[];
-  }): Promise<{ retunValue: boolean; errMsg: any }> => {
+  updateUser = async (
+    user: {
+      id: string;
+      name: string;
+      avatar: string;
+      orgs: any[];
+    },
+    accessToken: string,
+  ): Promise<{ retunValue: boolean; errMsg: any }> => {
     try {
       await this.userModel.findOneAndUpdate(
         { id: user.id },
-        { $set: { name: user.name, avatar: user.avatar, orgs: user.orgs } },
+        {
+          $set: {
+            name: user.name,
+            avatar: user.avatar,
+            orgs: user.orgs,
+            accessToken: accessToken,
+          },
+        },
       );
       return {
         retunValue: true,
@@ -93,5 +103,22 @@ export class UserService {
         errMsg: error.message,
       };
     }
+  };
+
+  authUserById = async (
+    userId: string,
+  ): Promise<{
+    returnValue: boolean;
+    errMsg: any;
+  }> => {
+    const res = await this.userModel.findOne({ id: userId }).exec();
+    if (res === null) {
+      throw new HttpException('User does not exist.', HttpStatus.NOT_FOUND);
+    }
+
+    return {
+      returnValue: true,
+      errMsg: null,
+    };
   };
 }

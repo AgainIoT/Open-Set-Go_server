@@ -1,7 +1,15 @@
-import { Controller, Get, Logger, Query, Res } from '@nestjs/common';
+import {
+  Controller,
+  Logger,
+  Post,
+  Query,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
+import JwtAuthenticationGuard from './jwt/jwt-authentication.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -10,13 +18,13 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  @Get('/github-login')
+  @Post('/github-login')
   async logIn(@Query('code') authCode: string, @Res() res: Response) {
     const githubAccessToken = await this.authService.getGithubAccessToken(
       authCode,
     );
     if (!githubAccessToken.returnValue) {
-      res.status(401).json(githubAccessToken);
+      return res.status(401).json(githubAccessToken);
     }
     Logger.debug(githubAccessToken);
 
@@ -24,7 +32,7 @@ export class AuthController {
       githubAccessToken.githubAccessToken,
     );
     if (!githubUser.returnValue) {
-      res.status(401).json(githubUser);
+      return res.status(401).json(githubUser);
     }
     Logger.debug(githubUser);
 
@@ -33,10 +41,23 @@ export class AuthController {
       githubAccessToken.githubAccessToken,
     );
     if (!user.returnValue) {
-      res.status(401).json(githubUser);
+      return res.status(401).json(githubUser);
     }
     Logger.debug(user);
 
-    res.status(200);
+    const cookie = await this.authService.getCookieWithJwtToken(
+      githubUser.user.id,
+    );
+    Logger.debug(cookie);
+    res.setHeader('Set-Cookie', cookie);
+
+    return res.status(200).send('success');
+  }
+
+  @Post('/github-logout')
+  @UseGuards(JwtAuthenticationGuard)
+  async logOut(@Res() res: Response) {
+    res.setHeader('Set-Cookie', this.authService.getCookieForLogOut());
+    return res.sendStatus(200);
   }
 }

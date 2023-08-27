@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import * as cookieParser from 'cookie-parser';
 
 const PORT = parseInt(process.env.PORT) || 8080;
 
@@ -17,6 +18,7 @@ async function OpenSetGo() {
       },
     }),
   );
+  app.use(cookieParser());
 
   await app.listen(PORT, () => {
     Logger.log(`Open-Set-Go Server is listening on port ${PORT}!`);
