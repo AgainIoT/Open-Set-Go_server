@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Octokit } from '@octokit/rest';
 import axios from 'axios';
@@ -8,10 +7,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly configService: ConfigService,
-    @InjectModel(User.name) private userModel: Model<User>,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   getGithubAccessToken = async (
     authCode: string,
@@ -28,8 +24,8 @@ export class UserService {
           accept: 'application/json',
         },
         data: {
-          client_id: this.configService.get('CLIENT_ID'),
-          client_secret: this.configService.get('CLIENT_SECRET'),
+          client_id: process.env.CLIENT_ID,
+          client_secret: process.env.CLIENT_SECRET,
           code: authCode,
         },
       });
@@ -97,8 +93,6 @@ export class UserService {
           avatar: orgInfo.avatar_url,
         });
       });
-
-      // orgInfo.data.login
 
       return {
         returnValue: true,
