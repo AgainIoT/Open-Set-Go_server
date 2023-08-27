@@ -36,7 +36,7 @@ export class AuthController {
     }
     Logger.debug(githubUser);
 
-    const user = await this.userService.findUserById(
+    const user = await this.userService.checkUserById(
       githubUser.user,
       githubAccessToken.githubAccessToken,
     );

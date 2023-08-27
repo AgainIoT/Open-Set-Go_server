@@ -124,4 +124,15 @@ export class AuthService {
   getCookieForLogOut = () => {
     return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
   };
+
+  decodeToken = (jwtAccessToken: string) => {
+    const decoded = this.jwtService.decode(jwtAccessToken) as jwtPayload;
+    return decoded.userId;
+  };
 }
+
+type jwtPayload = {
+  userId: string;
+  iat: BigInteger;
+  exp: BigInteger;
+};

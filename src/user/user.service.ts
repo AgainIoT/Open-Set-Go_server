@@ -1,13 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './schemas/user.schema';
+import { User as UserSchema } from './schemas/user.schema';
 import { Model } from 'mongoose';
+import { User } from './user.interface';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(UserSchema.name) private userModel: Model<UserSchema>,
+  ) {}
 
-  findUserById = async (
+  checkUserById = async (
     user: {
       id: string;
       name: string;
@@ -120,5 +123,12 @@ export class UserService {
       returnValue: true,
       errMsg: null,
     };
+  };
+
+  getUserById = async (userId: string): Promise<User> => {
+    const user = await this.userModel.findOne({ id: userId }).exec();
+    const { id, name, avatar, accessToken, orgs } = user;
+    const res: User = { id, name, avatar, accessToken, orgs };
+    return res;
   };
 }
