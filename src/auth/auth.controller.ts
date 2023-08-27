@@ -1,14 +1,18 @@
 import { Controller, Get, Logger, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { UserService } from './user.service';
+import { UserService } from 'src/user/user.service';
+import { AuthService } from './auth.service';
 
-@Controller('user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+@Controller('auth')
+export class AuthController {
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get('/github-login')
   async logIn(@Query('code') authCode: string, @Res() res: Response) {
-    const githubAccessToken = await this.userService.getGithubAccessToken(
+    const githubAccessToken = await this.authService.getGithubAccessToken(
       authCode,
     );
     if (!githubAccessToken.returnValue) {
@@ -16,7 +20,7 @@ export class UserController {
     }
     Logger.debug(githubAccessToken);
 
-    const githubUser = await this.userService.getGithubUser(
+    const githubUser = await this.authService.getGithubUser(
       githubAccessToken.githubAccessToken,
     );
     if (!githubUser.returnValue) {
