@@ -1,24 +1,33 @@
 import { Injectable } from '@nestjs/common';
-
-const issueTemplate = {
-  type1: 'type1',
-  type2: 'type2',
-  type3: 'type3',
-  type4: 'type4',
-};
+import { InjectModel } from '@nestjs/mongoose';
+import { IssueTemplate as IssueSchema } from './schemas/issue.schema';
+import mongoose, { Model } from 'mongoose';
 
 type file = { path: string; content: string };
 
 @Injectable()
 export class IssueService {
-  makeIssueTemplate = async (titles: string[]): Promise<file[]> => {
+  constructor(
+    @InjectModel(IssueSchema.name)
+    private issueModel: Model<IssueSchema>,
+  ) {}
+  makeIssueTemplate = async (ids: string[]): Promise<file[]> => {
     const result = [];
-    for (const title of titles) {
+    for (const id of ids) {
+      const objectId = new mongoose.Types.ObjectId(id);
+      const chosenOne = await this.issueModel.findOne({ _id: objectId });
+      const title = chosenOne.title;
+      const content = chosenOne.content;
       result.push({
         path: '.github/ISSUE_TEMPLATE/' + title + '.yml',
-        content: issueTemplate[title],
+        content: content,
       });
     }
     return result;
+  };
+
+  getIssueTemplates = async () => {
+    const issueTemplates = await this.issueModel.find().exec();
+    return issueTemplates;
   };
 }
