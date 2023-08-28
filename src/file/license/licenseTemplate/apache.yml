@@ -1,0 +1,19 @@
+priority : 0
+license: 'Apache License 2.0'
+description: |
+  A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+conditions:
+  permissions:
+    - Commercial use
+    - Modification
+    - Distribution
+    - Patent use
+    - Private use
+  limitations:
+    - Trademark use
+    - Liability
+    - Warranty
+  conditions:
+    - License and copyright notice
+    - State changes
+url: 'http://www.apache.org/licenses/'
