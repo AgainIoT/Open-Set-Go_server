@@ -1,22 +1,63 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import {
+  Controller,
+  Logger,
+  Post,
+  Query,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
+import { UserService } from 'src/user/user.service';
+import { AuthService } from './auth.service';
+import JwtAuthenticationGuard from './jwt/jwt-authentication.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
-  @Get('github-login')
-  async githubLogin(@Query('code') authCode: string, @Res() res: Response) {
-    console.log(authCode);
-    const accessToken = await this.authService.githubLogin(authCode);
-    if (accessToken.returnValue === true) {
-      return res
-        .set('Access-Token', accessToken.data)
-        .status(200)
-        .json({ returnValue: true });
-    } else {
-      return res.status(403).json({ ...accessToken });
+  @Post('/github-login')
+  async logIn(@Query('code') authCode: string, @Res() res: Response) {
+    const githubAccessToken = await this.authService.getGithubAccessToken(
+      authCode,
+    );
+    if (!githubAccessToken.returnValue) {
+      return res.status(401).json(githubAccessToken);
     }
+    Logger.debug(githubAccessToken);
+
+    const githubUser = await this.authService.getGithubUser(
+      githubAccessToken.githubAccessToken,
+    );
+    if (!githubUser.returnValue) {
+      return res.status(401).json(githubUser);
+    }
+    Logger.debug(githubUser);
+
+    const user = await this.userService.checkUserById(
+      githubUser.user,
+      githubAccessToken.githubAccessToken,
+    );
+    if (!user.returnValue) {
+      return res.status(401).json(githubUser);
+    }
+    Logger.debug(user);
+
+    const cookie = await this.authService.getCookieWithJwtToken(
+      githubUser.user.id,
+    );
+    Logger.debug(cookie);
+    res.setHeader('Set-Cookie', cookie);
+
+    return res.status(200).send('success');
+  }
+
+  @Post('/github-logout')
+  @UseGuards(JwtAuthenticationGuard)
+  async logOut(@Res() res: Response) {
+    res.setHeader('Set-Cookie', this.authService.getCookieForLogOut());
+    return res.sendStatus(200);
   }
 }
