@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-
-const prTemplates = {
-  preset1: 'lsakjfldskfj',
-  preset2: 'adsfdsaf',
-};
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { PrTemplate as PrSchema } from './schemas/pr.schema';
 
 type file = { path: string; content: string };
 
 @Injectable()
 export class PrService {
+  constructor(@InjectModel(PrSchema.name) private prModel: Model<PrSchema>) {}
   makePRTemplate = async (title: string): Promise<file> => {
+    const chosenOne = this.prModel.findOne({ title: title });
     return {
       path: '.github/pull_request_template.md',
-      content: prTemplates[title],
+      content: (await chosenOne).content,
     };
   };
 }
