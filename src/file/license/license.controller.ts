@@ -6,15 +6,8 @@ import { LicenseService } from './license.service';
 export class LicenseController {
   constructor(private readonly licenseService: LicenseService) {}
   @Get()
-  makeLicense(@Res() res: Response) {
-    this.licenseService
-      .getLicense()
-      .then((licenselist) => {
-        console.log(licenselist);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-    res.sendStatus(200);
+  async makeLicense(@Res() res: Response) {
+    const licenseList = await this.licenseService.getLicense();
+    res.status(200).send(licenseList);
   }
 }
