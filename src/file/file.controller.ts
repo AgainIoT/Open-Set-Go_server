@@ -120,33 +120,4 @@ export class FilesController {
       res.sendStatus(500);
     }
   }
-
-  // @Get('makeEnv')
-  // async makeEnv(
-  //   @Res() res: Response,
-  //   @Body('token') token: string,
-  //   @Body('userName') userName: string,
-  //   @Body('repoName') repoName: string,
-  //   @Body('language') language: string,
-  //   @Body('framework') framework: string,
-  // ) {
-  //   try {
-  //     const files = [];
-  //     await this.filesService
-  //       .makeFramework(language, framework)
-  //       .then((result) => {
-  //         files.push(...result);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error:', error);
-  //       });
-
-  //     console.log(files);
-  //     this.filesService.uploadFiles(token, userName, repoName, files);
-  //     res.status(200).send('ok');
-  //   } catch (error) {
-  //     console.log(error);
-  //     res.sendStatus(500);
-  //   }
-  // }
 }
