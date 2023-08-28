@@ -26,8 +26,14 @@ export class IssueService {
     return result;
   };
 
-  getIssueTemplates = async () => {
+  loadIssueTemplates = async () => {
     const issueTemplates = await this.issueModel.find().exec();
     return issueTemplates;
+  };
+
+  loadIssueTemplateContent = async (id: string) => {
+    const contentId = new mongoose.Types.ObjectId(id);
+    const chosenOne = await this.issueModel.findOne({ _id: contentId });
+    return chosenOne.content;
   };
 }
