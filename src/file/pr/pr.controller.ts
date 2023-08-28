@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Param, Res } from '@nestjs/common';
 import { PrService } from './pr.service';
 import { Response } from 'express';
 
@@ -8,7 +8,13 @@ export class PrController {
 
   @Get()
   async getPRTemplateList(@Res() res: Response) {
-    const PRTemplateList = this.prService.loadPRTemplates();
+    const PRTemplateList = await this.prService.loadPRTemplates();
     res.status(200).send(PRTemplateList);
+  }
+
+  @Get('/:id')
+  async getPRTemplateContent(@Res() res: Response, @Param('id') id: string) {
+    const PRTemplateContent = await this.prService.loadPRTemplateContent(id);
+    res.status(200).send(PRTemplateContent);
   }
 }
