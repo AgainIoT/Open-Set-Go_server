@@ -12,9 +12,11 @@ import { ReadmeController } from './readme/readme.controller';
 import { ReadmeService } from './readme/readme.service';
 import { ContributingController } from './contributing/contributing.controller';
 import { ContributingService } from './contributing/contributing.service';
+import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, AuthModule, UserModule],
   controllers: [
     FilesController,
     LicenseController,
