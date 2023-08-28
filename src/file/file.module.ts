@@ -21,11 +21,6 @@ import { IssueModule } from './issue/issue.module';
     ReadmeController,
     ContributingController,
   ],
-  providers: [
-    FilesService,
-    LicenseService,
-    ReadmeService,
-    ContributingService,
-  ],
+  providers: [FilesService, LicenseService, ReadmeService, ContributingService],
 })
 export class FilesModule {}
