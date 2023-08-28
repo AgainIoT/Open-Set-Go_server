@@ -1,20 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { Octokit } from '@octokit/rest';
+import { load } from 'js-yaml';
+import { readFileSync } from 'fs';
+import { readdir } from 'fs/promises';
 
-type file = { path: string; content: string };
+export type file = { path: string; content: string };
 
-// const prTemplates = {
-//   preset1: 'lsakjfldskfj',
-//   preset2: 'adsfdsaf',
-// };
+export type envTemplateType = {
+  language: string;
+  frameworks: { framework: string; path: string }[];
+}[];
 
-// const issueTemplate = {
-//   type1: 'type1',
-//   type2: 'type2',
-//   type3: 'type3',
-//   type4: 'type4',
-// };
 @Injectable()
 export class FilesService {
   constructor(private readonly httpService: HttpService) {}
@@ -80,6 +77,67 @@ export class FilesService {
       `https://www.toptal.com/developers/gitignore/api/` + ignorestr;
     const result = await this.httpService.get(GITIGNOREIO_URL).toPromise();
     return { path: '.gitignore', content: result.data };
+  };
+
+  getFileList = async (dirName) => {
+    let files = [];
+    const items = await readdir(dirName, { withFileTypes: true });
+
+    for (const item of items) {
+      if (item.isDirectory()) {
+        files = [
+          ...files,
+          ...(await this.getFileList(`${dirName}/${item.name}`)),
+        ];
+      } else {
+        files.push(`${dirName}/${item.name}`);
+      }
+    }
+
+    return files;
+  };
+
+  makeFramework = async (
+    language: string,
+    framework: string,
+  ): Promise<file[]> => {
+    if (framework === null) {
+      console.log('err');
+      return;
+    }
+
+    const supportedEnv = await this.getEnvTemplate();
+
+    const filePath = supportedEnv
+      .find((languages) => {
+        return languages.language == language;
+      })
+      .frameworks.find((frameworks) => {
+        return frameworks.framework == framework;
+      }).path;
+
+    const filePaths: string[] = (await this.getFileList(
+      `./src/file/env-template${filePath}`,
+    )) as string[];
+
+    const files = filePaths.map((path) => {
+      const content = readFileSync(path, 'utf-8');
+      path = path.replace(`./src/file/env-template${filePath}/`, '');
+      const file: file = { path, content };
+      return file;
+    });
+
+    return files;
+  };
+
+  getEnvTemplate = async (): Promise<envTemplateType> => {
+    const supportedEnv = (await load(
+      readFileSync('./src/file/env-template/supportedEnv.yml', {
+        encoding: 'utf-8',
+      }),
+    )) as envTemplateType;
+    Logger.debug(supportedEnv);
+    return supportedEnv;
   };
 
   // makePRTemplate = async (title: string): Promise<file> => {
