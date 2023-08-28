@@ -24,7 +24,6 @@ export class PrService {
 
   loadPRTemplateContent = async (id: string) => {
     const contentId = new mongoose.Types.ObjectId(id);
-    Logger.debug(contentId);
     const chosenOne = await this.prModel.findOne({ _id: contentId });
     return chosenOne.content;
   };

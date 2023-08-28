@@ -7,7 +7,7 @@ export class PrController {
   constructor(private readonly prService: PrService) {}
 
   @Get()
-  async getPRTemplateList(@Res() res: Response) {
+  async getPRTemplates(@Res() res: Response) {
     const PRTemplateList = await this.prService.loadPRTemplates();
     res.status(200).send(PRTemplateList);
   }
