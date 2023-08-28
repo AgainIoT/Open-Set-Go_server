@@ -36,6 +36,8 @@ export class FilesController {
   async uploadFiles(
     @Body('userName') userName: string,
     @Body('repoName') repoName: string,
+    @Body('language') language: string,
+    @Body('framework') framework: string,
     @Body('gitignore') gitignore: string[],
     @Body('PRTemplate') PRTemplate: string,
     @Body('IssueTemplate') IssueTemplate: string[],
@@ -96,12 +98,26 @@ export class FilesController {
         console.error('Error:', error);
       });
 
+    this.filesService
+      .makeFramework(language, framework)
+      .then((result) => {
+        files.push(...result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
     this.filesService.uploadFiles(user.accessToken, userName, repoName, files);
     res.status(200).send('ok');
   }
 
-  @Get()
-  get(@Res() res: Response) {
-    res.status(200).send('ok');
+  @Get('supportedEnv')
+  async getSupportedEnv(@Res() res: Response) {
+    try {
+      const envTemplate = await this.filesService.getEnvTemplate();
+      res.status(200).json(envTemplate);
+    } catch (error) {
+      res.sendStatus(500);
+    }
   }
 }
