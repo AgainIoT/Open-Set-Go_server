@@ -25,6 +25,6 @@ export class ContributingService {
     const contributingMd = await this.contributingModel
       .findOne({ _id: id })
       .exec();
-    return contributingMd;
+    return contributingMd.content;
   };
 }
