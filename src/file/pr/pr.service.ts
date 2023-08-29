@@ -8,8 +8,8 @@ type file = { path: string; content: string };
 @Injectable()
 export class PrService {
   constructor(@InjectModel(PrSchema.name) private prModel: Model<PrSchema>) {}
-  makePRTemplate = async (title: string): Promise<file> => {
-    const chosenOne = this.prModel.findOne({ title: title });
+  makePRTemplate = async (id: string): Promise<file> => {
+    const chosenOne = this.prModel.findOne({ _id: id });
     return {
       path: '.github/pull_request_template.md',
       content: (await chosenOne).content,
