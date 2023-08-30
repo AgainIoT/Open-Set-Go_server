@@ -8,7 +8,10 @@ const PORT = parseInt(process.env.PORT) || 8080;
 async function OpenSetGo() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors({});
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
