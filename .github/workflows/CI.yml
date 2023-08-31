@@ -35,7 +35,7 @@ jobs:
           run: yarn install
         
         - name: Formatter check
-          run: yarn prettier .
+          run: yarn prettier -c .
         
         - name: Lint check
           run: yarn eslint .

@@ -2,7 +2,7 @@
 name: "📕 Documentation Issue"
 description: Report an issue in the Developer Guide
 title: "📕 [DOCS] - <title>"
-labels: [documentation]
+labels: ["documentation"]
 assignees: []
 
 body:
