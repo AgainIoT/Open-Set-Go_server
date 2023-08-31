@@ -1,0 +1,6 @@
+*.md
+*.yml
+
+dist
+node_modules
+env-template
