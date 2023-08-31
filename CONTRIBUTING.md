@@ -192,7 +192,7 @@ We are developing using GitLab-flow. See [GitLab-flow](https://about.gitlab.com/
 
 ### Commit Message Style
 
-| 타입     | 내용                                                                                  |
+| Type     | Content                                                                                  |
 | -------- | ------------------------------------------------------------------------------------- |
 | Init     | Development Environment Initial Setting                                               |
 | Feat     | Add New Features                                                                      |
