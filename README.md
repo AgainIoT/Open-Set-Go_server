@@ -1,73 +1,130 @@
+# Open-Set-Go_server
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+<a href="https://open-set-go.netlify.app/" target="blank"><img src="https://github.com/AgainIoT/Open-Set-Go/raw/main/.github/images/Open-Set-Go.png" width="200" alt="Open-Set-Go Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+<p align="center">
+  Start Open-Source Projects easily, quickly and conveniently with <a href="https://open-set-go.netlify.app/" target="blank">Open-Set-Go</a>!
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+<p align="center">
+  <a href="https://github/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/node/v-lts/%40octokit%2Frest" alt="node Version" /></a>
+  <a href="/LICENSE"><img src="https://img.shields.io/github/license/AgainIoT/Open-Set-Go_server" alt="License" /></a>
+  <a href="https://sonarcloud.io/summary/new_code?id=AgainIoT_Open-Set-Go_server" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=AgainIoT_Open-Set-Go_server&metric=alert_status" alt="Sonar Cloud Scan" /></a>
+  <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server?ref=badge_shield" target="_blank"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server.svg?type=shield&issueType=license" alt="Fossa License Scan" /></a>
+  <a href="https://join.slack.com/t/open-set-go/shared_invite/zt-21jwlzs9g-qrajfUblcCtmCqAy0Xxj8w" target="_blank"><img src="https://img.shields.io/badge/Slack-online-brightgreen.svg" alt="Slack"/></a>
+  <a href="https://github.com/AgainIoT/Open-Set-Go_server/graphs/contributors" target="_blank"><img src="https://img.shields.io/github/contributors-anon/AgainIoT/Open-Set-Go_server" alt="contributors" /></a>
+  <a href="https://github/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/github/last-commit/AgainIoT/Open-Set-Go_server" alt="Open-Set-Go_server stars" /></a>
+  <a href="https://github/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/github/stars/AgainIoT/Open-Set-Go_server" alt="Open-Set-Go_server stars" /></a>
+</p>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<br>
 
-## Installation
+## What is the **Open-Set-Go**?
+
+**Open-Set-Go** is the `Open-Source Project Starting toolkit` for Open-Source Developers.
+
+0. Log in with your GitHub ID(GitHub OAuth2)! <br>
+   This project is subordinate to GitHub and is being developed on the basis of launching an Open-Source project on GitHub. Therefore, you can log-in to Open-Set-Go with your GitHub ID.
+
+1. Create Repository <br>
+   Create a repository to start a new open-source project. You can choose the environment(_e.g., programming language, framework, gitignore, etc._) for your project. Then, your project's environment will be set!
+
+2. Add License <br>
+   Allows you to determine and select a license based on the information provided about it.
+
+3. Add Pull-Request Template <br>
+   Provides PR templates of several famous open-source projects so that users can create meaningful PR templates.
+
+4. Add Issue Templates <br>
+   Provides Issue Template references for several well-known open-source projects for different situations, making it easy for users to create an Issue Template.
+
+5. Create CONTRIBUTING.md <br>
+   Provides references to Contributing.md for several well-known open-source projects, while also making it easy to create CONTRIBUTING.md through markdown previewer.
+
+6. Create README.md <br>
+   Provides references to README.md for several well-known open-source projects, while also making it easy to create README.md through markdown previewer.
+
+## Why **Open-Set-Go**?
+
+It is not just to create a Source-Open Project, but to create a contribution-friendly environment and create an environment where communication between developers and contributors is smooth to create sustainable open source projects. <br>
+In addition, **Open-Set-Go** makes it easy, fast, and simple to build a contribution-friendly environment at the start of an open-source project.
+
+## Vision of **Open-Set-Go**
+
+Can see our vision for the foreseeable future at our project's milestone. <br>
+
+- <a href="https://github.com/AgainIoT/Open-Set-Go/milestones">Open-Set-Go</a>
+- <a href="https://github.com/AgainIoT/Open-Set-Go_client/milestones">Open-Set-Go client</a>
+- <a href="https://github.com/AgainIoT/Open-Set-Go_server/milestones">Open-Set-Go server</a>
+
+### Final Vision of Open-Set-Go
+
+Open-Set-Go makes it easy, fast and simple to start an Open-Source project, while also sharing your own contribution environment and becoming a community driving the Open-Source trend. _Like GitHub._
+
+## Installation & Development Environment
+
+| Supported Environment | Version          | Description                                          |
+| --------------------- | ---------------- | ---------------------------------------------------- |
+| Ubuntu OS             | Ubuntu 22.04 LTS | Open-Set-Go_server was developed by Ubuntu OS        |
+| Windows OS            | Windows 11       | Open-Set-Go_client was developed by Windows 11       |
+| Node.js               | >= 18.x          | @ocotokit/rest & styled-reset require >= node v18.x  |
+| @nestjs/cli           | 9.5.0            | Open-Set-Go_server is configured by NestJS           |
+| yarn                  | 1.22.19          | Open-Set-Go server & client manage package with yarn |
 
 ```bash
-$ yarn install
+git clone --recursive https://github.com/AgainIoT/Open-Set-Go_server.git
+
+######################################
+# Open-Set-Go Repository Dependencies
+#
+# Open-Set-Go_server
+#  ┗ environment-template
+#
+######################################
 ```
 
-## Running the app
+See more details at Open-Set-Go's <a href="https://github.com/AgainIoT/Open-Set-Go_client">client</a> & <a href="https://github.com/AgainIoT/Open-Set-Go_server">server</a> repository
 
-```bash
-# development
-$ yarn run start
+## Documentation
 
-# watch mode
-$ yarn run start:dev
+We are conducting documentation at Open-Set-Go.io. Please refer to the following. _You can see our technical blog & showcase on Open-Set-Go.io_
 
-# production mode
-$ yarn run start:prod
-```
+- <a href="">Open-Set-Go.io</a>
 
-## Test
+## Contributing
 
-```bash
-# unit tests
-$ yarn run test
+We always welcome your contributions. Please see the <a href="./CONTRIBUTING.md">CONTRIBUTING.md</a> for how to contribute. <br>
+Also, we are recruiting collaborators, so if you are interested, please join our [Slack](https://join.slack.com/t/open-set-go/shared_invite/zt-21jwlzs9g-qrajfUblcCtmCqAy0Xxj8w)!
 
-# e2e tests
-$ yarn run test:e2e
+## Contributors
 
-# test coverage
-$ yarn run test:cov
-```
+Thank you to everyone who contributed to our project.
 
-## Support
+### Open-Set-Go
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+<a href="https://github.com/AgainIoT/Open-Set-Go/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AgainIoT/Open-Set-Go"/>
+</a>
 
-## Stay in touch
+### Open-Set-Go_client
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+<a href="https://github.com/AgainIoT/Open-Set-Go_client/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AgainIoT/Open-Set-Go_client"/>
+</a>
+
+### Open-Set-Go_server
+
+<a href="https://github.com/AgainIoT/Open-Set-Go_server/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AgainIoT/Open-Set-Go_server"/>
+</a>
+
+_<div align=right>Made with <a href="https://contrib.rocks">contrib.rocks</a></div>_
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+**Open-Set-Go** is released under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache-2.0 License</a>.<br>
+See the <a href="./LICENSE">LICENSE file</a> for details. <br>
+
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server?utm_source=share_link"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server.svg?type=large"></a>
