@@ -68,30 +68,59 @@ Open-Set-Go makes it easy, fast and simple to start an Open-Source project, whil
 | Supported Environment | Version          | Description                                          |
 | --------------------- | ---------------- | ---------------------------------------------------- |
 | Ubuntu OS             | Ubuntu 22.04 LTS | Open-Set-Go_server was developed by Ubuntu OS        |
-| Windows OS            | Windows 11       | Open-Set-Go_client was developed by Windows 11       |
 | Node.js               | >= 18.x          | @ocotokit/rest & styled-reset require >= node v18.x  |
 | @nestjs/cli           | 9.5.0            | Open-Set-Go_server is configured by NestJS           |
 | yarn                  | 1.22.19          | Open-Set-Go server & client manage package with yarn |
 
-```bash
-git clone --recursive https://github.com/AgainIoT/Open-Set-Go_server.git
 
-######################################
-# Open-Set-Go Repository Dependencies
-#
-# Open-Set-Go_server
-#  ┗ environment-template
-#
-######################################
-```
+1. Clone our Repository!
+    ```bash
+    git clone --recursive https://github.com/AgainIoT/Open-Set-Go_server.git
 
-See more details at Open-Set-Go's <a href="https://github.com/AgainIoT/Open-Set-Go_client">client</a> & <a href="https://github.com/AgainIoT/Open-Set-Go_server">server</a> repository
+    ######################################
+    # Open-Set-Go Repository Dependencies
+    #
+    # Open-Set-Go_server
+    #  ┗ environment-template
+    #
+    ######################################
+    ```
+
+2. Install the Development Environment
+
+3. Install Node Dependencies
+    ```bash
+    yarn install
+    ```
+4. Create your own github-oauth app
+
+    Follow the [GitHub Docs](https://docs.github.com/ko/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) to get Client ID & Client Secret.<br>
+    If your Authorization URL should be `localhost:3000` !
+
+5. Create `.env` file at root to use secret environment
+    ```bash
+    touch .env
+    ```
+
+6. Fill in the `.env` file as follows.
+    ```bash
+    MONGODB_URI="<Your-MongoDB-URI-start-with-mongodb://>"
+    CLIENT_ID="<Your-GitHub-OAuth-Client_ID>"
+    CLIENT_SECRET="<Your-GitHub-OAuth-Client_Secret>"
+    JWT_SECRET="<Any-JWT-Secret-You-Want>"
+    JWT_EXPIRATION_TIME="<JWT-Expiration-Time-You-Want-default-18000>"
+    ```
+
+7. Start Open-Set-Go Server
+    ```bash
+      yarn start
+    ```
 
 ## Documentation
 
 We are conducting documentation at Open-Set-Go.io. Please refer to the following. _You can see our technical blog & showcase on Open-Set-Go.io_
 
-- <a href="">Open-Set-Go.io</a>
+- <a href="https://open-set-go.netlify.app/">Open-Set-Go.io</a>
 
 ## Contributing
 
@@ -102,17 +131,6 @@ Also, we are recruiting collaborators, so if you are interested, please join our
 
 Thank you to everyone who contributed to our project.
 
-### Open-Set-Go
-
-<a href="https://github.com/AgainIoT/Open-Set-Go/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AgainIoT/Open-Set-Go"/>
-</a>
-
-### Open-Set-Go_client
-
-<a href="https://github.com/AgainIoT/Open-Set-Go_client/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AgainIoT/Open-Set-Go_client"/>
-</a>
 
 ### Open-Set-Go_server
 
