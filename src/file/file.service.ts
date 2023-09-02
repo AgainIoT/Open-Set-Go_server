@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
 import { Octokit } from '@octokit/rest';
 import { load } from 'js-yaml';
 import { readFileSync } from 'fs';
 import { readdir } from 'fs/promises';
+import axios from 'axios';
 
 export type file = { path: string; content: string };
 
@@ -14,14 +14,13 @@ export type envTemplateType = {
 
 @Injectable()
 export class FilesService {
-  constructor(private readonly httpService: HttpService) {}
-  files = [];
+  constructor() {}
   uploadFiles = async (
     GHtoken: string,
     userName: string,
     repoName: string,
     files: { path: string; content: string }[],
-  ): Promise<void> => {
+  ): Promise<number> => {
     const octokit = new Octokit({ auth: GHtoken });
     try {
       // get the branch data including current commit hash
@@ -45,7 +44,7 @@ export class FilesService {
         })),
       });
 
-      console.log(`[${tree.status}] Tree has been created successfully`);
+      Logger.debug(`[${tree.status}] Tree has been created successfully`);
 
       // create a new commit
       const newCommit = await octokit.rest.git.createCommit({
@@ -56,7 +55,9 @@ export class FilesService {
         parents: [branchData.commit.sha],
       });
 
-      console.log(`[${newCommit.status}] Commit has been created successfully`);
+      Logger.debug(
+        `[${newCommit.status}] Commit has been created successfully`,
+      );
 
       // update the branch
       const response = await octokit.rest.git.updateRef({
@@ -66,24 +67,48 @@ export class FilesService {
         sha: newCommit.data.sha,
       });
 
-      console.log(`[${response.status}] Branch has been updated succesfully`);
+      Logger.debug(`[${response.status}] Branch has been updated succesfully`);
+      return response.status;
     } catch (error) {
       console.error('Error uploading files:', error);
+      return 500;
     }
   };
 
-  makeGitignore = async (ignoreList: string[]): Promise<boolean> => {
+  makeGitignore = async (
+    ignoreList: string[],
+    files: file[],
+  ): Promise<file[]> => {
     const ignorestr = ignoreList.join();
     const GITIGNOREIO_URL =
       `https://www.toptal.com/developers/gitignore/api/` + ignorestr;
-    let result = (await this.httpService.get(GITIGNOREIO_URL).toPromise()).data;
-    result += await this.getFileContent('.gitignore');
-    Logger.debug(result);
-    return await this.setFileContent('.gitignore', result);
+    const gitignoreContent: string = (await axios.get(GITIGNOREIO_URL)).data;
+    const newFiles: file[] = await this.concatGitignore(
+      gitignoreContent,
+      files,
+    );
+    return newFiles;
   };
 
-  getFileList = async (dirName) => {
-    let files = [];
+  concatGitignore = async (
+    gitignoreContent: string,
+    files: file[],
+  ): Promise<file[]> => {
+    const gitignoreIndex = files.findIndex(
+      (file) => file.path === '.gitignore',
+    );
+
+    if (gitignoreIndex !== -1) {
+      files[gitignoreIndex].content += gitignoreContent;
+    } else {
+      files.push({ path: '.gitignore', content: gitignoreContent });
+    }
+
+    return files;
+  };
+
+  getFileList = async (dirName: string) => {
+    let files: string[] = [];
     const items = await readdir(dirName, { withFileTypes: true });
 
     for (const item of items) {
@@ -105,7 +130,7 @@ export class FilesService {
     framework: string,
   ): Promise<file[]> => {
     if (framework === null) {
-      console.log('err');
+      Logger.debug('err');
       return;
     }
 
@@ -142,74 +167,4 @@ export class FilesService {
     Logger.debug(supportedEnv);
     return supportedEnv;
   };
-
-  getFile = async (filePath: string): Promise<file> => {
-    for (let i = 0; i < this.files.length; i++) {
-      if (filePath === this.files[i].path) {
-        return this.files[i];
-      }
-    }
-  };
-
-  getFileContent = async (filePath: string): Promise<string> => {
-    try {
-      const file = await this.getFile(filePath);
-      console.log(file);
-      return file.content;
-    } catch {
-      return null;
-    }
-  };
-
-  setFile = async (
-    file: file,
-    path: string,
-    content: string,
-  ): Promise<boolean> => {
-    try {
-      file.path = path;
-      file.content = content;
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
-  setFileContent = async (
-    filePath: string,
-    fileContent: string,
-  ): Promise<boolean> => {
-    try {
-      const file: file = await this.getFile(filePath);
-      return this.setFile(file, filePath, fileContent);
-    } catch {
-      return false;
-    }
-  };
-
-  // makePRTemplate = async (title: string): Promise<file> => {
-  //   return {
-  //     path: '.github/pull_request_template.md',
-  //     content: prTemplates[title],
-  //   };
-  // };
-
-  // makeIssueTemplate = async (titles: string[]): Promise<file[]> => {
-  //   const result = [];
-  //   for (const title of titles) {
-  //     result.push({
-  //       path: '.github/ISSUE_TEMPLATE/' + title + '.yml',
-  //       content: issueTemplate[title],
-  //     });
-  //   }
-  //   return result;
-  // };
-
-  // makeReadmeMd = async (content: string): Promise<file> => {
-  //   return { path: 'README.md', content: content };
-  // };
-
-  // makeContributingMd = async (content: string): Promise<file> => {
-  //   return { path: 'CONTRIBUTING.md', content: content };
-  // };
 }

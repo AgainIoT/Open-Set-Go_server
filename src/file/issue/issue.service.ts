@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { IssueTemplate as IssueSchema } from './schemas/issue.schema';
 import mongoose, { Model } from 'mongoose';
+import { readdir, readFile } from 'fs/promises';
 
 type file = { path: string; content: string };
 
@@ -35,5 +36,26 @@ export class IssueService {
     const contentId = new mongoose.Types.ObjectId(id);
     const chosenOne = await this.issueModel.findOne({ _id: contentId });
     return chosenOne.content;
+  };
+
+  makeDefaultIssueTemplate = async (): Promise<file[]> => {
+    const files = [];
+
+    const fileList = await readdir('src/file/issue/default');
+    const filePromises = fileList.map(async (path) => {
+      const content = await readFile(`src/file/issue/default/${path}`, {
+        encoding: 'utf-8',
+      });
+
+      return {
+        path: `.github/ISSUE_TEMPLATE/${path}`,
+        content,
+      };
+    });
+
+    const fileResults = await Promise.all(filePromises);
+    files.push(...fileResults);
+
+    return files;
   };
 }

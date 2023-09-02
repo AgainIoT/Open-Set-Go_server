@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Octokit } from '@octokit/rest';
 
 @Injectable()
@@ -42,7 +42,7 @@ export class RepoService {
           name: repoName,
           auto_init: true,
         });
-        console.log(
+        Logger.debug(
           `[${response.status}] Repository '${repoName}' has been created successfully.`,
         );
       }
