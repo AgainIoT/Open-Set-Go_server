@@ -8,6 +8,7 @@ import axios from 'axios';
 
 @Injectable()
 export class LicenseService {
+  // read file list from yml files
   async readLicenseFile(filePath: string): Promise<any> {
     try {
       const fileContent = readFileSync(filePath, 'utf-8');
@@ -18,6 +19,7 @@ export class LicenseService {
     }
   }
 
+  // read licenseTemplate dir & parse data to return
   async getLicense(): Promise<string> {
     try {
       const licensePath = join(
@@ -46,6 +48,7 @@ export class LicenseService {
     }
   }
 
+  // get data from license url & parse data to file type and return
   makeLicense = async (license: string): Promise<file> => {
     const content = await axios.get(license);
 

@@ -12,6 +12,7 @@ export class IssueService {
     @InjectModel(IssueSchema.name)
     private issueModel: Model<IssueSchema>,
   ) {}
+
   makeIssueTemplate = async (ids: string[]): Promise<file[]> => {
     const result = [];
     for (const id of ids) {
@@ -38,6 +39,7 @@ export class IssueService {
     return chosenOne.content;
   };
 
+  // get default issue template from default/ & return it!
   makeDefaultIssueTemplate = async (): Promise<file[]> => {
     const files = [];
 
