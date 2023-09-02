@@ -6,6 +6,8 @@ import {
   Req,
   Res,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { FilesService } from './file.service';
 import { LicenseService } from './license/license.service';
@@ -17,6 +19,7 @@ import { Request, Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { UserService } from 'src/user/user.service';
 import JwtAuthenticationGuard from 'src/auth/jwt/jwt-authentication.guard';
+import { UploadFilesDto } from './dto/uploadFiles.dto';
 
 export type file = { path: string; content: string };
 @Controller('file')
@@ -33,44 +36,92 @@ export class FilesController {
   ) {}
 
   @Post('')
+  @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthenticationGuard)
   async uploadFiles(
-    @Body('userName') userName: string,
-    @Body('repoName') repoName: string,
-    @Body('language') language: string,
-    @Body('framework') framework: string,
-    @Body('gitignore') gitignore: string[],
-    @Body('PRTemplate') PRTemplate: string,
-    @Body('IssueTemplate') IssueTemplate: string[],
-    @Body('readmeMd') readmeMd: string,
-    @Body('contributingMd') contributingMd: string,
+    @Body() uploadFilesDto: UploadFilesDto,
     @Req() req: Request,
     @Res() res: Response,
   ) {
+    // file list to upload
+    let files: file[] = [];
+
+    // get JWT AccessToken from cookies and decode + get GitHub Access Token
     const jwtAccessToken = this.authService.decodeToken(
       req.cookies.Authentication,
     );
     const user = await this.userService.getUserById(jwtAccessToken);
 
-    const pr = await this.prService.makePRTemplate(PRTemplate);
-    this.filesService.files.push(pr);
-    const is = await this.issueService.makeIssueTemplate(IssueTemplate);
-    this.filesService.files.push(...is);
-    const re = await this.readmeService.makeReadmeMd(readmeMd);
-    this.filesService.files.push(re);
-    const co = await this.conributingService.makeContributingMd(contributingMd);
-    this.filesService.files.push(co);
-    const fr = await this.filesService.makeFramework(language, framework);
-    this.filesService.files.push(...fr);
-    await this.filesService.makeGitignore(gitignore);
+    // get Framework files to upload
+    if (uploadFilesDto.language !== '' && uploadFilesDto.framework !== '') {
+      const framework = await this.filesService.makeFramework(
+        uploadFilesDto.language,
+        uploadFilesDto.framework,
+      );
+      files.push(...framework);
+    }
 
-    this.filesService.uploadFiles(
+    // get License file to upload
+    if (uploadFilesDto.license !== '') {
+      const licenseFile = await this.licenseService.makeLicense(
+        uploadFilesDto.license,
+      );
+      files.push(licenseFile);
+    }
+
+    // get Pull Request Template file to upload
+    if (uploadFilesDto.PRTemplate !== '') {
+      const prTemplate = await this.prService.makePRTemplate(
+        uploadFilesDto.PRTemplate,
+      );
+      files.push(prTemplate);
+    }
+
+    /* this service has some problem with converting yml to html...
+     * so, IssueTemplate Service stop offering for a while.
+     *
+     * if (uploadFilesDto.IssueTemplate !== undefined) {
+     *   const is = await this.issueService.makeIssueTemplate(
+     *     uploadFilesDto.IssueTemplate,
+     *   );
+     *   files.push(...is);
+     * }
+     */
+
+    // get default issue template to upload
+    const issueTemplate = await this.issueService.makeDefaultIssueTemplate();
+    files.push(...issueTemplate);
+
+    // convert CONTRIBUITNG.md content to file type
+    if (uploadFilesDto.contributingMd !== '') {
+      const contributingMd = await this.conributingService.makeContributingMd(
+        uploadFilesDto.contributingMd,
+      );
+      files.push(contributingMd);
+    }
+
+    // convert README.md content to file type
+    if (uploadFilesDto.contributingMd !== '') {
+      const re = await this.readmeService.makeReadmeMd(uploadFilesDto.readmeMd);
+      files.push(re);
+    }
+
+    // make gitignore file with gitignore.io API & if gitignore file already existed, gitignore file added behind
+    if (uploadFilesDto.gitignore.length !== 0) {
+      files = await this.filesService.makeGitignore(
+        uploadFilesDto.gitignore,
+        files,
+      );
+    }
+
+    // upload all files with Octokit at selected repository
+    const result: number = await this.filesService.uploadFiles(
       user.accessToken,
-      userName,
-      repoName,
-      this.filesService.files,
+      uploadFilesDto.userName,
+      uploadFilesDto.repoName,
+      files,
     );
-    res.status(200).send('ok');
+    res.sendStatus(result);
   }
 
   @Get('supportedEnv')

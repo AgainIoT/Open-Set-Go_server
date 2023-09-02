@@ -5,6 +5,8 @@ import { Response } from 'express';
 @Controller('file/contributing')
 export class ContributingController {
   constructor(private readonly contributingService: ContributingService) {}
+
+  // give ContributingMds
   @Get()
   async getContributingMds(@Res() res: Response) {
     const contributingMd = await this.contributingService.loadContributingMds();

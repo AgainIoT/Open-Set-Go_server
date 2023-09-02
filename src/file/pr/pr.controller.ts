@@ -6,12 +6,14 @@ import { Response } from 'express';
 export class PrController {
   constructor(private readonly prService: PrService) {}
 
+  // get PR template from MongoDB
   @Get()
   async getPRTemplates(@Res() res: Response) {
     const PRTemplateList = await this.prService.loadPRTemplates();
     res.status(200).send(PRTemplateList);
   }
 
+  // get PR template content from MongoDB(filtered by _id)
   @Get('/:id')
   async getPRTemplateContent(@Res() res: Response, @Param('id') id: string) {
     const PRTemplateContent = await this.prService.loadPRTemplateContent(id);

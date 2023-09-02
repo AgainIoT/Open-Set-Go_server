@@ -3,12 +3,15 @@ import { join } from 'path';
 import { load } from 'js-yaml';
 import { readFileSync } from 'fs';
 import * as fs from 'fs/promises';
+import { file } from '../file.service';
+import axios from 'axios';
 
 @Injectable()
 export class LicenseService {
+  // read file list from yml files
   async readLicenseFile(filePath: string): Promise<any> {
     try {
-      const fileContent = await readFileSync(filePath, 'utf-8');
+      const fileContent = readFileSync(filePath, 'utf-8');
       return load(fileContent);
     } catch (error) {
       console.error('Error reading license file:', error);
@@ -16,6 +19,7 @@ export class LicenseService {
     }
   }
 
+  // read licenseTemplate dir & parse data to return
   async getLicense(): Promise<string> {
     try {
       const licensePath = join(
@@ -43,4 +47,14 @@ export class LicenseService {
       throw error;
     }
   }
+
+  // get data from license url & parse data to file type and return
+  makeLicense = async (license: string): Promise<file> => {
+    const content = await axios.get(license);
+
+    return {
+      path: 'LICENSE',
+      content: content.data,
+    };
+  };
 }
