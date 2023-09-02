@@ -12,11 +12,14 @@
   <a href="https://github/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/node/v-lts/%40octokit%2Frest" alt="node Version" /></a>
   <a href="/LICENSE"><img src="https://img.shields.io/github/license/AgainIoT/Open-Set-Go_server" alt="License" /></a>
   <a href="https://sonarcloud.io/summary/new_code?id=AgainIoT_Open-Set-Go_server" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=AgainIoT_Open-Set-Go_server&metric=alert_status" alt="Sonar Cloud Scan" /></a>
+  <a href="https://sonarcloud.io/summary/new_code?id=AgainIoT_Open-Set-Go_server"><img src="https://sonarcloud.io/api/project_badges/measure?project=AgainIoT_Open-Set-Go_server&metric=sqale_rating"></a>
+  <a href="https://sonarcloud.io/summary/new_code?id=AgainIoT_Open-Set-Go_server"><img src="https://sonarcloud.io/api/project_badges/measure?project=AgainIoT_Open-Set-Go_server&metric=reliability_rating"></a>
   <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server?ref=badge_shield" target="_blank"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server.svg?type=shield&issueType=license" alt="Fossa License Scan" /></a>
   <a href="https://join.slack.com/t/open-set-go/shared_invite/zt-21jwlzs9g-qrajfUblcCtmCqAy0Xxj8w" target="_blank"><img src="https://img.shields.io/badge/Slack-online-brightgreen.svg" alt="Slack"/></a>
   <a href="https://github.com/AgainIoT/Open-Set-Go_server/graphs/contributors" target="_blank"><img src="https://img.shields.io/github/contributors-anon/AgainIoT/Open-Set-Go_server" alt="contributors" /></a>
   <a href="https://github/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/github/last-commit/AgainIoT/Open-Set-Go_server" alt="Open-Set-Go_server stars" /></a>
   <a href="https://github/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/github/stars/AgainIoT/Open-Set-Go_server" alt="Open-Set-Go_server stars" /></a>
+  
 </p>
 
 <br>
@@ -146,3 +149,5 @@ _<div align=right>Made with <a href="https://contrib.rocks">contrib.rocks</a></d
 See the <a href="./LICENSE">LICENSE file</a> for details. <br>
 
 <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server?utm_source=share_link"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server.svg?type=large"></a>
+
+<a href="https://sonarcloud.io/summary/new_code?id=AgainIoT_Open-Set-Go_server"><img src="https://sonarcloud.io/images/project_badges/sonarcloud-white.svg"></a>
