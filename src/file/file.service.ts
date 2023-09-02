@@ -50,7 +50,8 @@ export class FilesService {
       const newCommit = await octokit.rest.git.createCommit({
         owner: userName,
         repo: repoName,
-        message: 'Initial commit',
+        message:
+          'Initial commit \n\nCo-authored-by: Open-Set-Go_BOT <opensetgo.oss@gmail.com>',
         tree: tree.data.sha,
         parents: [branchData.commit.sha],
       });
