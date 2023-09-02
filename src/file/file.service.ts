@@ -15,6 +15,7 @@ export type envTemplateType = {
 @Injectable()
 export class FilesService {
   constructor(private readonly httpService: HttpService) {}
+  files = [];
   uploadFiles = async (
     GHtoken: string,
     userName: string,
@@ -71,12 +72,14 @@ export class FilesService {
     }
   };
 
-  makeGitignore = async (ignoreList: string[]): Promise<file> => {
+  makeGitignore = async (ignoreList: string[]): Promise<boolean> => {
     const ignorestr = ignoreList.join();
     const GITIGNOREIO_URL =
       `https://www.toptal.com/developers/gitignore/api/` + ignorestr;
-    const result = await this.httpService.get(GITIGNOREIO_URL).toPromise();
-    return { path: '.gitignore', content: result.data };
+    let result = (await this.httpService.get(GITIGNOREIO_URL).toPromise()).data;
+    result += await this.getFileContent('.gitignore');
+    Logger.debug(result);
+    return await this.setFileContent('.gitignore', result);
   };
 
   getFileList = async (dirName) => {
@@ -138,6 +141,50 @@ export class FilesService {
     )) as envTemplateType;
     Logger.debug(supportedEnv);
     return supportedEnv;
+  };
+
+  getFile = async (filePath: string): Promise<file> => {
+    for (let i = 0; i < this.files.length; i++) {
+      if (filePath === this.files[i].path) {
+        return this.files[i];
+      }
+    }
+  };
+
+  getFileContent = async (filePath: string): Promise<string> => {
+    try {
+      const file = await this.getFile(filePath);
+      console.log(file);
+      return file.content;
+    } catch {
+      return null;
+    }
+  };
+
+  setFile = async (
+    file: file,
+    path: string,
+    content: string,
+  ): Promise<boolean> => {
+    try {
+      file.path = path;
+      file.content = content;
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  setFileContent = async (
+    filePath: string,
+    fileContent: string,
+  ): Promise<boolean> => {
+    try {
+      const file: file = await this.getFile(filePath);
+      return this.setFile(file, filePath, fileContent);
+    } catch {
+      return false;
+    }
   };
 
   // makePRTemplate = async (title: string): Promise<file> => {

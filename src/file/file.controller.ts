@@ -18,6 +18,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { UserService } from 'src/user/user.service';
 import JwtAuthenticationGuard from 'src/auth/jwt/jwt-authentication.guard';
 
+export type file = { path: string; content: string };
 @Controller('file')
 export class FilesController {
   constructor(
@@ -51,63 +52,24 @@ export class FilesController {
     );
     const user = await this.userService.getUserById(jwtAccessToken);
 
-    const files = [];
+    const pr = await this.prService.makePRTemplate(PRTemplate);
+    this.filesService.files.push(pr);
+    const is = await this.issueService.makeIssueTemplate(IssueTemplate);
+    this.filesService.files.push(...is);
+    const re = await this.readmeService.makeReadmeMd(readmeMd);
+    this.filesService.files.push(re);
+    const co = await this.conributingService.makeContributingMd(contributingMd);
+    this.filesService.files.push(co);
+    const fr = await this.filesService.makeFramework(language, framework);
+    this.filesService.files.push(...fr);
+    await this.filesService.makeGitignore(gitignore);
 
-    this.filesService
-      .makeGitignore(gitignore)
-      .then((result) => {
-        files.push(result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-    this.prService
-      .makePRTemplate(PRTemplate)
-      .then((result) => {
-        files.push(result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-    this.issueService
-      .makeIssueTemplate(IssueTemplate)
-      .then((result) => {
-        files.push(...result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-    this.readmeService
-      .makeReadmeMd(readmeMd)
-      .then((result) => {
-        files.push(result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-    this.conributingService
-      .makeContributingMd(contributingMd)
-      .then((result) => {
-        files.push(result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-    this.filesService
-      .makeFramework(language, framework)
-      .then((result) => {
-        files.push(...result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-    this.filesService.uploadFiles(user.accessToken, userName, repoName, files);
+    this.filesService.uploadFiles(
+      user.accessToken,
+      userName,
+      repoName,
+      this.filesService.files,
+    );
     res.status(200).send('ok');
   }
 
