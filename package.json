@@ -23,6 +23,7 @@
     "CI": "yarn lint && yarn prettier -c ."
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.9.1",
     "@nestjs/axios": "^3.0.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.0.0",
@@ -37,9 +38,11 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
+    "handlebars": "^4.7.8",
     "joi": "^17.9.2",
     "js-yaml": "^4.1.0",
     "mongoose": "^7.4.4",
+    "nodemailer": "^6.9.4",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
@@ -54,6 +57,7 @@
     "@types/jest": "^29.5.2",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^20.3.1",
+    "@types/nodemailer": "^6.4.9",
     "@types/passport-jwt": "^3.0.9",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

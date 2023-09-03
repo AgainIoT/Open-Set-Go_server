@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
+import { MailModule } from './mail/mail.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -21,6 +22,8 @@ import * as Joi from 'joi';
         CLIENT_SECRET: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
+        MAIL_USER: Joi.string().required(),
+        MAIL_PASS: Joi.string().required(),
       }),
     }),
     MongooseModule.forRootAsync({
@@ -34,6 +37,7 @@ import * as Joi from 'joi';
     }),
     UserModule,
     AuthModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [ConfigService],

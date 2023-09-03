@@ -41,6 +41,7 @@ export class AuthController {
       githubAccessToken.githubAccessToken,
     );
     if (!user.returnValue) {
+      Logger.debug(user);
       return res.status(401).json(githubUser);
     }
     Logger.debug(user);
