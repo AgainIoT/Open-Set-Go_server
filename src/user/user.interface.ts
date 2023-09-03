@@ -3,6 +3,7 @@ export interface User {
   name: string;
   avatar: string;
   accessToken: string;
+  mail: string;
   orgs: {
     id: string;
     avatar: string;

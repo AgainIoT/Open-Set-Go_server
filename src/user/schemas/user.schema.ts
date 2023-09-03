@@ -15,6 +15,9 @@ export class User {
   avatar: string;
 
   @Prop({ required: true })
+  mail: string;
+
+  @Prop({ required: true })
   accessToken: string;
 
   @Prop([

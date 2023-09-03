@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User as UserSchema } from './schemas/user.schema';
 import { Model } from 'mongoose';
 import { User } from './user.interface';
+import { Octokit } from '@octokit/rest';
 
 @Injectable()
 export class UserService {
@@ -23,8 +24,9 @@ export class UserService {
     errMsg: any;
   }> => {
     const res = await this.userModel.findOne({ id: user.id }).exec();
+    const mail = await this.getGitHubMail(accessToken);
     if (res === null) {
-      const res = await this.signUp(user, accessToken);
+      const res = await this.signUp(user, accessToken, mail);
       if (!res.retunValue) {
         return {
           returnValue: false,
@@ -37,7 +39,7 @@ export class UserService {
       };
     }
 
-    const result = await this.updateUser(user, accessToken);
+    const result = await this.updateUser(user, accessToken, mail);
     if (!result.retunValue) {
       return {
         returnValue: false,
@@ -58,9 +60,10 @@ export class UserService {
       orgs: any[];
     },
     accessToken: string,
+    mail: string,
   ): Promise<{ retunValue: boolean; errMsg: any }> => {
     try {
-      const userInfo = { ...user, accessToken };
+      const userInfo = { ...user, accessToken, mail };
       const newUser = new this.userModel(userInfo);
       await newUser.save();
       return {
@@ -83,6 +86,7 @@ export class UserService {
       orgs: any[];
     },
     accessToken: string,
+    mail: string,
   ): Promise<{ retunValue: boolean; errMsg: any }> => {
     try {
       await this.userModel.findOneAndUpdate(
@@ -93,6 +97,7 @@ export class UserService {
             avatar: user.avatar,
             orgs: user.orgs,
             accessToken: accessToken,
+            mail: mail,
           },
         },
       );
@@ -127,8 +132,18 @@ export class UserService {
 
   getUserById = async (userId: string): Promise<User> => {
     const user = await this.userModel.findOne({ id: userId }).exec();
-    const { id, name, avatar, accessToken, orgs } = user;
-    const res: User = { id, name, avatar, accessToken, orgs };
+    const { id, name, avatar, accessToken, orgs, mail } = user;
+    const res: User = { id, name, avatar, accessToken, orgs, mail };
     return res;
+  };
+
+  getGitHubMail = async (githubAccessToken: string) => {
+    const octokit = new Octokit({ auth: githubAccessToken });
+    const res = await octokit.rest.users.listEmailsForAuthenticatedUser();
+
+    const primaryEmail = res.data.filter((item) => item.primary === true)[0]
+      .email;
+
+    return primaryEmail;
   };
 }
