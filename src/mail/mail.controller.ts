@@ -24,8 +24,11 @@ export class MailController {
     const user = await this.userService.getUserById(jwtAccessToken);
 
     // sendMail to user
-    await this.mailService.sendMail(user.name ? user.name : user.id, user.mail);
+    const status = await this.mailService.sendMail(
+      user.name ? user.name : user.id,
+      user.mail,
+    );
 
-    res.sendStatus(200);
+    res.sendStatus(status);
   }
 }

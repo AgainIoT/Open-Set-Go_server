@@ -1,12 +1,12 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { ConflictException, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class MailService {
   constructor(private readonly mailerService: MailerService) {}
 
   // send mail with nodemailer
-  async sendMail(userName: string, userMail: string): Promise<boolean> {
+  async sendMail(userName: string, userMail: string): Promise<number> {
     await this.mailerService
       .sendMail({
         to: `${userName} <${userMail}>`,
@@ -20,8 +20,8 @@ export class MailService {
       })
       .catch((error) => {
         Logger.log(error);
-        new ConflictException(error);
+        return 500;
       });
-    return true;
+    return 200;
   }
 }
