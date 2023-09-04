@@ -4,6 +4,8 @@ import { MailController } from './mail.controller';
 import { UserModule } from 'src/user/user.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -19,7 +21,13 @@ import { MailerModule } from '@nestjs-modules/mailer';
             pass: process.env.MAIL_PASS,
           },
         },
-        preview: false,
+        template: {
+          dir: join(__dirname, 'templates'),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,
+          },
+        },
         defaults: {
           from: '"Open-Set-Go 🚀" again.iot.contact@gmail.com',
         },

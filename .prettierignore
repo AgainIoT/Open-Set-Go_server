@@ -1,5 +1,6 @@
 *.md
 *.yml
+*.hbs
 
 dist
 node_modules
