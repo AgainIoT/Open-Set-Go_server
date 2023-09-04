@@ -13,6 +13,11 @@ export class ContributingMd {
   @Prop({
     required: true,
   })
+  type: string;
+
+  @Prop({
+    required: true,
+  })
   repoName: string;
 
   @Prop({
