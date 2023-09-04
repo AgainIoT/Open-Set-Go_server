@@ -14,7 +14,6 @@ export type envTemplateType = {
 
 @Injectable()
 export class FilesService {
-  constructor() {}
   uploadFiles = async (
     GHtoken: string,
     userName: string,
