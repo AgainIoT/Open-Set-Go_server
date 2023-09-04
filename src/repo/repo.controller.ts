@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { RepoService } from './repo.service';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
@@ -16,16 +24,42 @@ export class RepoController {
   @Post('')
   @UseGuards(JwtAuthenticationGuard)
   async createRepo(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Body('description') description: string,
     @Req() req: Request,
     @Res() res: Response,
-    @Body('userName') userName: string,
-    @Body('repoName') repoName: string,
   ) {
     const jwtAccessToken = this.authService.decodeToken(
       req.cookies.Authentication,
     );
     const user = await this.userService.getUserById(jwtAccessToken);
-    await this.repoService.createRepo(user.accessToken, userName, repoName);
-    res.status(200).send('ok');
+
+    const statusCode = await this.repoService.createRepo(
+      user.accessToken,
+      owner,
+      repoName,
+      description,
+      owner !== user.name,
+    );
+    res.sendStatus(statusCode);
+  }
+
+  @Get('checkDuplication')
+  @UseGuards(JwtAuthenticationGuard)
+  async checkRepo(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const jwtAccessToken = this.authService.decodeToken(
+      req.cookies.Authentication,
+    );
+    const user = await this.userService.getUserById(jwtAccessToken);
+
+    return res.send(
+      await this.repoService.checkRepo(owner, repoName, user.accessToken),
+    );
   }
 }
