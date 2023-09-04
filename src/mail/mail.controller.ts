@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { MailService } from './mail.service';
 import JwtAuthenticationGuard from 'src/auth/jwt/jwt-authentication.guard';
 import { Request, Response } from 'express';
@@ -14,7 +14,7 @@ export class MailController {
   ) {}
 
   // getPersonalMail
-  @Get('')
+  @Post('')
   @UseGuards(JwtAuthenticationGuard)
   async test(@Req() req: Request, @Res() res: Response) {
     // get JWT AccessToken from cookies and decode + get GitHub Access Token

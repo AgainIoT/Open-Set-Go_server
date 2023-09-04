@@ -133,7 +133,17 @@ export class UserService {
   getUserById = async (userId: string): Promise<User> => {
     const user = await this.userModel.findOne({ id: userId }).exec();
     const { id, name, avatar, accessToken, orgs, mail } = user;
-    const res: User = { id, name, avatar, accessToken, orgs, mail };
+    const res: User = {
+      id,
+      name,
+      avatar,
+      accessToken,
+      orgs: orgs.map((org) => ({
+        id: org.id,
+        avatar: org.avatar,
+      })),
+      mail,
+    };
     return res;
   };
 

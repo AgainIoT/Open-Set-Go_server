@@ -4,18 +4,19 @@ import { Octokit } from '@octokit/rest';
 @Injectable()
 export class RepoService {
   checkRepo = async (
-    octokit: Octokit,
-    userName: string,
+    owner: string,
     repoName: string,
+    githubAccessToken: string,
   ): Promise<boolean> => {
     try {
+      const octokit = new Octokit({ auth: githubAccessToken });
       const response = await octokit.repos.get({
-        owner: userName,
+        owner: owner,
         repo: repoName,
       });
       // This repository already exists.
       if (response.status === 200) {
-        throw new Error('This repository name already exists');
+        return false;
       }
     } catch (error) {
       // You can make a repository of this name.
@@ -29,25 +30,44 @@ export class RepoService {
 
   // Create a repository.
   createRepo = async (
-    GHtoken: string,
-    userName: string,
+    githubAccessToken: string,
+    owner: string,
     repoName: string,
-  ): Promise<void> => {
-    const octokit = new Octokit({ auth: GHtoken });
+    description: string,
+    isOrg: boolean,
+  ): Promise<number> => {
+    const octokit = new Octokit({ auth: githubAccessToken });
+    let response: any;
     try {
-      const validate = await this.checkRepo(octokit, userName, repoName);
+      const validate = await this.checkRepo(owner, repoName, githubAccessToken);
       // Validate the repository name.
       if (validate) {
-        const response = await octokit.repos.createForAuthenticatedUser({
-          name: repoName,
-          auto_init: true,
-        });
-        Logger.debug(
-          `[${response.status}] Repository '${repoName}' has been created successfully.`,
-        );
+        if (isOrg) {
+          response = await octokit.repos.createInOrg({
+            org: owner,
+            name: repoName,
+            description: description,
+            auto_init: true,
+          });
+          Logger.debug(
+            `[${response.status}] Repository '${repoName}' has been created successfully.`,
+          );
+        } else {
+          response = await octokit.repos.createForAuthenticatedUser({
+            name: repoName,
+            description: description,
+            auto_init: true,
+          });
+          Logger.debug(
+            `[${response.status}] Repository '${repoName}' has been created successfully.`,
+          );
+        }
+        return 200;
       }
+      return 404;
     } catch (error) {
       console.error(`Failed to create repository. Error: ${error.message}`);
+      return 500;
     }
   };
 }
