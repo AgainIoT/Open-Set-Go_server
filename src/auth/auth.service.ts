@@ -118,11 +118,11 @@ export class AuthService {
   getCookieWithJwtToken = async (userId: string) => {
     const payload: TokenPayload = { userId };
     const token = this.jwtService.sign(payload);
-    return `Authentication=${token}; HttpOnly; Path=/; Secure; SameSite=none; Max-Age=${process.env.JWT_EXPIRATION_TIME}`;
+    return `Authentication=${token}; Path=/; Secure; SameSite=none; Max-Age=${process.env.JWT_EXPIRATION_TIME}`;
   };
 
   getCookieForLogOut = () => {
-    return `Authentication=; HttpOnly; Path=/; Secure; SameSite=none; Max-Age=0`;
+    return `Authentication=; Path=/; Secure; SameSite=none; Max-Age=0`;
   };
 
   decodeToken = (jwtAccessToken: string) => {
