@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { RepoService } from './repo.service';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
@@ -45,7 +37,7 @@ export class RepoController {
     res.sendStatus(statusCode);
   }
 
-  @Get('checkDuplication')
+  @Post('checkDuplication')
   @UseGuards(JwtAuthenticationGuard)
   async checkRepo(
     @Body('owner') owner: string,

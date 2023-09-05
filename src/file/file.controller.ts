@@ -117,7 +117,7 @@ export class FilesController {
     // upload all files with Octokit at selected repository
     const result: number = await this.filesService.uploadFiles(
       user.accessToken,
-      uploadFilesDto.userName,
+      uploadFilesDto.owner,
       uploadFilesDto.repoName,
       files,
     );
