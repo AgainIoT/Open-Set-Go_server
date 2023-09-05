@@ -32,7 +32,7 @@ export class RepoController {
       owner,
       repoName,
       description,
-      owner !== user.name,
+      owner !== user.id,
     );
     res.sendStatus(statusCode);
   }
