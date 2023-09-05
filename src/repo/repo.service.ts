@@ -40,7 +40,7 @@ export class RepoService {
     let response: any;
     try {
       const validate = await this.checkRepo(owner, repoName, githubAccessToken);
-      console.log('test')
+      console.log('test');
       // Validate the repository name.
       if (validate) {
         if (isOrg) {
