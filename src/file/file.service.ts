@@ -16,7 +16,7 @@ export type envTemplateType = {
 export class FilesService {
   uploadFiles = async (
     GHtoken: string,
-    userName: string,
+    owner: string,
     repoName: string,
     files: { path: string; content: string }[],
   ): Promise<number> => {
@@ -24,7 +24,7 @@ export class FilesService {
     try {
       // get the branch data including current commit hash
       const { data: branchData } = await octokit.rest.repos.getBranch({
-        owner: userName,
+        owner: owner,
         repo: repoName,
         branch: 'main',
       });
@@ -33,7 +33,7 @@ export class FilesService {
 
       // add files into the tree
       const tree = await octokit.rest.git.createTree({
-        owner: userName,
+        owner: owner,
         repo: repoName,
         base_tree: baseTree,
         tree: files.map((file) => ({
@@ -47,7 +47,7 @@ export class FilesService {
 
       // create a new commit
       const newCommit = await octokit.rest.git.createCommit({
-        owner: userName,
+        owner: owner,
         repo: repoName,
         message:
           'Initial commit \n\nCo-authored-by: Open-Set-Go_BOT <opensetgo.oss@gmail.com>',
@@ -61,7 +61,7 @@ export class FilesService {
 
       // update the branch
       const response = await octokit.rest.git.updateRef({
-        owner: userName,
+        owner: owner,
         repo: repoName,
         ref: 'heads/main',
         sha: newCommit.data.sha,

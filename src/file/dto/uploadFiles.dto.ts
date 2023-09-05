@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, IsArray } from 'class-validator';
 export class UploadFilesDto {
   @IsString()
   @IsNotEmpty()
-  userName: string;
+  owner: string;
 
   @IsString()
   @IsNotEmpty()
