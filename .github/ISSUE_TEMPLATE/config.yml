@@ -4,3 +4,7 @@ contact_links:
   - name: 💬 General Question
     url: https://github.com/AgainIoT/Open-Set-Go/discussions/categories/q-a
     about: Please ask and answer questions as a discussion thread
+
+  - name: 🔗 Overall Functional Suggestions (Client & Server)
+    url: https://github.com/AgainIoT/Open-Set-Go/issues
+    about: Please create a feature proposal issue related to both Client and Server in Open-Set-Go!
