@@ -1,0 +1,41 @@
+---
+name: 🆕 New Feature
+description: New feature in progress for Maintainers.
+title: "🆕 [New Feature] - <title>"
+labels: ["new-feature"]
+assignees: []
+
+body:
+  - type: textarea
+    id: reasons
+    attributes:
+      label: "Reasons"
+      description: Explain why you want to add this feature.
+    validations:
+        required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe"
+      description: A brief and clear description of the features you are proposing.
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional Explanation"
+      description: Fill out additional parts or reference links that you need to know.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: connection
+    attributes:
+      label: "Connection"
+      options:
+        - label: Have no effect on other functions
+          required: false
+        - label: Other functions need to be changed
+          required: false
