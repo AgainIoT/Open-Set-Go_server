@@ -1,19 +1,11 @@
 ---
-name: 🚀 Feature Request
+name: 🚀 Feature Request for 
 description: Suggest an idea for this project
-title: "🚀 [REQUEST] - <title>"
+title: "🚀 [REQUEST]: "
 labels: ["feature-request"]
 assignees: []
 
 body:
-  - type: textarea
-    id: description
-    attributes:
-      label: "Describe"
-      description: A brief and clear description of the features you are proposing.
-    validations:
-      required: true
-
   - type: textarea
     id: reasons
     attributes:
@@ -21,6 +13,14 @@ body:
       description: Explain why this function is necessary.
     validations:
         required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe"
+      description: A brief and clear description of the features you are proposing.
+    validations:
+      required: true
 
   - type: textarea
     id: how-to
