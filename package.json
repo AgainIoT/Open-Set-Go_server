@@ -75,6 +75,9 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.3"
   },
+  "resolutions": {
+    "degenerator": ">=5.0.1"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
