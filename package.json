@@ -38,7 +38,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
-    "handlebar": "^1.0.0",
+    "handlebars": "^4.7.8",
     "joi": "^17.9.2",
     "js-yaml": "^4.1.0",
     "mongoose": "^7.4.4",
