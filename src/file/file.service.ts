@@ -80,9 +80,13 @@ export class FilesService {
     files: file[],
   ): Promise<file[]> => {
     const ignorestr = ignoreList.join();
-    const GITIGNOREIO_URL =
-      `https://www.toptal.com/developers/gitignore/api/` + ignorestr;
-    const gitignoreContent: string = (await axios.get(GITIGNOREIO_URL)).data;
+    const gitignoreContent: string = (
+      await axios.get(
+        `https://www.toptal.com/developers/gitignore/api/${encodeURIComponent(
+          ignorestr,
+        )}`,
+      )
+    ).data;
     const newFiles: file[] = await this.concatGitignore(
       gitignoreContent,
       files,
