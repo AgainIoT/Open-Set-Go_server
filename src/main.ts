@@ -9,7 +9,7 @@ async function OpenSetGo() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: true,
+    origin: 'https://start.open-set-go.com',
     credentials: true,
   });
   app.useGlobalPipes(
