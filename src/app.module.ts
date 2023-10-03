@@ -26,15 +26,7 @@ import * as Joi from 'joi';
         MAIL_PASS: Joi.string().required(),
       }),
     }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (config: ConfigService) => ({
-        uri: config.get('MONGODB_URI'),
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }),
-      inject: [ConfigService],
-    }),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     UserModule,
     AuthModule,
     MailModule,
