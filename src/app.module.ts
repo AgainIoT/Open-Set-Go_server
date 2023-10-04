@@ -24,6 +24,7 @@ import * as Joi from 'joi';
         JWT_EXPIRATION_TIME: Joi.string().required(),
         MAIL_USER: Joi.string().required(),
         MAIL_PASS: Joi.string().required(),
+        ORIGIN: Joi.string().required(),
       }),
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
