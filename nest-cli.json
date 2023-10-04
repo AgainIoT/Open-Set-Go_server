@@ -4,7 +4,8 @@
   "compilerOptions": {
     "assets": [
       { "include": "mail/templates/**/*", "outDir": "dist/" },
-      { "include": "file/license/licenseTemplate/**", "outDir": "dist/" }
+      { "include": "file/license/licenseTemplate/**", "outDir": "dist/" },
+      { "include": "file/issue/default/**", "outDir": "dist/" }
     ],
     "watchAssets": true
   }
