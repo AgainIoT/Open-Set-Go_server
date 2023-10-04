@@ -15,8 +15,13 @@ export class PrService {
     };
   };
 
-  loadPRTemplates = async () => {
-    const prTemplates = await this.prModel.find().exec();
+  loadPRTemplates = async (page: number, amount: number) => {
+    const startAt = (page - 1) * amount;
+    const prTemplates = await this.prModel
+      .find()
+      .skip(startAt)
+      .limit(amount)
+      .exec();
     Logger.debug(prTemplates);
     return prTemplates;
   };
