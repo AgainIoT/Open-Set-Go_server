@@ -10,7 +10,7 @@ export class PrController {
   @Post()
   async getPRTemplates(
     @Body('page') page: number,
-    @Body('amount') amount: number = 20,
+    @Body('amount') amount: number,
     @Res() res: Response,
   ): Promise<void> {
     const PRTemplateList = await this.prService.loadPRTemplates(page, amount);

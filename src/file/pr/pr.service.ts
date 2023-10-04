@@ -15,7 +15,8 @@ export class PrService {
     };
   };
 
-  loadPRTemplates = async (page: number, amount: number) => {
+  loadPRTemplates = async (page: number, amount: number = 20) => {
+    console.log(page, amount);
     const startAt = (page - 1) * amount;
     const prTemplates = await this.prModel
       .find()
