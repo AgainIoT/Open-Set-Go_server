@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res } from '@nestjs/common';
+import { Controller, Get, Param, Post, Res, Body } from '@nestjs/common';
 import { PrService } from './pr.service';
 import { Response } from 'express';
 
@@ -7,9 +7,13 @@ export class PrController {
   constructor(private readonly prService: PrService) {}
 
   // get PR template from MongoDB
-  @Get()
-  async getPRTemplates(@Res() res: Response) {
-    const PRTemplateList = await this.prService.loadPRTemplates();
+  @Post()
+  async getPRTemplates(
+    @Body('page') page: number,
+    @Body('amount') amount: number = 20,
+    @Res() res: Response,
+  ): Promise<void> {
+    const PRTemplateList = await this.prService.loadPRTemplates(page, amount);
     res.status(200).send(PRTemplateList);
   }
 
