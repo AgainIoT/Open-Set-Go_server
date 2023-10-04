@@ -8,11 +8,6 @@ export class PrTemplate {
   @Prop({
     required: true,
   })
-  title: string;
-
-  @Prop({
-    required: true,
-  })
   repoName: string;
 
   @Prop({
@@ -24,6 +19,11 @@ export class PrTemplate {
     required: true,
   })
   content: string;
+
+  @Prop({
+    required: true,
+  })
+  star: number;
 }
 
 export const PrSchema = SchemaFactory.createForClass(PrTemplate);
