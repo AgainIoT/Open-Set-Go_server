@@ -1,6 +1,7 @@
 import express from 'express';
 
 const app = express();
+app.disable('x-powered-by')
 const PORT = 8080;
 
 app.get('/', (req, res) => {
