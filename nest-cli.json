@@ -5,7 +5,8 @@
     "assets": [
       { "include": "mail/templates/**/*", "outDir": "dist/" },
       { "include": "file/license/licenseTemplate/**", "outDir": "dist/" },
-      { "include": "file/issue/default/**", "outDir": "dist/" }
+      { "include": "file/issue/default/**", "outDir": "dist/" },
+      { "include": "file/env-template/**", "outDir": "dist/" }
     ],
     "watchAssets": true
   }
