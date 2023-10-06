@@ -22,16 +22,7 @@ export class LicenseService {
   // read licenseTemplate dir & parse data to return
   async getLicense(): Promise<string> {
     try {
-      const licensePath = join(
-        __dirname,
-        '..',
-        '..',
-        '..',
-        'src',
-        'file',
-        'license',
-        'licenseTemplate',
-      );
+      const licensePath = join(__dirname, 'licenseTemplate');
 
       const files = await fs.readdir(licensePath);
       const licenseList = [];

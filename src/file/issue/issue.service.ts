@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { IssueTemplate as IssueSchema } from './schemas/issue.schema';
 import mongoose, { Model } from 'mongoose';
 import { readdir, readFile } from 'fs/promises';
+import { join } from 'path';
 
 type file = { path: string; content: string };
 
@@ -42,10 +43,11 @@ export class IssueService {
   // get default issue template from default/ & return it!
   makeDefaultIssueTemplate = async (): Promise<file[]> => {
     const files = [];
+    const defaultIssuePath = join(__dirname, 'default');
 
-    const fileList = await readdir('src/file/issue/default');
+    const fileList = await readdir(defaultIssuePath);
     const filePromises = fileList.map(async (path) => {
-      const content = await readFile(`src/file/issue/default/${path}`, {
+      const content = await readFile(join(defaultIssuePath, path), {
         encoding: 'utf-8',
       });
 
