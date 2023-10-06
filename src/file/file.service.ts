@@ -4,6 +4,7 @@ import { load } from 'js-yaml';
 import { readFileSync } from 'fs';
 import { readdir } from 'fs/promises';
 import axios from 'axios';
+import { join } from 'path';
 
 export type file = { path: string; content: string };
 
@@ -149,12 +150,12 @@ export class FilesService {
       }).path;
 
     const filePaths: string[] = (await this.getFileList(
-      `./src/file/env-template${filePath}`,
+      join(__dirname, 'env-template', filePath),
     )) as string[];
 
     const files = filePaths.map((path) => {
       const content = readFileSync(path, 'utf-8');
-      path = path.replace(`./src/file/env-template${filePath}/`, '');
+      path = path.replace(`${join(__dirname, 'env-template', filePath)}/`, '');
       const file: file = { path, content };
       return file;
     });
@@ -164,7 +165,7 @@ export class FilesService {
 
   getEnvTemplate = async (): Promise<envTemplateType> => {
     const supportedEnv = (await load(
-      readFileSync('./src/file/env-template/supportedEnv.yml', {
+      readFileSync(join(__dirname, 'env-template', 'supportedEnv.yml'), {
         encoding: 'utf-8',
       }),
     )) as envTemplateType;

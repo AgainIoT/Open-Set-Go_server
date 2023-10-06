@@ -1,3 +1,0 @@
-[submodule "src/file/env-template"]
-	path = src/file/env-template
-	url = https://github.com/AgainIoT/environment-template.git
