@@ -1,6 +1,6 @@
 # 기여자 행동 강령 규약
 
-_English version of [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT(en).md)_
+_English version of [CODE_OF_CONDUCT.md](<CODE_OF_CONDUCT(en).md>)_
 
 ## 서약
 
@@ -23,21 +23,20 @@ _English version of [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT(en).md)_
 
 커뮤니티의 긍정적인 환경을 위해 기여자가 해야 할 행동은 다음과 같다:
 
-* 다른 사람들에 대한 친절과 공감 표현
-* 서로 다른 의견 및 관점, 경험에 대한 존중
-* 건설적인 피드백을 제공 및 열린 마음으로 수락
-* 책임을 받아들이고 실수로 인해 영향을 받은 사람들에게 사과하며
-	경험을 통해 배움
-* 개인뿐만 아닌 전체 커뮤니티를 위한 최선의 방법에 집중
-
+- 다른 사람들에 대한 친절과 공감 표현
+- 서로 다른 의견 및 관점, 경험에 대한 존중
+- 건설적인 피드백을 제공 및 열린 마음으로 수락
+- 책임을 받아들이고 실수로 인해 영향을 받은 사람들에게 사과하며
+  경험을 통해 배움
+- 개인뿐만 아닌 전체 커뮤니티를 위한 최선의 방법에 집중
 
 하지말아야 할 행동은 다음과 같다:
 
-* 성적인 언어와 이미지 사용, 성적 관심이나 어떤 종류의 접근
-* 소모적인 논쟁, 모욕적 또는 비하하는 댓글과 개인적 또는 정치적인 공격
-* 공개적이거나 개인적인 괴롭힘
-* 동의없는 집주소 또는 이메일 주소 등의 개인 정보의 공개
-* 부적절한 것으로 간주될 수 있는 다른 행위
+- 성적인 언어와 이미지 사용, 성적 관심이나 어떤 종류의 접근
+- 소모적인 논쟁, 모욕적 또는 비하하는 댓글과 개인적 또는 정치적인 공격
+- 공개적이거나 개인적인 괴롭힘
+- 동의없는 집주소 또는 이메일 주소 등의 개인 정보의 공개
+- 부적절한 것으로 간주될 수 있는 다른 행위
 
 ## 집행 책임
 
@@ -115,15 +114,15 @@ yunminwo1211@kookmin.ac.kr을 통해 집행 책임이 있는 커뮤니티 리더
 ## 참고
 
 이 행동 강령은 [기여자 규약][homepage] 의 2.1 버전을 변형하였고, 팀 또이오티에서 다시 변형하였습니다. 그 내용은
-[https://www.contributor-covenant.org/ko/version/2/1/code-of-conduct.html][v2.1] 
+[https://www.contributor-covenant.org/ko/version/2/1/code-of-conduct.html][v2.1]
 에서 확인할 수 있습니다.
 
 커뮤니티 영향 지침은 [Mozilla's code of conduct enforcement ladder][Mozilla CoC]
 에서 영감을 얻었습니다.
 
-이 행동 강령에 관련한 일반적인 질문에 대한 대답은 
-[https://www.contributor-covenant.org/faq][FAQ]를 참고할 수 있습니다. 
-번역본은 [https://www.contributor-covenant.org/translations][translations]에서 
+이 행동 강령에 관련한 일반적인 질문에 대한 대답은
+[https://www.contributor-covenant.org/faq][FAQ]를 참고할 수 있습니다.
+번역본은 [https://www.contributor-covenant.org/translations][translations]에서
 볼 수 있습니다.
 
 [homepage]: https://www.contributor-covenant.org

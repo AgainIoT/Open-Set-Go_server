@@ -86,36 +86,41 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 1. Search GitHub Pull Requests for an open or closed PR that relates to your submission. You don't want to duplicate effort.
 
 2. Fork this repository to your GitHub
-    [click to fork Open-Set-Go_server!](https://github.com/AgainIoT/Open-Set-Go_server/fork)
+   [click to fork Open-Set-Go_server!](https://github.com/AgainIoT/Open-Set-Go_server/fork)
 
 3. Clone your Open-Set-Go_server repository :
-    ```bash
-    git clone --recursive your-github-id/Open-Set-Go_server 
-    ```
+
+   ```bash
+   git clone --recursive your-github-id/Open-Set-Go_server
+   ```
 
 4. Make your changes in a main branch(or feature branch):
 
 5. Follow our [style guide](#style-guide). <br>
-    _This is simply a recommendation, so please feel free to contribute!_
+   _This is simply a recommendation, so please feel free to contribute!_
 
 6. Run the eslint & prettier at root to pass our CI workflows
-    ```bash
-    yarn CI
-    ```
+
+   ```bash
+   yarn CI
+   ```
 
 7. Commit your changes using a descriptive commit message that follows our commit message conventions. Adherence to these conventions is necessary because release notes are automatically generated from these messages.
-    ```bash
-    git commit -a -s 
-    # -s is an option to sign-off your code, and we recommend to use it!
-    ```
-    Note: the optional commit -a command line option will automatically "add" and "rm" edited files.
+
+   ```bash
+   git commit -a -s
+   # -s is an option to sign-off your code, and we recommend to use it!
+   ```
+
+   Note: the optional commit -a command line option will automatically "add" and "rm" edited files.
 
 8. Push your branch to GitHub:
-    ```bash
-    git push
-    ```
 
-9. In GitHub, send a pull request to Open-Set-Go:main or Open-Set-Go:feature/* .
+   ```bash
+   git push
+   ```
+
+9. In GitHub, send a pull request to Open-Set-Go:main or Open-Set-Go:feature/\* .
 
 <br>
 
@@ -127,25 +132,26 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 
 ### Development Environment
 
-| Supported Environment | Version | Description |
-|------|------|------|
-| Ubuntu OS | Ubuntu 22.04 LTS ||
-| Windows OS | Windows 11 ||
-| Node.js | >= 18.x | ocotokit/rest require >= node v18.x |
-| @nestjs/cli | 9.5.0 ||
-| yarn | 1.22.19 ||
+| Supported Environment | Version          | Description                         |
+| --------------------- | ---------------- | ----------------------------------- |
+| Ubuntu OS             | Ubuntu 22.04 LTS |                                     |
+| Windows OS            | Windows 11       |                                     |
+| Node.js               | >= 18.x          | ocotokit/rest require >= node v18.x |
+| @nestjs/cli           | 9.5.0            |                                     |
+| yarn                  | 1.22.19          |                                     |
 
 <br>
 
 1. Clone our repository with recursive options!
-    ```bash
-    git clone AgainIoT/Open-Set-Go_server --recursive
-    ```
+
+   ```bash
+   git clone AgainIoT/Open-Set-Go_server --recursive
+   ```
 
 2. After cloning the repo, and run yarn to install dependencies!
-    ```bash
-    yarn install
-    ```
+   ```bash
+   yarn install
+   ```
 
 ### Commonly used Yarn Scripts
 
@@ -192,7 +198,7 @@ We are developing using GitLab-flow. See [GitLab-flow](https://about.gitlab.com/
 
 ### Commit Message Style
 
-| Type     | Content                                                                                  |
+| Type     | Content                                                                               |
 | -------- | ------------------------------------------------------------------------------------- |
 | Init     | Development Environment Initial Setting                                               |
 | Feat     | Add New Features                                                                      |
@@ -229,6 +235,5 @@ Feat : New feature added! #24
 - something added 1
 - another else added 2
 ```
-
 
 _<center>※ Anyone who wants to be a collaborator of Open-Set-Go is always welcome!</center>_
