@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { MailModule } from './mail/mail.module';
+import { SentiModule } from './senti/senti.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -31,6 +32,7 @@ import * as Joi from 'joi';
     UserModule,
     AuthModule,
     MailModule,
+    SentiModule,
   ],
   controllers: [AppController],
   providers: [ConfigService],
