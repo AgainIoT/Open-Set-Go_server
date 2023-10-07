@@ -85,7 +85,8 @@ export class RepoService {
     const owners = [];
 
     for await (const data of publicRepoList.data) {
-      if (data.permissions.maintain) {
+      // user must have up to push permission to make branch & Pull-Request
+      if (data.permissions.push) {
         const index = owners.indexOf(data.owner.login);
         if (index !== -1) {
           results[index].repoName.push(data.name);
