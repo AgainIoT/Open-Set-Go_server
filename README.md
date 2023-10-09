@@ -75,49 +75,51 @@ Open-Set-Go makes it easy, fast and simple to start an Open-Source project, whil
 | @nestjs/cli           | 9.5.0            | Open-Set-Go_server is configured by NestJS           |
 | yarn                  | 1.22.19          | Open-Set-Go server & client manage package with yarn |
 
-
 1. Clone our Repository!
-    ```bash
-    git clone --recursive https://github.com/AgainIoT/Open-Set-Go_server.git
 
-    ######################################
-    # Open-Set-Go Repository Dependencies
-    #
-    # Open-Set-Go_server
-    #  ┗ environment-template
-    #
-    ######################################
-    ```
+   ```bash
+   git clone --recursive https://github.com/AgainIoT/Open-Set-Go_server.git
+
+   ######################################
+   # Open-Set-Go Repository Dependencies
+   #
+   # Open-Set-Go_server
+   #  ┗ environment-template
+   #
+   ######################################
+   ```
 
 2. Install the Development Environment
 
 3. Install Node Dependencies
-    ```bash
-    yarn install
-    ```
+   ```bash
+   yarn install
+   ```
 4. Create your own github-oauth app
 
-    Follow the [GitHub Docs](https://docs.github.com/ko/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) to get Client ID & Client Secret.<br>
-    If your Authorization URL should be `localhost:3000` !
+   Follow the [GitHub Docs](https://docs.github.com/ko/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) to get Client ID & Client Secret.<br>
+   If your Authorization URL should be `localhost:3000` !
 
 5. Create `.env` file at root to use secret environment
-    ```bash
-    touch .env
-    ```
+
+   ```bash
+   touch .env
+   ```
 
 6. Fill in the `.env` file as follows.
-    ```bash
-    MONGODB_URI="<Your-MongoDB-URI-start-with-mongodb://>"
-    CLIENT_ID="<Your-GitHub-OAuth-Client_ID>"
-    CLIENT_SECRET="<Your-GitHub-OAuth-Client_Secret>"
-    JWT_SECRET="<Any-JWT-Secret-You-Want>"
-    JWT_EXPIRATION_TIME="<JWT-Expiration-Time-You-Want-default-18000>"
-    ```
+
+   ```bash
+   MONGODB_URI="<Your-MongoDB-URI-start-with-mongodb://>"
+   CLIENT_ID="<Your-GitHub-OAuth-Client_ID>"
+   CLIENT_SECRET="<Your-GitHub-OAuth-Client_Secret>"
+   JWT_SECRET="<Any-JWT-Secret-You-Want>"
+   JWT_EXPIRATION_TIME="<JWT-Expiration-Time-You-Want-default-18000>"
+   ```
 
 7. Start Open-Set-Go Server
-    ```bash
-      yarn start
-    ```
+   ```bash
+     yarn start
+   ```
 
 ## Documentation
 
@@ -133,7 +135,6 @@ Also, we are recruiting collaborators, so if you are interested, please join our
 ## Contributors
 
 Thank you to everyone who contributed to our project.
-
 
 ### Open-Set-Go_server
 

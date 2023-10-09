@@ -1,6 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Octokit } from '@octokit/rest';
 
+type repoData = {
+  owner: string;
+  avatar: string;
+  repoName: string[];
+};
+
 @Injectable()
 export class RepoService {
   checkRepo = async (
@@ -70,5 +76,56 @@ export class RepoService {
       console.error(`Failed to create repository. Error: ${error.message}`);
       return 500;
     }
+  };
+
+  parsingReposData = async (publicRepoList: {
+    data: any;
+  }): Promise<repoData[]> => {
+    const results: repoData[] = [];
+    const owners = [];
+
+    for await (const data of publicRepoList.data) {
+      // user must have up to push permission to make branch & Pull-Request
+      if (data.permissions.push) {
+        const index = owners.indexOf(data.owner.login);
+        if (index !== -1) {
+          results[index].repoName.push(data.name);
+        } else {
+          owners.push(data.owner.login);
+          results.push({
+            owner: data.owner.login,
+            avatar: data.owner.avatar_url,
+            repoName: [data.name],
+          });
+        }
+      }
+    }
+
+    return results;
+  };
+
+  getPublicRepos = async (githubAccessToken: string): Promise<repoData[]> => {
+    const octokit = new Octokit({ auth: githubAccessToken });
+
+    const ownerPublicReposList =
+      await octokit.rest.repos.listForAuthenticatedUser({
+        visibility: 'public',
+        affiliation: 'organization_member',
+      });
+
+    const orgPulicReposList = await octokit.rest.repos.listForAuthenticatedUser(
+      {
+        visibility: 'public',
+        affiliation: 'organization_member',
+      },
+    );
+
+    const results: repoData[] = await this.parsingReposData(
+      ownerPublicReposList,
+    );
+    results.push(...(await this.parsingReposData(orgPulicReposList)));
+
+    console.log(results);
+    return results;
   };
 }
