@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { Octokit } from '@octokit/rest';
 
 @Injectable()
-export class SentiService {
+export class ReviewService {
   template = async (
     githubAccessToken: string,
     owner: string,
     repoName: string,
   ): Promise<any> => {
     const octokit = new Octokit({ auth: githubAccessToken });
-    const templateSenti = {
+    const templateReview = {
       pr: await this.checkFileExists(
         octokit,
         owner,
@@ -43,7 +43,7 @@ export class SentiService {
         (await this.checkFileExists(octokit, owner, repoName, 'readme')),
     };
 
-    return templateSenti;
+    return templateReview;
   };
 
   checkFileExists = async (

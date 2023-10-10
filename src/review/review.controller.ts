@@ -1,14 +1,14 @@
 import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { SentiService } from './senti.service';
+import { ReviewService } from './review.service';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from 'src/auth/auth.service';
 import JwtAuthenticationGuard from 'src/auth/jwt/jwt-authentication.guard';
 import { Request, Response } from 'express';
 
-@Controller('senti')
-export class SentiController {
+@Controller('review')
+export class ReviewController {
   constructor(
-    private readonly sentiService: SentiService,
+    private readonly reviewService: ReviewService,
     private readonly userService: UserService,
     private readonly authService: AuthService,
   ) {}
@@ -27,7 +27,7 @@ export class SentiController {
     const user = await this.userService.getUserById(jwtAccessToken);
 
     return res.send(
-      await this.sentiService.template(user.accessToken, owner, repoName),
+      await this.reviewService.template(user.accessToken, owner, repoName),
     );
   }
 }
