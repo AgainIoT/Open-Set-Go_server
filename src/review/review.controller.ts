@@ -30,4 +30,40 @@ export class ReviewController {
       await this.reviewService.template(user.accessToken, owner, repoName),
     );
   }
+
+  @Post('community')
+  @UseGuards(JwtAuthenticationGuard)
+  async community(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const jwtAccessToken = this.authService.decodeToken(
+      req.cookies.Authentication,
+    );
+    const user = await this.userService.getUserById(jwtAccessToken);
+
+    return res.send(
+      await this.reviewService.community(user.accessToken, owner, repoName),
+    );
+  }
+
+  @Post('security')
+  @UseGuards(JwtAuthenticationGuard)
+  async security(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const jwtAccessToken = this.authService.decodeToken(
+      req.cookies.Authentication,
+    );
+    const user = await this.userService.getUserById(jwtAccessToken);
+
+    return res.send(
+      await this.reviewService.template(user.accessToken, owner, repoName),
+    );
+  }
 }
