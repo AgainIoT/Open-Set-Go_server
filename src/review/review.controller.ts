@@ -63,7 +63,7 @@ export class ReviewController {
     const user = await this.userService.getUserById(jwtAccessToken);
 
     return res.send(
-      await this.reviewService.template(user.accessToken, owner, repoName),
+      await this.reviewService.security(user.accessToken, owner, repoName),
     );
   }
 }

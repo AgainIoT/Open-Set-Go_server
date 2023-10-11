@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Octokit } from '@octokit/rest';
 
 @Injectable()
@@ -72,7 +72,65 @@ export class ReviewService {
     return communityData;
   };
 
-  repo = async () => {};
+  security = async (
+    githubAccessToken: string,
+    owner: string,
+    repo: string,
+  ): Promise<Security> => {
+    const octokit = new Octokit({ auth: githubAccessToken });
+
+    const securityData: Security = {
+      codeql: null,
+      secretScan: null,
+      securityPolicy: null,
+      dependabot: null,
+    };
+
+    // check CodeQL enabled
+    try {
+      await octokit.request('GET /repos/{owner}/{repo}/code-scanning/alerts', {
+        owner,
+        repo,
+      });
+      securityData.codeql = true;
+    } catch (error) {
+      if (error.status === 404) {
+        securityData.codeql = false;
+      } else {
+        Logger.error('octokit code-scanning error: ', error);
+      }
+    }
+
+    // check secretScan enabled
+    const repoData = await octokit.repos.get({ owner, repo });
+    securityData.secretScan =
+      repoData.data.security_and_analysis.secret_scanning.status === 'enabled';
+
+    // check dependabot enabled
+    try {
+      await octokit.repos.checkVulnerabilityAlerts({
+        owner,
+        repo,
+      });
+      securityData.dependabot = true;
+    } catch (error) {
+      if (error.status === 404) {
+        securityData.dependabot = false;
+      } else {
+        Logger.error('octokit checkVulnerabilityAlerts error: ', error);
+      }
+    }
+
+    // check Security Policy enabled
+    securityData.securityPolicy = await this.checkFileExists(
+      octokit,
+      owner,
+      repo,
+      'SECURITY.md',
+    );
+
+    return securityData;
+  };
 
   checkFileExists = async (
     octokit: Octokit,
@@ -113,4 +171,11 @@ type Community = {
   };
   conduct: boolean;
   discussion: boolean;
+};
+
+type Security = {
+  codeql: boolean;
+  secretScan: boolean;
+  securityPolicy: boolean;
+  dependabot: boolean;
 };
