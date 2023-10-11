@@ -68,7 +68,6 @@ export class ReviewService {
       ),
       discussion: repoData.data.has_discussions,
     };
-    console.log(communityData);
     return communityData;
   };
 
