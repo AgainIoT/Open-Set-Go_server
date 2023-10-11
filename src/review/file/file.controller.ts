@@ -1,32 +1,24 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
-import { RepoService } from './repo.service';
-import { Request, Response } from 'express';
+import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from 'src/auth/auth.service';
+import { FileService, issueFile } from './file.service';
 import JwtAuthenticationGuard from 'src/auth/jwt/jwt-authentication.guard';
+import { Request, Response } from 'express';
 
-@Controller('repo')
-export class RepoController {
+@Controller('review/file')
+export class FileController {
   constructor(
-    private readonly repoService: RepoService,
+    private readonly fileService: FileService,
     private readonly userService: UserService,
     private readonly authService: AuthService,
   ) {}
 
-  @Post('')
+  @Post('pr')
   @UseGuards(JwtAuthenticationGuard)
-  async createRepo(
+  async pr(
     @Body('owner') owner: string,
     @Body('repoName') repoName: string,
-    @Body('description') description: string,
+    @Body('content') content: string,
     @Req() req: Request,
     @Res() res: Response,
   ) {
@@ -35,21 +27,21 @@ export class RepoController {
     );
     const user = await this.userService.getUserById(jwtAccessToken);
 
-    const statusCode = await this.repoService.createRepo(
+    const pr = await this.fileService.pr(
       user.accessToken,
       owner,
       repoName,
-      description,
-      owner !== user.id,
+      content,
     );
-    res.sendStatus(statusCode);
+    return res.send(pr);
   }
 
-  @Post('checkDuplication')
+  @Post('issue')
   @UseGuards(JwtAuthenticationGuard)
-  async checkRepo(
+  async issue(
     @Body('owner') owner: string,
     @Body('repoName') repoName: string,
+    @Body('issues') issues: issueFile[],
     @Req() req: Request,
     @Res() res: Response,
   ) {
@@ -58,41 +50,58 @@ export class RepoController {
     );
     const user = await this.userService.getUserById(jwtAccessToken);
 
-    return res.send(
-      await this.repoService.checkRepo(owner, repoName, user.accessToken),
-    );
-  }
-
-  @Get('getPulbicRepo')
-  @UseGuards(JwtAuthenticationGuard)
-  async getPublicRepos(@Req() req: Request, @Res() res: Response) {
-    const jwtAccessToken = this.authService.decodeToken(
-      req.cookies.Authentication,
-    );
-    const user = await this.userService.getUserById(jwtAccessToken);
-
-    const publicRepos = await this.repoService.getPublicRepos(user.accessToken);
-    return res.status(200).json(publicRepos);
-  }
-
-  @Post('getRepoDetails')
-  // @UseGuards(JwtAuthenticationGuard)
-  async getRepoDetails(
-    @Body('owner') owner: string,
-    @Body('repoName') repoName: string,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    const jwtAccessToken = this.authService.decodeToken(
-      req.cookies.Authentication,
-    );
-    const user = await this.userService.getUserById(jwtAccessToken);
-
-    const repoDetails = await this.repoService.getRepoDetails(
+    const issue = await this.fileService.issue(
       user.accessToken,
       owner,
       repoName,
+      issues,
     );
-    return res.send(repoDetails);
+    return res.send(issue);
+  }
+
+  @Post('contributing')
+  @UseGuards(JwtAuthenticationGuard)
+  async contributing(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Body('content') content: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const jwtAccessToken = this.authService.decodeToken(
+      req.cookies.Authentication,
+    );
+    const user = await this.userService.getUserById(jwtAccessToken);
+
+    const contributing = await this.fileService.contributing(
+      user.accessToken,
+      owner,
+      repoName,
+      content,
+    );
+    return res.send(contributing);
+  }
+
+  @Post('readme')
+  @UseGuards(JwtAuthenticationGuard)
+  async readme(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Body('content') content: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const jwtAccessToken = this.authService.decodeToken(
+      req.cookies.Authentication,
+    );
+    const user = await this.userService.getUserById(jwtAccessToken);
+
+    const readme = await this.fileService.readme(
+      user.accessToken,
+      owner,
+      repoName,
+      content,
+    );
+    return res.send(readme);
   }
 }

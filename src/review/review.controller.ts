@@ -1,53 +1,21 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
-import { RepoService } from './repo.service';
-import { Request, Response } from 'express';
+import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { ReviewService } from './review.service';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from 'src/auth/auth.service';
 import JwtAuthenticationGuard from 'src/auth/jwt/jwt-authentication.guard';
+import { Request, Response } from 'express';
 
-@Controller('repo')
-export class RepoController {
+@Controller('review')
+export class ReviewController {
   constructor(
-    private readonly repoService: RepoService,
+    private readonly reviewService: ReviewService,
     private readonly userService: UserService,
     private readonly authService: AuthService,
   ) {}
 
-  @Post('')
+  @Post('template')
   @UseGuards(JwtAuthenticationGuard)
-  async createRepo(
-    @Body('owner') owner: string,
-    @Body('repoName') repoName: string,
-    @Body('description') description: string,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    const jwtAccessToken = this.authService.decodeToken(
-      req.cookies.Authentication,
-    );
-    const user = await this.userService.getUserById(jwtAccessToken);
-
-    const statusCode = await this.repoService.createRepo(
-      user.accessToken,
-      owner,
-      repoName,
-      description,
-      owner !== user.id,
-    );
-    res.sendStatus(statusCode);
-  }
-
-  @Post('checkDuplication')
-  @UseGuards(JwtAuthenticationGuard)
-  async checkRepo(
+  async template(
     @Body('owner') owner: string,
     @Body('repoName') repoName: string,
     @Req() req: Request,
@@ -59,25 +27,13 @@ export class RepoController {
     const user = await this.userService.getUserById(jwtAccessToken);
 
     return res.send(
-      await this.repoService.checkRepo(owner, repoName, user.accessToken),
+      await this.reviewService.template(user.accessToken, owner, repoName),
     );
   }
 
-  @Get('getPulbicRepo')
+  @Post('community')
   @UseGuards(JwtAuthenticationGuard)
-  async getPublicRepos(@Req() req: Request, @Res() res: Response) {
-    const jwtAccessToken = this.authService.decodeToken(
-      req.cookies.Authentication,
-    );
-    const user = await this.userService.getUserById(jwtAccessToken);
-
-    const publicRepos = await this.repoService.getPublicRepos(user.accessToken);
-    return res.status(200).json(publicRepos);
-  }
-
-  @Post('getRepoDetails')
-  // @UseGuards(JwtAuthenticationGuard)
-  async getRepoDetails(
+  async community(
     @Body('owner') owner: string,
     @Body('repoName') repoName: string,
     @Req() req: Request,
@@ -88,11 +44,26 @@ export class RepoController {
     );
     const user = await this.userService.getUserById(jwtAccessToken);
 
-    const repoDetails = await this.repoService.getRepoDetails(
-      user.accessToken,
-      owner,
-      repoName,
+    return res.send(
+      await this.reviewService.community(user.accessToken, owner, repoName),
     );
-    return res.send(repoDetails);
+  }
+
+  @Post('security')
+  @UseGuards(JwtAuthenticationGuard)
+  async security(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const jwtAccessToken = this.authService.decodeToken(
+      req.cookies.Authentication,
+    );
+    const user = await this.userService.getUserById(jwtAccessToken);
+
+    return res.send(
+      await this.reviewService.security(user.accessToken, owner, repoName),
+    );
   }
 }
