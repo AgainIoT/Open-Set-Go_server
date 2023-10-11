@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Param,
   Post,
   Res,
   Body,
@@ -11,6 +10,7 @@ import {
 import { PrService } from './pr.service';
 import { Response } from 'express';
 import { GetPRTemplateDto } from './dto/getPRTemplates.dto';
+import { GetPRTemplateContent } from './dto/getPRTemplateContent.dto';
 
 @Controller('file/pr')
 export class PrController {
@@ -32,8 +32,13 @@ export class PrController {
 
   // get PR template content from MongoDB(filtered by _id)
   @Get('/:id')
-  async getPRTemplateContent(@Res() res: Response, @Param('id') id: string) {
-    const PRTemplateContent = await this.prService.loadPRTemplateContent(id);
+  async getPRTemplateContent(
+    @Res() res: Response,
+    @Body() getPRTemplateContent: GetPRTemplateContent,
+  ) {
+    const PRTemplateContent = await this.prService.loadPRTemplateContent(
+      getPRTemplateContent.id,
+    );
     res.status(200).send(PRTemplateContent);
   }
 }
