@@ -1,19 +1,32 @@
-import { Controller, Get, Param, Post, Res, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Res,
+  Body,
+  ValidationPipe,
+  UsePipes,
+} from '@nestjs/common';
 import { PrService } from './pr.service';
 import { Response } from 'express';
+import { GetPRTemplateDto } from './dto/getPRTemplates.dto';
 
 @Controller('file/pr')
 export class PrController {
   constructor(private readonly prService: PrService) {}
 
   // get PR template from MongoDB
+  @UsePipes(ValidationPipe)
   @Post()
   async getPRTemplates(
-    @Body('page') page: number,
-    @Body('amount') amount: number,
+    @Body() getPRTemplateDto: GetPRTemplateDto,
     @Res() res: Response,
   ): Promise<void> {
-    const PRTemplateList = await this.prService.loadPRTemplates(page, amount);
+    const PRTemplateList = await this.prService.loadPRTemplates(
+      getPRTemplateDto.page,
+      getPRTemplateDto.amount,
+    );
     res.status(200).send(PRTemplateList);
   }
 
