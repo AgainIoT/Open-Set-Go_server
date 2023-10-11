@@ -4,9 +4,10 @@
 | POST   | /auth/github-logout                  | only need cookies                                 |                                          | Remove Cookies                                                            |
 | GET    | /user/profile                        | only need cookies                                 | [Response Body](#userprofile)            | User Info for user profile                                                |
 | GET    | /user/grantedInfo                    | only need cookies                                 | [Response Body](#usergrantedinfo)        | userInfo with org                                                         |
-| POST   | /repo                                | cookies + [Request Body](#repocheckduplication)   | Status will send(NOT FOUND or OK)        | userInfo with org                                                         |
-| POST   | /repo/checkDuplication               | cookies + [Request Body](#repo)                   | true/false(Boolean)                      | check repository is duplicate                                             |
+| POST   | /repo                                | cookies + [Request Body](#repo)                   | Status will send(NOT FOUND or OK)        | userInfo with org                                                         |
+| POST   | /repo/checkDuplication               | cookies + [Request Body](#repocheckduplication)   | true/false(Boolean)                      | check repository is duplicate                                             |
 | GET    | /repo/getPulbicRepo                  | only need cookies                                 | [Response Body](#repogetpublicrepo)      | get public repository that granted                                        |
+| GET    | /repo/getRepoDetails                 | cookies + [Request Body](#repogetrepodetails)     | [Response Body](#repogetrepodetails)     | get detail information of specific repository                             |
 | POST   | /mail                                | only need cookies                                 | Status will send(NOT FOUND or OK)        | send mail to user(after respository create)                               |
 | POST   | /file                                | cookies + [Request Body](#file)                   | Status will send(NOT FOUND or OK)        | upload file to repository                                                 |
 | GET    | /file/supportedEnv                   |                                                   | [Response Body](#filesupportedenv)       | give supportedEnv                                                         |
@@ -187,6 +188,32 @@
     ]
   }
 ]
+```
+
+### /repo/getRepoDetails
+
+#### Request Body
+
+```json
+{
+  "owner": "AgainIoT",
+  "repoName": "Open-Set-Go_server"
+}
+```
+
+#### Response Body
+
+```json
+{
+  "owner": "AgainIoT",
+  "name": "Open-Set-Go_server",
+  "fullName": "AgainIoT/Open-Set-Go_server",
+  "repoURL": "https://github.com/AgainIoT/Open-Set-Go_server",
+  "description": "'Project Starting Toolkit' for OpenSource SW developers who can easily, quickly and conveniently start an Open Source project.",
+  "language": "TypeScript",
+  "star": 8,
+  "fork": 3
+}
 ```
 
 ### /file
