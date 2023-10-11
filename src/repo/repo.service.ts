@@ -128,4 +128,37 @@ export class RepoService {
     console.log(results);
     return results;
   };
+
+  getRepoDetails = async (
+    githubAccessToken: string,
+    owner: string,
+    repo: string,
+  ): Promise<repoDetails> => {
+    const octokit = new Octokit({ auth: githubAccessToken });
+    const repoData = await octokit.rest.repos.get({ owner, repo });
+
+    const result: repoDetails = {
+      owner,
+      name: repo,
+      fullName: repoData.data.full_name,
+      repoURL: repoData.data.html_url,
+      description: repoData.data.description,
+      language: repoData.data.language,
+      star: repoData.data.stargazers_count,
+      fork: repoData.data.forks_count,
+    };
+
+    return result;
+  };
 }
+
+type repoDetails = {
+  owner: string;
+  name: string;
+  fullName: string;
+  repoURL: string;
+  description: string;
+  language: string;
+  star: number;
+  fork: number;
+};
