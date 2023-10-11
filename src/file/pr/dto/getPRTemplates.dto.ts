@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class UploadFilesDto {
+export class GetPRTemplateDto {
   @IsNumber()
   @IsNotEmpty()
   page: number;
