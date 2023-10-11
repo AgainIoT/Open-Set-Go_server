@@ -74,4 +74,25 @@ export class RepoController {
     const publicRepos = await this.repoService.getPublicRepos(user.accessToken);
     return res.status(200).json(publicRepos);
   }
+
+  @Post('getRepoDetails')
+  // @UseGuards(JwtAuthenticationGuard)
+  async getRepoDetails(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const jwtAccessToken = this.authService.decodeToken(
+      req.cookies.Authentication,
+    );
+    const user = await this.userService.getUserById(jwtAccessToken);
+
+    const repoDetails = await this.repoService.getRepoDetails(
+      user.accessToken,
+      owner,
+      repoName,
+    );
+    return res.send(repoDetails);
+  }
 }
