@@ -1,7 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
-import { PrTemplate as PrSchema } from './schemas/pr.schema';
+import { Model } from 'mongoose';
+import { Pr as PrSchema } from './schemas/pr.schema';
 
 type file = { path: string; content: string };
 
@@ -16,37 +16,27 @@ export class PrService {
   };
 
   loadPRTemplates = async (page: number, amount: number = 20) => {
-    console.log(page, amount);
     const startAt = (page - 1) * amount;
     const prTemplates = await this.prModel
-      .find()
+      .find({}, { content: false })
+      .sort({ star: -1 }) // sorting with repo's star
       .skip(startAt)
       .limit(amount)
       .exec();
-    Logger.debug(prTemplates);
+
     return prTemplates;
   };
 
   loadPRTemplateContent = async (id: string) => {
-    const contentId = new mongoose.Types.ObjectId(id);
-    const chosenOne = await this.prModel.findOne({ _id: contentId });
+    const chosenOne = await this.prModel
+      .findOne({ _id: id }, { content: true })
+      .exec();
+
     return chosenOne.content;
   };
 
   async loadPRTemplateCount(): Promise<number> {
-    try {
-      const prCount = await this.prModel.aggregate([
-        { $group: { _id: null, count: { $sum: 1 } } },
-      ]);
-
-      if (prCount.length > 0) {
-        return prCount[0].count;
-      } else {
-        return 0;
-      }
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    const prCount = await this.prModel.count();
+    return prCount;
   }
 }

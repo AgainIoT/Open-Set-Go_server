@@ -1,10 +1,11 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class GetPRTemplateDto {
   @IsNumber()
   @IsNotEmpty()
-  page: number;
+  page?: number;
 
   @IsNumber()
-  amount: number;
+  @IsOptional()
+  amount?: number;
 }

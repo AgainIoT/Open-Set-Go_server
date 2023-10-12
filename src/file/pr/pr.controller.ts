@@ -1,11 +1,11 @@
 import {
   Controller,
   Get,
-  Post,
   Res,
-  Body,
   ValidationPipe,
   UsePipes,
+  Query,
+  Param,
 } from '@nestjs/common';
 import { PrService } from './pr.service';
 import { Response } from 'express';
@@ -17,10 +17,10 @@ export class PrController {
   constructor(private readonly prService: PrService) {}
 
   // get PR template from MongoDB
+  @Get()
   @UsePipes(ValidationPipe)
-  @Post()
   async getPRTemplates(
-    @Body() getPRTemplateDto: GetPRTemplateDto,
+    @Query() getPRTemplateDto: GetPRTemplateDto,
     @Res() res: Response,
   ): Promise<void> {
     const PRTemplateList = await this.prService.loadPRTemplates(
@@ -32,15 +32,16 @@ export class PrController {
 
   @Get('amount')
   async getPRTemplateCount(@Res() res: Response) {
-    const count = await this.prService.loadPRTemplateCount();
-    res.status(200).send({ count });
+    const amount = await this.prService.loadPRTemplateCount();
+    res.status(200).send({ amount });
   }
 
   // get PR template content from MongoDB(filtered by _id)
   @Get('/:id')
+  @UsePipes(ValidationPipe)
   async getPRTemplateContent(
+    @Param() getPRTemplateContent: GetPRTemplateContent,
     @Res() res: Response,
-    @Body() getPRTemplateContent: GetPRTemplateContent,
   ) {
     const PRTemplateContent = await this.prService.loadPRTemplateContent(
       getPRTemplateContent.id,
