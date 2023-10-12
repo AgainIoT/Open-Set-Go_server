@@ -6,11 +6,19 @@ import {
 } from './schemas/contributing.schema';
 import { ContributingController } from './contributing.controller';
 import { ContributingService } from './contributing.service';
+import {
+  GenerateContributingMd,
+  GenerateContributingMdSchema,
+} from './schemas/generateContributing.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: ContributingMd.name, schema: ContributingShema },
+      {
+        name: GenerateContributingMd.name,
+        schema: GenerateContributingMdSchema,
+      },
     ]),
   ],
   controllers: [ContributingController],

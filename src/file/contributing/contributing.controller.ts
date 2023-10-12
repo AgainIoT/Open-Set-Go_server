@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { ContributingService } from './contributing.service';
 import { Response } from 'express';
 
@@ -10,6 +10,24 @@ export class ContributingController {
   @Get()
   async getContributingMds(@Res() res: Response) {
     const contributingMd = await this.contributingService.loadContributingMds();
+    res.status(200).send(contributingMd);
+  }
+
+  @Post('generate')
+  async getGenerateContributingMd(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Body('description') description: string,
+    @Body('license') license: string,
+    @Res() res: Response,
+  ) {
+    const contributingMd =
+      await this.contributingService.loadGenerateContributingMds({
+        owner,
+        repoName,
+        description,
+        license,
+      });
     res.status(200).send(contributingMd);
   }
 
