@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ReadmeMd, ReadmeMdSchema } from './schemas/readme.schema';
+import { Readme, ReadmeSchema } from './schemas/readme.schema';
 import {
   GenerateReadmeMd,
   GenerateReadmeMdSchema,
@@ -11,7 +11,7 @@ import { ReadmeService } from './readme.service';
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: ReadmeMd.name, schema: ReadmeMdSchema },
+      { name: Readme.name, schema: ReadmeSchema },
       { name: GenerateReadmeMd.name, schema: GenerateReadmeMdSchema },
     ]),
   ],
