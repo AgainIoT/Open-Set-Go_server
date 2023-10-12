@@ -76,7 +76,7 @@ export class RepoController {
   }
 
   @Post('getRepoDetails')
-  // @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtAuthenticationGuard)
   async getRepoDetails(
     @Body('owner') owner: string,
     @Body('repoName') repoName: string,
