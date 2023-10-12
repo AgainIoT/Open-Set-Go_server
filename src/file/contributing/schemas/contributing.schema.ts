@@ -1,20 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type ContributingDoc = HydratedDocument<ContributingMd>;
+export type ContributingDoc = HydratedDocument<Contributing>;
 
 @Schema({ timestamps: true, _id: true })
-export class ContributingMd {
-  @Prop({
-    required: true,
-  })
-  title: string;
-
-  @Prop({
-    required: true,
-  })
-  type: string;
-
+export class Contributing {
   @Prop({
     required: true,
   })
@@ -23,12 +13,17 @@ export class ContributingMd {
   @Prop({
     required: true,
   })
-  repoUrl: string;
+  content: string;
 
   @Prop({
     required: true,
   })
-  content: string;
+  star: number;
+
+  @Prop({
+    required: true,
+  })
+  license: string;
 }
 
-export const ContributingShema = SchemaFactory.createForClass(ContributingMd);
+export const ContributingShema = SchemaFactory.createForClass(Contributing);

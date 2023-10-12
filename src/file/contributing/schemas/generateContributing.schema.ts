@@ -3,6 +3,7 @@ import { HydratedDocument } from 'mongoose';
 
 export type GenerateContributingMdDoc =
   HydratedDocument<GenerateContributingMd>;
+
 @Schema({ timestamps: true, _id: true })
 export class GenerateContributingMd {
   @Prop({

@@ -1,38 +1,63 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Res,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { ReadmeService } from './readme.service';
+import { GetReadmeMdDto } from './dto/getReadmeMds.dto';
+import { GetGenerateReadmeMdDto } from './dto/getGenerateReadmeMd.dto';
+import { GetReadmeMdContentDto } from './dto/getReadmeMdContent.dto';
 @Controller('file/readme')
 export class ReadmeController {
   constructor(private readonly readmeService: ReadmeService) {}
 
   // get Readme template from MongoDB
   @Get()
-  async getReadmeMd(@Res() res: Response) {
-    const readmeMd = await this.readmeService.loadReadmeMds();
+  @UsePipes(ValidationPipe)
+  async getReadmeMds(
+    @Query() getReadmeMdDto: GetReadmeMdDto,
+    @Res() res: Response,
+  ) {
+    const readmeMd = await this.readmeService.loadReadmeMds(
+      getReadmeMdDto.page,
+      getReadmeMdDto.amount,
+    );
     res.status(200).send(readmeMd);
+  }
+
+  @Get('amount')
+  async getReadmeMdsAmount(@Res() res: Response) {
+    const amount = await this.readmeService.loadReadmeMdsAmount();
+    res.status(200).send({ amount });
   }
 
   @Post('generate')
   async getGenerateReadmeMd(
-    @Body('owner') owner: string,
-    @Body('repoName') repoName: string,
-    @Body('description') description: string,
-    @Body('license') license: string,
+    @Body() getGenerateReadmeMdDto: GetGenerateReadmeMdDto,
     @Res() res: Response,
   ) {
-    const readmeMd = await this.readmeService.loadGenerateReadmeMds({
-      owner,
-      repoName,
-      description,
-      license,
-    });
+    const readmeMd = await this.readmeService.loadGenerateReadmeMds(
+      getGenerateReadmeMdDto,
+    );
     res.status(200).send(readmeMd);
   }
 
-  // get Readme template content from MongoDB(filtered by _id)
   @Get('/:id')
-  async getReadmeMdContent(@Param('id') id: string, @Res() res: Response) {
-    const readmeMd = await this.readmeService.loadReadmeMdContent(id);
+  @UsePipes(ValidationPipe)
+  async getReadmeMdContent(
+    @Param() getReadmeMdContentDto: GetReadmeMdContentDto,
+    @Res() res: Response,
+  ) {
+    const readmeMd = await this.readmeService.loadReadmeMdContent(
+      getReadmeMdContentDto.id,
+    );
     res.status(200).send(readmeMd);
   }
 }

@@ -1,6 +1,19 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Res,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ContributingService } from './contributing.service';
 import { Response } from 'express';
+import { GetContributingMdDto } from './dto/getContributingMds.dto';
+import { GetContributingMdContentDto } from './dto/getContributingMdContent.dto';
+import { GetGenerateContributingMdDto } from './dto/getGenerateContributingMd.dto';
 
 @Controller('file/contributing')
 export class ContributingController {
@@ -8,36 +21,46 @@ export class ContributingController {
 
   // give ContributingMds
   @Get()
-  async getContributingMds(@Res() res: Response) {
-    const contributingMd = await this.contributingService.loadContributingMds();
+  @UsePipes(ValidationPipe)
+  async getContributingMds(
+    @Query() getContributingMdDto: GetContributingMdDto,
+    @Res() res: Response,
+  ) {
+    const contributingMd = await this.contributingService.loadContributingMds(
+      getContributingMdDto.page,
+      getContributingMdDto.amount,
+    );
     res.status(200).send(contributingMd);
+  }
+
+  @Get('amount')
+  async getContributingMdsAmount(@Res() res: Response) {
+    const amount = await this.contributingService.loadContributingMdsAmount();
+    res.status(200).send({ amount });
   }
 
   @Post('generate')
   async getGenerateContributingMd(
-    @Body('owner') owner: string,
-    @Body('repoName') repoName: string,
-    @Body('description') description: string,
-    @Body('license') license: string,
+    @Body() getGenerateContributingMdDto: GetGenerateContributingMdDto,
     @Res() res: Response,
   ) {
     const contributingMd =
-      await this.contributingService.loadGenerateContributingMds({
-        owner,
-        repoName,
-        description,
-        license,
-      });
+      await this.contributingService.loadGenerateContributingMds(
+        getGenerateContributingMdDto,
+      );
     res.status(200).send(contributingMd);
   }
 
   @Get('/:id')
+  @UsePipes(ValidationPipe)
   async getContributingMdContent(
-    @Param('id') id: string,
+    @Param() getContributingMdContentDto: GetContributingMdContentDto,
     @Res() res: Response,
   ) {
     const contributingMd =
-      await this.contributingService.loadContributingMdContent(id);
+      await this.contributingService.loadContributingMdContent(
+        getContributingMdContentDto.id,
+      );
     res.status(200).send(contributingMd);
   }
 }

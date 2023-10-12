@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  ContributingMd,
-  ContributingShema,
-} from './schemas/contributing.schema';
+import { Contributing, ContributingShema } from './schemas/contributing.schema';
 import { ContributingController } from './contributing.controller';
 import { ContributingService } from './contributing.service';
 import {
@@ -14,7 +11,7 @@ import {
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: ContributingMd.name, schema: ContributingShema },
+      { name: Contributing.name, schema: ContributingShema },
       {
         name: GenerateContributingMd.name,
         schema: GenerateContributingMdSchema,
