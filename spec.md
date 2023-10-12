@@ -1,34 +1,35 @@
-| Method | Request Path                         | Request Body                                      | Response Body                            | Description                                                               |
-| ------ | ------------------------------------ | ------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------- |
-| POST   | /auth/github-login?code=\<authCode\> |                                                   |                                          | GitHub OAuth Login                                                        |
-| POST   | /auth/github-logout                  | only need cookies                                 |                                          | Remove Cookies                                                            |
-| GET    | /user/profile                        | only need cookies                                 | [Response Body](#userprofile)            | User Info for user profile                                                |
-| GET    | /user/grantedInfo                    | only need cookies                                 | [Response Body](#usergrantedinfo)        | userInfo with org                                                         |
-| POST   | /repo                                | cookies + [Request Body](#repo)                   | Status will send(NOT FOUND or OK)        | userInfo with org                                                         |
-| POST   | /repo/checkDuplication               | cookies + [Request Body](#repocheckduplication)   | true/false(Boolean)                      | check repository is duplicate                                             |
-| GET    | /repo/getPulbicRepo                  | only need cookies                                 | [Response Body](#repogetpublicrepo)      | get public repository that granted                                        |
-| GET    | /repo/getRepoDetails                 | cookies + [Request Body](#repogetrepodetails)     | [Response Body](#repogetrepodetails)     | get detail information of specific repository                             |
-| POST   | /mail                                | only need cookies                                 | Status will send(NOT FOUND or OK)        | send mail to user(after respository create)                               |
-| POST   | /file                                | cookies + [Request Body](#file)                   | Status will send(NOT FOUND or OK)        | upload file to repository                                                 |
-| GET    | /file/supportedEnv                   |                                                   | [Response Body](#filesupportedenv)       | give supportedEnv                                                         |
-| GET    | /file/license                        |                                                   | [Response Body](#filelicense)            | get license information                                                   |
-| GET    | /file/pr                             | [Request Body](#filepr)                           | [Response Body](#filepr)                 | get prs information                                                       |
-| GET    | /file/pr/\<id>                       |                                                   | [Response Body](#fileprid)               | get pr information only id                                                |
-| GET    | /file/pr/amount                      |                                                   | [Response Body](#filepramount)           | get pr temlates amount                                                    |
-| GET    | /file/contributing                   | [Request Body](#filecontributing)                 | [Response Body](#filecontributing)       | get contributings information                                             |
-| GET    | /file/contributing/\<id>             |                                                   | [Response Body](#filecontributingid)     | get contributings information only id                                     |
-| GET    | /file/contributing/amount            |                                                   | [Response Body](#filecontributingamount) | get contributing temlates amount                                          |
-| GET    | /file/readme                         | [Request Body](#filereadme)                       | [Response Body](#filereadme)             | get readmes information                                                   |
-| GET    | /file/readme/\<id>                   |                                                   | [Response Body](#filereadmeid)           | get readmes information only id                                           |
-| GET    | /file/readme/amount                  |                                                   | [Response Body](#filereadmeamount)       | get readmes temlates amount                                               |
-| POST   | /file/readme/generate                | [Request Body](#filereadmegenerate)               | [Response Body](#filereadmegenerate)     | get readmes for generate                                                  |
-| POST   | /review/template                     | cookies + [Request Body](#reviewtemplate)         | [Response Body](#reviewtemplate)         | review pr & issue template, readme, contributing exist                    |
-| POST   | /review/community                    | cookies + [Request Body](#reviewcommuntiy)        | [Response Body](#reviewcommuntiy)        | review description, code of conduct, discussion, license exist or enabled |
-| POST   | /review/seurity                      | cookies + [Request Body](#reviewsecurity)         | [Response Body](#reviewsecurity)         | review dependabot, codeql, secretscanning, security policy enabled        |
-| POST   | /review/file/pr                      | cookies + [Request Body](#reviewfilepr)           | [Response Body](#reviewfilepr)           | create Pull-Request at target repository with pr template                 |
-| POST   | /review/file/issue                   | cookies + [Request Body](#reviewfileissue)        | [Response Body](#reviewfileissue)        | create Pull-Request at target repository with issue template              |
-| POST   | /review/file/contributing            | cookies + [Request Body](#reviewfilecontributing) | [Response Body](#reviewfilecontributing) | create Pull-Request at target repository with CONTRIBUTING.md             |
-| POST   | /review/file/readme                  | cookies + [Request Body](#reviewfilereadme)       | [Response Body](#reviewfilereadme)       | create Pull-Request at target repository with README.md                   |
+| Method | Request Path                         | Request Body                                      | Response Body                              | Description                                                               |
+| ------ | ------------------------------------ | ------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------- |
+| POST   | /auth/github-login?code=\<authCode\> |                                                   |                                            | GitHub OAuth Login                                                        |
+| POST   | /auth/github-logout                  | only need cookies                                 |                                            | Remove Cookies                                                            |
+| GET    | /user/profile                        | only need cookies                                 | [Response Body](#userprofile)              | User Info for user profile                                                |
+| GET    | /user/grantedInfo                    | only need cookies                                 | [Response Body](#usergrantedinfo)          | userInfo with org                                                         |
+| POST   | /repo                                | cookies + [Request Body](#repo)                   | Status will send(NOT FOUND or OK)          | userInfo with org                                                         |
+| POST   | /repo/checkDuplication               | cookies + [Request Body](#repocheckduplication)   | true/false(Boolean)                        | check repository is duplicate                                             |
+| GET    | /repo/getPulbicRepo                  | only need cookies                                 | [Response Body](#repogetpublicrepo)        | get public repository that granted                                        |
+| GET    | /repo/getRepoDetails                 | cookies + [Request Body](#repogetrepodetails)     | [Response Body](#repogetrepodetails)       | get detail information of specific repository                             |
+| POST   | /mail                                | only need cookies                                 | Status will send(NOT FOUND or OK)          | send mail to user(after respository create)                               |
+| POST   | /file                                | cookies + [Request Body](#file)                   | Status will send(NOT FOUND or OK)          | upload file to repository                                                 |
+| GET    | /file/supportedEnv                   |                                                   | [Response Body](#filesupportedenv)         | give supportedEnv                                                         |
+| GET    | /file/license                        |                                                   | [Response Body](#filelicense)              | get license information                                                   |
+| GET    | /file/pr                             | [Request Body](#filepr)                           | [Response Body](#filepr)                   | get prs information                                                       |
+| GET    | /file/pr/\<id>                       |                                                   | [Response Body](#fileprid)                 | get pr information only id                                                |
+| GET    | /file/pr/amount                      |                                                   | [Response Body](#filepramount)             | get pr temlates amount                                                    |
+| GET    | /file/contributing                   | [Request Body](#filecontributing)                 | [Response Body](#filecontributing)         | get contributings information                                             |
+| GET    | /file/contributing/\<id>             |                                                   | [Response Body](#filecontributingid)       | get contributings information only id                                     |
+| GET    | /file/contributing/amount            |                                                   | [Response Body](#filecontributingamount)   | get contributing temlates amount                                          |
+| POST   | /file/contributing/generate          | [Request Body](#filecontributinggenerate)         | [Response Body](#filecontributinggenerate) | get contributings for generate                                            |
+| GET    | /file/readme                         | [Request Body](#filereadme)                       | [Response Body](#filereadme)               | get readmes information                                                   |
+| GET    | /file/readme/\<id>                   |                                                   | [Response Body](#filereadmeid)             | get readmes information only id                                           |
+| GET    | /file/readme/amount                  |                                                   | [Response Body](#filereadmeamount)         | get readmes temlates amount                                               |
+| POST   | /file/readme/generate                | [Request Body](#filereadmegenerate)               | [Response Body](#filereadmegenerate)       | get readmes for generate                                                  |
+| POST   | /review/template                     | cookies + [Request Body](#reviewtemplate)         | [Response Body](#reviewtemplate)           | review pr & issue template, readme, contributing exist                    |
+| POST   | /review/community                    | cookies + [Request Body](#reviewcommuntiy)        | [Response Body](#reviewcommuntiy)          | review description, code of conduct, discussion, license exist or enabled |
+| POST   | /review/seurity                      | cookies + [Request Body](#reviewsecurity)         | [Response Body](#reviewsecurity)           | review dependabot, codeql, secretscanning, security policy enabled        |
+| POST   | /review/file/pr                      | cookies + [Request Body](#reviewfilepr)           | [Response Body](#reviewfilepr)             | create Pull-Request at target repository with pr template                 |
+| POST   | /review/file/issue                   | cookies + [Request Body](#reviewfileissue)        | [Response Body](#reviewfileissue)          | create Pull-Request at target repository with issue template              |
+| POST   | /review/file/contributing            | cookies + [Request Body](#reviewfilecontributing) | [Response Body](#reviewfilecontributing)   | create Pull-Request at target repository with CONTRIBUTING.md             |
+| POST   | /review/file/readme                  | cookies + [Request Body](#reviewfilereadme)       | [Response Body](#reviewfilereadme)         | create Pull-Request at target repository with README.md                   |
 
 ### /user/profile
 
@@ -463,6 +464,38 @@ content1
 
 ```json
 80
+```
+
+### /file/contributing/generate
+
+#### Request Body
+
+```json
+{
+  "owner": "AgainIoT",
+  "repoName": "Open-Set-Go",
+  "description": "Open-Set-Go is the name of asdfadsfasdfasdfadsadsfasasd",
+  "license": "Apaceh 2.0 license"
+}
+```
+
+#### Response Body
+
+```json
+[
+  {
+    "_id": "6527a963f2ab4fc291e5ffcf",
+    "index": 1,
+    "type": "Title and Description",
+    "content": "# Open-Set-Go\n\n<p align=\"center\">\n<a href=\"https://github.com/AgainIoT/Open-Set-Go/\" target=\"blank\"><img src=\"https://github.com/AgainIoT/Open-Set-Go/raw/main/.github/images/Open-Set-Go.png\" width=\"200\" alt=\"Enter Your Logo!\" /></a>\n</p>\n\n<p align=\"center\">\n  Open-Set-Go is the name of asdfadsfasdfasdfadsadsfasasd\n</p>\n\n<p align=\"center\">\n  <a href=\"/LICENSE\"><img src=\"https://img.shields.io/github/license/AgainIoT/Open-Set-Go\" alt=\"License\" /></a>\n  <a href=\"https://github.com/AgainIoT/Open-Set-Go/graphs/contributors\" target=\"_blank\"><img src=\"https://img.shields.io/github/contributors-anon/AgainIoT/Open-Set-Go\" alt=\"contributors\" /></a>\n  <a href=\"https://github/AgainIoT/Open-Set-Go\"><img src=\"https://img.shields.io/github/last-commit/AgainIoT/Open-Set-Go\" alt=\"your repo's last-commit\" /></a>\n  <a href=\"https://github/AgainIoT/Open-Set-Go\"><img src=\"https://img.shields.io/github/stars/AgainIoT/Open-Set-Go\" alt=\"your repo's stars\" /></a>\n  <a href=\"https://github/AgainIoT/Open-Set-Go\"><img src=\"https://img.shields.io/github/forks/AgainIoT/Open-Set-Go\" alt=\"your repo's forks\" /></a>\n  <a href=\"https://github/AgainIoT/Open-Set-Go\"><img src=\"https://img.shields.io/github/watchers/AgainIoT/Open-Set-Go\" alt=\"your repo's watchers\" /></a>\n  <a href=\"https://github/AgainIoT/Open-Set-Go\"><img src=\"https://img.shields.io/github/issues/AgainIoT/Open-Set-Go\" alt=\"your repo's issues\" /></a>\n</p>\n"
+  },
+  {
+    "_id": "6527ab64f2ab4fc291e5ffd1",
+    "index": 6,
+    "type": "License",
+    "content": "# License\n\nOpen-Set-Go is released under Apaceh 2.0 license.\nSee the [LICENSE file](\"./LICENSE\") for details.\n"
+  }
+]
 ```
 
 ### /file/readme/\<id>
