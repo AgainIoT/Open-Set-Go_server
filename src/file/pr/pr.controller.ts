@@ -30,6 +30,12 @@ export class PrController {
     res.status(200).send(PRTemplateList);
   }
 
+  @Get('amount')
+  async getPRTemplateCount(@Res() res: Response) {
+    const count = await this.prService.loadPRTemplateCount();
+    res.status(200).send({ count });
+  }
+
   // get PR template content from MongoDB(filtered by _id)
   @Get('/:id')
   async getPRTemplateContent(
