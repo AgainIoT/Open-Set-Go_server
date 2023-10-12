@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ReadmeService } from './readme.service';
 @Controller('file/readme')
@@ -9,6 +9,23 @@ export class ReadmeController {
   @Get()
   async getReadmeMd(@Res() res: Response) {
     const readmeMd = await this.readmeService.loadReadmeMds();
+    res.status(200).send(readmeMd);
+  }
+
+  @Post('generate')
+  async getGenerateReadmeMd(
+    @Body('owner') owner: string,
+    @Body('repoName') repoName: string,
+    @Body('description') description: string,
+    @Body('license') license: string,
+    @Res() res: Response,
+  ) {
+    const readmeMd = await this.readmeService.loadGenerateReadmeMds({
+      owner,
+      repoName,
+      description,
+      license,
+    });
     res.status(200).send(readmeMd);
   }
 
