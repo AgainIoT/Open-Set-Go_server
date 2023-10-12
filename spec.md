@@ -381,53 +381,42 @@ OK
 
 ## File/pr Module
 
-| Method | Request Path    | Request Body            | Response Body                  | Description                |
-| ------ | --------------- | ----------------------- | ------------------------------ | -------------------------- |
-| POST   | /file/pr        | [Request Body](#filepr) | [Response Body](#filepr)       | get prs information        |
-| GET    | /file/pr/\<id>  |                         | [Response Body](#fileprid)     | get pr information only id |
-| GET    | /file/pr/amount |                         | [Response Body](#filepramount) | get pr temlates amount     |
+| Method | Request Path    | Request                  | Response Body                  | Description                 |
+| ------ | --------------- | ------------------------ | ------------------------------ | --------------------------- |
+| GET    | /file/pr        | [Request Query](#filepr) | [Response Body](#filepr)       | get prs information         |
+| GET    | /file/pr/\<id>  |                          | [Response Body](#fileprid)     | get prs information only id |
+| GET    | /file/pr/amount |                          | [Response Body](#filepramount) | get pr temlates amount      |
 
 ### /file/pr
 
-#### Request Body
+#### Request Query
 
 ```json
-{
-  "page": 0 /* 0 ~ 3 ex) 25 -> 25 ~ 28*/,
-  "amount": 4 /* default is 20, the number of pr template */
-}
+// case 1 - page=1, amount=3 -> 6 ~ 8 [200]
+"http://localhost:8080/file/pr?page=1&amount=3"
+
+// case 2 - page=1 -> amount will be 20 -> 0 ~ 19 [200]
+"http://localhost:8080/file/pr?page=1"
 ```
 
 #### Response Body
 
 ```json
+// case 1 - page=2, amount=3 -> 6 ~ 8 [200]
 [
   {
-    "_id": "64f175c218eed0c9b21a2f2e",
+    "_id": "6528807b22ee43f98993b51b",
+    "title": "pull-request template for Framework",
+    "repoName": "nestjs/nest",
+    "star": 60270,
+    "license": "MIT License"
+  },
+  {
+    "_id": "65287ba022ee43f98993b51a",
+    "title": "pull-request template for web service",
     "repoName": "AgainIoT/Open-Set-Go",
-    "repoUrl": "https://github.com/AgainIoT/Open-Set-Go",
-    "star": 26
-  },
-  {
-    "_id": "64f2fedb2a1079c11a9a646e",
-    "title": "simple-preset",
-    "repoName": "michaelkolesidis/javascript-software-synthesizer",
-    "repoUrl": "https://github.com/michaelkolesidis/javascript-software-synthesizer",
-    "star": 20
-  },
-  {
-    "_id": "64f324482a1079c11a9a6470",
-    "title": "detail-preset",
-    "repoName": "OpenRoberta/openroberta-lab",
-    "repoUrl": "https://github.com/OpenRoberta/openroberta-lab",
-    "star": 100000
-  },
-  {
-    "_id": "64f326072a1079c11a9a6471",
-    "title": "comment-preset",
-    "repoName": "inversify/InversifyJS",
-    "repoUrl": "https://github.com/inversify/InversifyJS",
-    "star": 100012
+    "star": 27,
+    "license": "Apache License 2.0"
   }
 ]
 ```
@@ -459,7 +448,9 @@ PR?)
 #### Response Body
 
 ```json
-80
+{
+  "amount": 2
+}
 ```
 
 ## File/issue Module
