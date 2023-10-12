@@ -32,4 +32,21 @@ export class PrService {
     const chosenOne = await this.prModel.findOne({ _id: contentId });
     return chosenOne.content;
   };
+
+  async loadPRTemplateCount(): Promise<number> {
+    try {
+      const prCount = await this.prModel.aggregate([
+        { $group: { _id: null, count: { $sum: 1 } } },
+      ]);
+
+      if (prCount.length > 0) {
+        return prCount[0].count;
+      } else {
+        return 0;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
