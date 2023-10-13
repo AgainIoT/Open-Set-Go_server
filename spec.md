@@ -275,7 +275,7 @@ false
   ],
   "contributingMd": "### contributing.md",
   "readmeMd": "### readme.md",
-  "license": "https://www.gnu.org/licenses/gpl-3.0.txt"
+  "license": "mit"
 }
 ```
 
@@ -348,9 +348,9 @@ OK
 
 ## File/license Module
 
-| Method | Request Path  | Request Body | Response Body                 | Description             |
-| ------ | ------------- | ------------ | ----------------------------- | ----------------------- |
-| GET    | /file/license |              | [Response Body](#filelicense) | get license information |
+| Method | Request Path  | Request Body      | Response Body                 | Description             |
+| ------ | ------------- | ----------------- | ----------------------------- | ----------------------- |
+| GET    | /file/license | only need cookies | [Response Body](#filelicense) | get license information |
 
 ### /file/license
 
@@ -359,61 +359,34 @@ OK
 ```json
 [
   {
-    "priority": 0,
-    "license": "Apache License 2.0",
-    "description": "A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.\n",
-    "conditions": {
-      "permissions": [
-        "Commercial use",
-        "Modification",
-        "Distribution",
-        "Patent use",
-        "Private use"
-      ],
-      "limitations": ["Trademark use", "Liability", "Warranty"],
-      "conditions": ["License and copyright notice", "State changes"]
-    },
-    "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+    "license": "apache-2.0",
+    "name": "Apache License 2.0",
+    "description": "A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "patent-use",
+      "private-use"
+    ],
+    "conditions": ["include-copyright", "document-changes"],
+    "limitations": ["trademark-use", "liability", "warranty"],
+    "featured": true
   },
   {
-    "priority": 1,
-    "license": "GNU GENERAL PUBLIC LICENSE v3.0",
-    "description": "Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.\n",
-    "conditions": {
-      "permissions": [
-        "Commercial use",
-        "Modification",
-        "Distribution",
-        "Patent use",
-        "Private use"
-      ],
-      "limitations": ["Liability", "Warranty"],
-      "conditions": [
-        "License and copyright notice",
-        "State changes",
-        "Disclose source",
-        "Same license"
-      ]
-    },
-    "url": "https://www.gnu.org/licenses/gpl-3.0.txt"
-  },
-  {
-    "priority": 2,
-    "license": "MIT License",
-    "description": "A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.\n",
-    "conditions": {
-      "permissions": [
-        "Commercial use",
-        "Modification",
-        "Distribution",
-        "Patent use",
-        "Private use"
-      ],
-      "limitations": ["Liability", "Warranty"],
-      "conditions": ["License and copyright notice"]
-    },
-    "url": "https://www.mit.edu/~amini/LICENSE.md"
-  }
+    "license": "mit",
+    "name": "MIT License",
+    "description": "A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "private-use"
+    ],
+    "conditions": ["include-copyright"],
+    "limitations": ["liability", "warranty"],
+    "featured": true
+  } // ... more than 5 licenses
 ]
 ```
 
