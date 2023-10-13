@@ -248,6 +248,7 @@ false
 | ------ | ------------------ | ------------------------------- | ---------------------------------- | ------------------------- |
 | POST   | /file              | cookies + [Request Body](#file) | Status will send(NOT FOUND or OK)  | upload file to repository |
 | GET    | /file/supportedEnv |                                 | [Response Body](#filesupportedenv) | give supportedEnv         |
+| GET    | /file/gitignore    |                                 | [Response Body](#filegitignore)    | give gitgignore list      |
 
 ### /file
 
@@ -312,6 +313,34 @@ OK
         "framework": "NestJS",
         "path": "/NestJS"
       }
+    ]
+  }
+]
+```
+
+### /file/gitignore
+
+#### Response Body
+
+```json
+[
+  {
+    "IDE": [
+      "VisualStudioCode",
+      "Eclipse",
+      "WebStrom+all",
+      "GoLand+all",
+      "Intellij+all",
+      "JetBrains+all"
+    ],
+    "OS": ["Linux", "macOS", "Windows"],
+    "ETC": [
+      "ElasticBeanstalk",
+      "SonarQube",
+      "OrCAD",
+      "Maven",
+      "MATLAB",
+      "JupyterNotebooks"
     ]
   }
 ]
