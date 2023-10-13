@@ -64,6 +64,7 @@ export class FilesController {
     // get License file to upload
     if (uploadFilesDto.license !== '') {
       const licenseFile = await this.licenseService.makeLicense(
+        user.accessToken,
         uploadFilesDto.license,
       );
       files.push(licenseFile);

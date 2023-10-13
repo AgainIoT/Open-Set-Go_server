@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { FilesController } from './file.controller';
 import { FilesService } from './file.service';
-import { HttpModule } from '@nestjs/axios';
 import { LicenseController } from './license/license.controller';
 import { LicenseService } from './license/license.service';
 import { PrModule } from './pr/pr.module';
@@ -13,7 +12,6 @@ import { ReadmeModule } from './readme/readme.module';
 
 @Module({
   imports: [
-    HttpModule,
     AuthModule,
     UserModule,
     PrModule,
