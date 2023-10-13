@@ -110,7 +110,7 @@ export class RepoService {
     const ownerPublicReposList =
       await octokit.rest.repos.listForAuthenticatedUser({
         visibility: 'public',
-        affiliation: 'organization_member',
+        affiliation: 'owner',
       });
 
     const orgPulicReposList = await octokit.rest.repos.listForAuthenticatedUser(

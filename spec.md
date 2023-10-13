@@ -476,7 +476,7 @@ PR?)
 | Method | Request Path     | Request | Response Body                 | Description                 |
 | ------ | ---------------- | ------- | ----------------------------- | --------------------------- |
 | GET    | /file/issue      |         | [Response Body](#fileissue)   | get issue templates         |
-| GET    | /file/issue\<id> |         | [Response Body](#fileissueid) | get issue templates content |
+| GET    | /file/issue/\<id> |         | [Response Body](#fileissueid) | get issue templates content |
 
 ### /file/issue
 
@@ -518,7 +518,7 @@ PR?)
 ]
 ```
 
-### /file/issue\<id>
+### /file/issue/\<id>
 
 #### Response Body
 
