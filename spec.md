@@ -271,7 +271,7 @@ false
       "type": "Feature_Request",
       "content": "test22"
     }
-  ], // empty array required now
+  ],
   "contributingMd": "### contributing.md",
   "readmeMd": "### readme.md",
   "license": "https://www.gnu.org/licenses/gpl-3.0.txt"
