@@ -20,6 +20,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { UserService } from 'src/user/user.service';
 import JwtAuthenticationGuard from 'src/auth/jwt/jwt-authentication.guard';
 import { UploadFilesDto } from './dto/uploadFiles.dto';
+import { GitignoreService } from './gitignore/gitignore.service';
 
 export type file = { path: string; content: string };
 @Controller('file')
@@ -33,6 +34,7 @@ export class FilesController {
     private readonly conributingService: ContributingService,
     private readonly authService: AuthService,
     private readonly userService: UserService,
+    private readonly gitignoreService: GitignoreService,
   ) {}
 
   @Post('')
@@ -64,6 +66,7 @@ export class FilesController {
     // get License file to upload
     if (uploadFilesDto.license !== '') {
       const licenseFile = await this.licenseService.makeLicense(
+        user.accessToken,
         uploadFilesDto.license,
       );
       files.push(licenseFile);
@@ -121,6 +124,16 @@ export class FilesController {
     try {
       const envTemplate = await this.filesService.getEnvTemplate();
       res.status(200).json(envTemplate);
+    } catch (error) {
+      res.sendStatus(500);
+    }
+  }
+
+  @Get('gitignore')
+  async getGitignore(@Res() res: Response) {
+    try {
+      const gitginore = await this.gitignoreService.getGitignore();
+      res.status(200).json(gitginore);
     } catch (error) {
       res.sendStatus(500);
     }

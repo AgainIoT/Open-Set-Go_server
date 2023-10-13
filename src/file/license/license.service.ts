@@ -1,51 +1,56 @@
 import { Injectable } from '@nestjs/common';
-import { join } from 'path';
-import { load } from 'js-yaml';
-import { readFileSync } from 'fs';
-import * as fs from 'fs/promises';
 import { file } from '../file.service';
-import axios from 'axios';
+import { Octokit } from '@octokit/rest';
 
 @Injectable()
 export class LicenseService {
-  // read file list from yml files
-  async readLicenseFile(filePath: string): Promise<any> {
-    try {
-      const fileContent = readFileSync(filePath, 'utf-8');
-      return load(fileContent);
-    } catch (error) {
-      console.error('Error reading license file:', error);
-      return null;
+  async getLicense(githubAccessToken: string): Promise<licenseType[]> {
+    const octokit = new Octokit({ auth: githubAccessToken });
+    const licenses = await octokit.licenses.getAllCommonlyUsed();
+
+    const parsedLicense: licenseType[] = [];
+    for await (const license of licenses.data) {
+      const licenseDetails = await octokit.licenses.get({
+        license: license.key,
+      });
+      parsedLicense.push({
+        license: license.key,
+        name: licenseDetails.data.name,
+        description: licenseDetails.data.description,
+        permissions: licenseDetails.data.permissions,
+        conditions: licenseDetails.data.conditions,
+        limitations: licenseDetails.data.limitations,
+        featured: licenseDetails.data.featured,
+      });
     }
+
+    parsedLicense.sort((elem1, elem2) => {
+      return elem1.featured > elem2.featured ? -1 : 1;
+    });
+
+    return parsedLicense;
   }
 
-  // read licenseTemplate dir & parse data to return
-  async getLicense(): Promise<string> {
-    try {
-      const licensePath = join(__dirname, 'licenseTemplate');
-
-      const files = await fs.readdir(licensePath);
-      const licenseList = [];
-
-      for (const file of files) {
-        const LicenseData = await this.readLicenseFile(join(licensePath, file));
-        licenseList.push(LicenseData);
-      }
-
-      return JSON.stringify(licenseList);
-    } catch (error) {
-      console.error('Error fetching license:', error);
-      throw error;
-    }
-  }
-
-  // get data from license url & parse data to file type and return
-  makeLicense = async (license: string): Promise<file> => {
-    const content = await axios.get(license);
+  makeLicense = async (
+    githubAccessToken: string,
+    license: string,
+  ): Promise<file> => {
+    const octokit = new Octokit({ auth: githubAccessToken });
+    const content = await octokit.licenses.get({ license });
 
     return {
       path: 'LICENSE',
-      content: content.data,
+      content: content.data.body,
     };
   };
 }
+
+type licenseType = {
+  license: string;
+  name: string;
+  description: string;
+  permissions: string[];
+  conditions: string[];
+  limitations: string[];
+  featured: boolean;
+};
