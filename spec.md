@@ -345,26 +345,6 @@ OK
     "featured": true
   },
   {
-    "license": "gpl-3.0",
-    "name": "GNU General Public License v3.0",
-    "description": "Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.",
-    "permissions": [
-      "commercial-use",
-      "modifications",
-      "distribution",
-      "patent-use",
-      "private-use"
-    ],
-    "conditions": [
-      "include-copyright",
-      "document-changes",
-      "disclose-source",
-      "same-license"
-    ],
-    "limitations": ["liability", "warranty"],
-    "featured": true
-  },
-  {
     "license": "mit",
     "name": "MIT License",
     "description": "A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
@@ -377,28 +357,7 @@ OK
     "conditions": ["include-copyright"],
     "limitations": ["liability", "warranty"],
     "featured": true
-  },
-  {
-    "license": "agpl-3.0",
-    "name": "GNU Affero General Public License v3.0",
-    "description": "Permissions of this strongest copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. When a modified version is used to provide a service over a network, the complete source code of the modified version must be made available.",
-    "permissions": [
-      "commercial-use",
-      "modifications",
-      "distribution",
-      "patent-use",
-      "private-use"
-    ],
-    "conditions": [
-      "include-copyright",
-      "document-changes",
-      "disclose-source",
-      "network-use-disclose",
-      "same-license"
-    ],
-    "limitations": ["liability", "warranty"],
-    "featured": false
-  }
+  } // ... more than 5 licenses
 ]
 ```
 
