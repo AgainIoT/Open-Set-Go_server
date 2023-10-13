@@ -7,13 +7,15 @@ export class LicenseService {
   async getLicense(githubAccessToken: string): Promise<licenseType[]> {
     const octokit = new Octokit({ auth: githubAccessToken });
     const licenses = await octokit.licenses.getAllCommonlyUsed();
-
     const parsedLicense: licenseType[] = [];
-    for await (const license of licenses.data) {
+
+    const concurrentRequests = 8;
+
+    const licenseRequests = licenses.data.map(async (license) => {
       const licenseDetails = await octokit.licenses.get({
         license: license.key,
       });
-      parsedLicense.push({
+      return {
         license: license.key,
         name: licenseDetails.data.name,
         description: licenseDetails.data.description,
@@ -21,7 +23,14 @@ export class LicenseService {
         conditions: licenseDetails.data.conditions,
         limitations: licenseDetails.data.limitations,
         featured: licenseDetails.data.featured,
-      });
+      };
+    });
+
+    for (let i = 0; i < licenseRequests.length; i += concurrentRequests) {
+      const requestBatch = licenseRequests.slice(i, i + concurrentRequests);
+      const batchResults = await Promise.all(requestBatch);
+
+      parsedLicense.push(...batchResults);
     }
 
     parsedLicense.sort((elem1, elem2) => {
