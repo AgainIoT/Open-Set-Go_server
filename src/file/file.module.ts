@@ -10,6 +10,12 @@ import { UserModule } from 'src/user/user.module';
 import { IssueModule } from './issue/issue.module';
 import { ContributingModule } from './contributing/contributing.module';
 import { ReadmeModule } from './readme/readme.module';
+import { GitignoreService } from './gitignore/gitignore.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import {
+  Gitignore,
+  GitignoreSchema,
+} from './gitignore/schemas/gitignore.schema';
 
 @Module({
   imports: [
@@ -20,8 +26,11 @@ import { ReadmeModule } from './readme/readme.module';
     IssueModule,
     ContributingModule,
     ReadmeModule,
+    MongooseModule.forFeature([
+      { name: Gitignore.name, schema: GitignoreSchema },
+    ]),
   ],
   controllers: [FilesController, LicenseController],
-  providers: [FilesService, LicenseService],
+  providers: [FilesService, LicenseService, GitignoreService],
 })
 export class FilesModule {}
