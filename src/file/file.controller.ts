@@ -77,20 +77,12 @@ export class FilesController {
       files.push(prTemplate);
     }
 
-    /* this service has some problem with converting yml to html...
-     * so, IssueTemplate Service stop offering for a while.
-     *
-     * if (uploadFilesDto.IssueTemplate !== undefined) {
-     *   const is = await this.issueService.makeIssueTemplate(
-     *     uploadFilesDto.IssueTemplate,
-     *   );
-     *   files.push(...is);
-     * }
-     */
-
-    // get default issue template to upload
-    const issueTemplate = await this.issueService.makeDefaultIssueTemplate();
-    files.push(...issueTemplate);
+    if (uploadFilesDto.IssueTemplate !== undefined) {
+      const issueTemplate = await this.issueService.makeIssueTemplate(
+        uploadFilesDto.IssueTemplate,
+      );
+      files.push(...issueTemplate);
+    }
 
     // convert CONTRIBUITNG.md content to file type
     if (uploadFilesDto.contributingMd !== '') {
