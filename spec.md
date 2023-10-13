@@ -257,12 +257,21 @@ false
 // case 1 [200]
 {
   "owner": "ymw0407",
-  "repoName": "test",
+  "repoName": "testasdfasdf",
   "language": "JavaScript(Node.js)",
   "framework": "Express.js",
   "gitignore": ["VisualStudioCode", "Linux"],
   "PRTemplate": "### markdown",
-  "IssueTemplate": [], // empty array required now
+  "IssueTemplate": [
+    {
+      "type": "Bug_Report",
+      "content": "test"
+    },
+    {
+      "type": "Feature_Request",
+      "content": "test22"
+    }
+  ],
   "contributingMd": "### contributing.md",
   "readmeMd": "### readme.md",
   "license": "https://www.gnu.org/licenses/gpl-3.0.txt"
@@ -381,42 +390,53 @@ OK
 
 ## File/pr Module
 
-| Method | Request Path    | Request                  | Response Body                  | Description                 |
-| ------ | --------------- | ------------------------ | ------------------------------ | --------------------------- |
-| GET    | /file/pr        | [Request Query](#filepr) | [Response Body](#filepr)       | get prs information         |
-| GET    | /file/pr/\<id>  |                          | [Response Body](#fileprid)     | get prs information only id |
-| GET    | /file/pr/amount |                          | [Response Body](#filepramount) | get pr temlates amount      |
+| Method | Request Path    | Request Body            | Response Body                  | Description                |
+| ------ | --------------- | ----------------------- | ------------------------------ | -------------------------- |
+| POST   | /file/pr        | [Request Body](#filepr) | [Response Body](#filepr)       | get prs information        |
+| GET    | /file/pr/\<id>  |                         | [Response Body](#fileprid)     | get pr information only id |
+| GET    | /file/pr/amount |                         | [Response Body](#filepramount) | get pr temlates amount     |
 
 ### /file/pr
 
-#### Request Query
+#### Request Body
 
 ```json
-// case 1 - page=1, amount=3 -> 6 ~ 8 [200]
-"http://localhost:8080/file/pr?page=1&amount=3"
-
-// case 2 - page=1 -> amount will be 20 -> 0 ~ 19 [200]
-"http://localhost:8080/file/pr?page=1"
+{
+  "page": 0 /* 0 ~ 3 ex) 25 -> 25 ~ 28*/,
+  "amount": 4 /* default is 20, the number of pr template */
+}
 ```
 
 #### Response Body
 
 ```json
-// case 1 - page=2, amount=3 -> 6 ~ 8 [200]
 [
   {
-    "_id": "6528807b22ee43f98993b51b",
-    "title": "pull-request template for Framework",
-    "repoName": "nestjs/nest",
-    "star": 60270,
-    "license": "MIT License"
+    "_id": "64f175c218eed0c9b21a2f2e",
+    "repoName": "AgainIoT/Open-Set-Go",
+    "repoUrl": "https://github.com/AgainIoT/Open-Set-Go",
+    "star": 26
   },
   {
-    "_id": "65287ba022ee43f98993b51a",
-    "title": "pull-request template for web service",
-    "repoName": "AgainIoT/Open-Set-Go",
-    "star": 27,
-    "license": "Apache License 2.0"
+    "_id": "64f2fedb2a1079c11a9a646e",
+    "title": "simple-preset",
+    "repoName": "michaelkolesidis/javascript-software-synthesizer",
+    "repoUrl": "https://github.com/michaelkolesidis/javascript-software-synthesizer",
+    "star": 20
+  },
+  {
+    "_id": "64f324482a1079c11a9a6470",
+    "title": "detail-preset",
+    "repoName": "OpenRoberta/openroberta-lab",
+    "repoUrl": "https://github.com/OpenRoberta/openroberta-lab",
+    "star": 100000
+  },
+  {
+    "_id": "64f326072a1079c11a9a6471",
+    "title": "comment-preset",
+    "repoName": "inversify/InversifyJS",
+    "repoUrl": "https://github.com/inversify/InversifyJS",
+    "star": 100012
   }
 ]
 ```
@@ -448,12 +468,136 @@ PR?)
 #### Response Body
 
 ```json
-{
-  "amount": 2
-}
+80
 ```
 
 ## File/issue Module
+
+| Method | Request Path      | Request | Response Body                 | Description                 |
+| ------ | ----------------- | ------- | ----------------------------- | --------------------------- |
+| GET    | /file/issue       |         | [Response Body](#fileissue)   | get issue templates         |
+| GET    | /file/issue/\<id> |         | [Response Body](#fileissueid) | get issue templates content |
+
+### /file/issue
+
+#### Response Body
+
+```json
+[
+  {
+    "type": "Bug_Report",
+    "templates": [
+      {
+        "id": "64ec8e19ad1cef842264f78c",
+        "title": "Bug Report for Web Service"
+      },
+      {
+        "id": "652893f822ee43f98993b51f",
+        "title": "Bug Report for Web Service2"
+      }
+    ]
+  },
+  {
+    "type": "Feature_Request",
+    "templates": [
+      {
+        "id": "6528934c22ee43f98993b51d",
+        "title": "Feature Request for Web Service"
+      }
+    ]
+  },
+  {
+    "type": "Documentation_Issue",
+    "templates": [
+      {
+        "id": "6528938422ee43f98993b51e",
+        "title": "Documentation Issue for Web Service"
+      }
+    ]
+  }
+]
+```
+
+### /file/issue/\<id>
+
+#### Response Body
+
+```plain
+body:
+- type: dropdown
+id: browsers
+attributes:
+label: "Browsers"
+description: What browsers are you seeing the problem on?
+multiple: true
+options:
+- Firefox
+- Chrome
+- Safari
+- Microsoft Edge
+- Opera
+validations:
+required: true
+
+- type: dropdown
+id: os
+attributes:
+label: "OS"
+description: What is the impacted environment?
+multiple: true
+options:
+- Windows
+- Linux
+- Mac
+validations:
+required: true
+
+- type: textarea
+id: description
+attributes:
+label: "Description"
+description: Enter an explicit description of your issue and explain the bug briefly and clearly.
+validations:
+required: true
+
+- type: input
+id: reprod-url
+attributes:
+label: "Reproduction URL"
+description: Add a URL related to the bug.
+placeholder: ex) https://github.com/USERNAME/REPO-NAME
+validations:
+required: true
+
+- type: textarea
+id: reprod-steps
+attributes:
+label: "Reproduction Steps"
+description: Explain your issue step by step.
+render: bash
+validations:
+required: true
+
+- type: textarea
+id: solution
+attributes:
+label: "Solutions"
+description: If you have a solution, please share it.
+render: bash
+validations:
+required: false
+
+- type: textarea
+id: screenshot
+attributes:
+label: "Screenshots"
+description: Add screenshots to help explain your problem.
+value: |
+![DESCRIPTION](LINK.png)
+render: bash
+validations:
+required: false
+```
 
 ## File/contributing Module
 

@@ -25,7 +25,10 @@ export class UploadFilesDto {
   PRTemplate: string;
 
   @IsArray()
-  IssueTemplate: string[];
+  IssueTemplate: {
+    type: string;
+    content: string;
+  }[];
 
   @IsString()
   contributingMd: string;
