@@ -1,27 +1,23 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type ReadmeDoc = HydratedDocument<Readme>;
+export type GenerateReadmeMdDoc = HydratedDocument<GenerateReadmeMd>;
 @Schema({ timestamps: true, _id: true })
-export class Readme {
+export class GenerateReadmeMd {
   @Prop({
     required: true,
   })
-  repoName: string;
+  index: number;
+
+  @Prop({
+    required: true,
+  })
+  type: string;
 
   @Prop({
     required: true,
   })
   content: string;
-
-  @Prop({
-    required: true,
-  })
-  star: number;
-
-  @Prop({
-    required: true,
-  })
-  license: string;
 }
-export const ReadmeSchema = SchemaFactory.createForClass(Readme);
+export const GenerateReadmeMdSchema =
+  SchemaFactory.createForClass(GenerateReadmeMd);
