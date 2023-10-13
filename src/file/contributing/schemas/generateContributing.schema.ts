@@ -1,9 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type IssueTemplateDoc = HydratedDocument<IssueTemplate>;
+export type GenerateContributingMdDoc =
+  HydratedDocument<GenerateContributingMd>;
+
 @Schema({ timestamps: true, _id: true })
-export class IssueTemplate {
+export class GenerateContributingMd {
+  @Prop({
+    required: true,
+  })
+  index: number;
+
   @Prop({
     required: true,
   })
@@ -12,11 +19,8 @@ export class IssueTemplate {
   @Prop({
     required: true,
   })
-  title: string;
-
-  @Prop({
-    required: true,
-  })
   content: string;
 }
-export const IssueTemplateSchema = SchemaFactory.createForClass(IssueTemplate);
+export const GenerateContributingMdSchema = SchemaFactory.createForClass(
+  GenerateContributingMd,
+);
