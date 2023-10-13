@@ -20,8 +20,13 @@ export class LicenseService {
         permissions: licenseDetails.data.permissions,
         conditions: licenseDetails.data.conditions,
         limitations: licenseDetails.data.limitations,
+        featured: licenseDetails.data.featured,
       });
     }
+
+    parsedLicense.sort((elem1, elem2) => {
+      return elem1.featured > elem2.featured ? -1 : 1;
+    });
 
     return parsedLicense;
   }
@@ -47,4 +52,5 @@ type licenseType = {
   permissions: string[];
   conditions: string[];
   limitations: string[];
+  featured: boolean;
 };

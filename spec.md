@@ -329,149 +329,147 @@ OK
 
 ```json
 [
-  [
-    {
-      "license": "agpl-3.0",
-      "name": "GNU Affero General Public License v3.0",
-      "description": "Permissions of this strongest copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. When a modified version is used to provide a service over a network, the complete source code of the modified version must be made available.",
-      "permissions": [
-        "commercial-use",
-        "modifications",
-        "distribution",
-        "patent-use",
-        "private-use"
-      ],
-      "conditions": [
-        "include-copyright",
-        "document-changes",
-        "disclose-source",
-        "network-use-disclose",
-        "same-license"
-      ],
-      "limitations": ["liability", "warranty"]
-    },
-    {
-      "license": "apache-2.0",
-      "name": "Apache License 2.0",
-      "description": "A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
-      "permissions": [
-        "commercial-use",
-        "modifications",
-        "distribution",
-        "patent-use",
-        "private-use"
-      ],
-      "conditions": ["include-copyright", "document-changes"],
-      "limitations": ["trademark-use", "liability", "warranty"]
-    },
-    {
-      "license": "bsd-2-clause",
-      "name": "BSD 2-Clause \"Simplified\" License",
-      "description": "A permissive license that comes in two variants, the <a href=\"/licenses/bsd-2-clause/\">BSD 2-Clause</a> and <a href=\"/licenses/bsd-3-clause/\">BSD 3-Clause</a>. Both have very minute differences to the MIT license.",
-      "permissions": [
-        "commercial-use",
-        "modifications",
-        "distribution",
-        "private-use"
-      ],
-      "conditions": ["include-copyright"],
-      "limitations": ["liability", "warranty"]
-    },
-    {
-      "license": "bsd-3-clause",
-      "name": "BSD 3-Clause \"New\" or \"Revised\" License",
-      "description": "A permissive license similar to the <a href=\"/licenses/bsd-2-clause/\">BSD 2-Clause License</a>, but with a 3rd clause that prohibits others from using the name of the copyright holder or its contributors to promote derived products without written consent.",
-      "permissions": [
-        "commercial-use",
-        "modifications",
-        "distribution",
-        "private-use"
-      ],
-      "conditions": ["include-copyright"],
-      "limitations": ["liability", "warranty"]
-    },
-    {
-      "license": "gpl-3.0",
-      "name": "GNU General Public License v3.0",
-      "description": "Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.",
-      "permissions": [
-        "commercial-use",
-        "modifications",
-        "distribution",
-        "patent-use",
-        "private-use"
-      ],
-      "conditions": [
-        "include-copyright",
-        "document-changes",
-        "disclose-source",
-        "same-license"
-      ],
-      "limitations": ["liability", "warranty"]
-    },
-    {
-      "license": "lgpl-2.1",
-      "name": "GNU Lesser General Public License v2.1",
-      "description": "Primarily used for software libraries, the GNU LGPL requires that derived works be licensed under the same license, but works that only link to it do not fall under this restriction. There are two commonly used versions of the GNU LGPL.",
-      "permissions": [
-        "commercial-use",
-        "modifications",
-        "distribution",
-        "private-use"
-      ],
-      "conditions": [
-        "include-copyright",
-        "disclose-source",
-        "document-changes",
-        "same-license--library"
-      ],
-      "limitations": ["liability", "warranty"]
-    },
-    {
-      "license": "mit",
-      "name": "MIT License",
-      "description": "A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
-      "permissions": [
-        "commercial-use",
-        "modifications",
-        "distribution",
-        "private-use"
-      ],
-      "conditions": ["include-copyright"],
-      "limitations": ["liability", "warranty"]
-    },
-    {
-      "license": "mpl-2.0",
-      "name": "Mozilla Public License 2.0",
-      "description": "Permissions of this weak copyleft license are conditioned on making available source code of licensed files and modifications of those files under the same license (or in certain cases, one of the GNU licenses). Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work may be distributed under different terms and without source code for files added in the larger work.",
-      "permissions": [
-        "commercial-use",
-        "modifications",
-        "distribution",
-        "patent-use",
-        "private-use"
-      ],
-      "conditions": [
-        "disclose-source",
-        "include-copyright",
-        "same-license--file"
-      ],
-      "limitations": ["liability", "trademark-use", "warranty"]
-    },
-    {
-      "license": "unlicense",
-      "name": "The Unlicense",
-      "description": "A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.",
-      "permissions": [
-        "private-use",
-        "commercial-use",
-        "modifications",
-        "distribution"
-      ],
-      "conditions": [],
-      "limitations": ["liability", "warranty"]
-    }
-  ]
+  {
+    "license": "agpl-3.0",
+    "name": "GNU Affero General Public License v3.0",
+    "description": "Permissions of this strongest copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. When a modified version is used to provide a service over a network, the complete source code of the modified version must be made available.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "patent-use",
+      "private-use"
+    ],
+    "conditions": [
+      "include-copyright",
+      "document-changes",
+      "disclose-source",
+      "network-use-disclose",
+      "same-license"
+    ],
+    "limitations": ["liability", "warranty"]
+  },
+  {
+    "license": "apache-2.0",
+    "name": "Apache License 2.0",
+    "description": "A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "patent-use",
+      "private-use"
+    ],
+    "conditions": ["include-copyright", "document-changes"],
+    "limitations": ["trademark-use", "liability", "warranty"]
+  },
+  {
+    "license": "bsd-2-clause",
+    "name": "BSD 2-Clause \"Simplified\" License",
+    "description": "A permissive license that comes in two variants, the <a href=\"/licenses/bsd-2-clause/\">BSD 2-Clause</a> and <a href=\"/licenses/bsd-3-clause/\">BSD 3-Clause</a>. Both have very minute differences to the MIT license.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "private-use"
+    ],
+    "conditions": ["include-copyright"],
+    "limitations": ["liability", "warranty"]
+  },
+  {
+    "license": "bsd-3-clause",
+    "name": "BSD 3-Clause \"New\" or \"Revised\" License",
+    "description": "A permissive license similar to the <a href=\"/licenses/bsd-2-clause/\">BSD 2-Clause License</a>, but with a 3rd clause that prohibits others from using the name of the copyright holder or its contributors to promote derived products without written consent.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "private-use"
+    ],
+    "conditions": ["include-copyright"],
+    "limitations": ["liability", "warranty"]
+  },
+  {
+    "license": "gpl-3.0",
+    "name": "GNU General Public License v3.0",
+    "description": "Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "patent-use",
+      "private-use"
+    ],
+    "conditions": [
+      "include-copyright",
+      "document-changes",
+      "disclose-source",
+      "same-license"
+    ],
+    "limitations": ["liability", "warranty"]
+  },
+  {
+    "license": "lgpl-2.1",
+    "name": "GNU Lesser General Public License v2.1",
+    "description": "Primarily used for software libraries, the GNU LGPL requires that derived works be licensed under the same license, but works that only link to it do not fall under this restriction. There are two commonly used versions of the GNU LGPL.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "private-use"
+    ],
+    "conditions": [
+      "include-copyright",
+      "disclose-source",
+      "document-changes",
+      "same-license--library"
+    ],
+    "limitations": ["liability", "warranty"]
+  },
+  {
+    "license": "mit",
+    "name": "MIT License",
+    "description": "A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "private-use"
+    ],
+    "conditions": ["include-copyright"],
+    "limitations": ["liability", "warranty"]
+  },
+  {
+    "license": "mpl-2.0",
+    "name": "Mozilla Public License 2.0",
+    "description": "Permissions of this weak copyleft license are conditioned on making available source code of licensed files and modifications of those files under the same license (or in certain cases, one of the GNU licenses). Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work may be distributed under different terms and without source code for files added in the larger work.",
+    "permissions": [
+      "commercial-use",
+      "modifications",
+      "distribution",
+      "patent-use",
+      "private-use"
+    ],
+    "conditions": [
+      "disclose-source",
+      "include-copyright",
+      "same-license--file"
+    ],
+    "limitations": ["liability", "trademark-use", "warranty"]
+  },
+  {
+    "license": "unlicense",
+    "name": "The Unlicense",
+    "description": "A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.",
+    "permissions": [
+      "private-use",
+      "commercial-use",
+      "modifications",
+      "distribution"
+    ],
+    "conditions": [],
+    "limitations": ["liability", "warranty"]
+  }
 ]
 ```
 
