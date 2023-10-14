@@ -392,21 +392,22 @@ OK
 
 ## File/pr Module
 
-| Method | Request Path    | Request Body            | Response Body                  | Description                |
-| ------ | --------------- | ----------------------- | ------------------------------ | -------------------------- |
-| POST   | /file/pr        | [Request Body](#filepr) | [Response Body](#filepr)       | get prs information        |
-| GET    | /file/pr/\<id>  |                         | [Response Body](#fileprid)     | get pr information only id |
-| GET    | /file/pr/amount |                         | [Response Body](#filepramount) | get pr temlates amount     |
+| Method | Request Path    | Request Body             | Response Body                  | Description                |
+| ------ | --------------- | ------------------------ | ------------------------------ | -------------------------- |
+| GET    | /file/pr        | [Request Query](#filepr) | [Response Body](#filepr)       | get prs information        |
+| GET    | /file/pr/\<id>  |                          | [Response Body](#fileprid)     | get pr information only id |
+| GET    | /file/pr/amount |                          | [Response Body](#filepramount) | get pr temlates amount     |
 
 ### /file/pr
 
-#### Request Body
+#### Request Query
 
 ```json
-{
-  "page": 0 /* 0 ~ 3 ex) 25 -> 25 ~ 28*/,
-  "amount": 4 /* default is 20, the number of pr template */
-}
+// case 1 - page=2, amount=3 -> 6 ~ 8 [200]
+"http://localhost:8080/file/pr?page=2&amount=3"
+
+// case 2 - page=1 -> amount will be 20 -> 0 ~ 19 [200]
+"http://localhost:8080/file/pr?page=1"
 ```
 
 #### Response Body
