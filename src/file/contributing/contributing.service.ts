@@ -43,7 +43,7 @@ export class ContributingService {
       .findOne({ _id: id }, { content: true })
       .exec();
 
-    return contributingMd;
+    return contributingMd.content;
   };
 
   loadGenerateContributingMds = async (data: GetGenerateContributingMdDto) => {
