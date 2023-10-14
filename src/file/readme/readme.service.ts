@@ -42,7 +42,7 @@ export class ReadmeService {
       { content: true },
     ).exec();
 
-    return readmeMd;
+    return readmeMd.content;
   };
 
   loadGenerateReadmeMds = async (data: GetGenerateReadmeMdDto) => {
