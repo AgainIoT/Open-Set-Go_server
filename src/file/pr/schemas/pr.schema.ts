@@ -18,17 +18,27 @@ export class Pr {
   @Prop({
     required: true,
   })
-  content: string;
-
-  @Prop({
-    required: true,
-  })
   star: number;
 
   @Prop({
     required: true,
   })
   license: string;
+
+  @Prop({
+    required: true,
+  })
+  author: string;
+
+  @Prop({
+    required: true,
+  })
+  year: string;
+
+  @Prop({
+    required: true,
+  })
+  content: string;
 }
 
 export const PrSchema = SchemaFactory.createForClass(Pr);

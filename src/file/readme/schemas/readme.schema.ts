@@ -12,16 +12,26 @@ export class Readme {
   @Prop({
     required: true,
   })
-  content: string;
-
-  @Prop({
-    required: true,
-  })
   star: number;
 
   @Prop({
     required: true,
   })
   license: string;
+
+  @Prop({
+    required: true,
+  })
+  author: string;
+
+  @Prop({
+    required: true,
+  })
+  year: string;
+
+  @Prop({
+    required: true,
+  })
+  content: string;
 }
 export const ReadmeSchema = SchemaFactory.createForClass(Readme);
