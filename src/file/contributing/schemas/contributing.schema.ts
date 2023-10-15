@@ -13,17 +13,27 @@ export class Contributing {
   @Prop({
     required: true,
   })
-  content: string;
-
-  @Prop({
-    required: true,
-  })
   star: number;
 
   @Prop({
     required: true,
   })
   license: string;
+
+  @Prop({
+    required: true,
+  })
+  author: string;
+
+  @Prop({
+    required: true,
+  })
+  year: string;
+
+  @Prop({
+    required: true,
+  })
+  content: string;
 }
 
 export const ContributingShema = SchemaFactory.createForClass(Contributing);

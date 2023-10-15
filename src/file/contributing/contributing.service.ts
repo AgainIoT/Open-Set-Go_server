@@ -24,7 +24,7 @@ export class ContributingService {
   loadContributingMds = async (page: number, amount: number = 20) => {
     const startAt = (page - 1) * amount;
     const contributingMd = await this.contributingModel
-      .find({}, { content: false })
+      .find({}, { content: false, author: false, year: false })
       .sort({ star: -1 }) // sorting with repo's star
       .skip(startAt)
       .limit(amount)
@@ -40,10 +40,27 @@ export class ContributingService {
 
   loadContributingMdContent = async (id: string) => {
     const contributingMd = await this.contributingModel
-      .findOne({ _id: id }, { content: true })
+      .findOne(
+        { _id: id },
+        {
+          content: true,
+          license: true,
+          author: true,
+          year: true,
+          repoName: true,
+        },
+      )
       .exec();
 
-    return contributingMd.content;
+    const content = `<!--
+SPDX-FileCopyrightText: ©${contributingMd.year} ${contributingMd.author} https://github.com/${contributingMd.repoName}
+SPDX-License-Identifier: ${contributingMd.license}
+-->
+
+${contributingMd.content}
+`;
+
+    return content;
   };
 
   loadGenerateContributingMds = async (data: GetGenerateContributingMdDto) => {
