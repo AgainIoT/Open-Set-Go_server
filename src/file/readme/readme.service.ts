@@ -22,7 +22,10 @@ export class ReadmeService {
 
   loadReadmeMds = async (page: number, amount: number = 20) => {
     const startAt = (page - 1) * amount;
-    const readmeMd = await this.ReadmeModel.find({}, { content: false })
+    const readmeMd = await this.ReadmeModel.find(
+      {},
+      { content: false, author: false, year: false },
+    )
       .sort({ star: -1 }) // sorting with repo's star
       .skip(startAt)
       .limit(amount)
@@ -39,10 +42,24 @@ export class ReadmeService {
   loadReadmeMdContent = async (id: string) => {
     const readmeMd = await this.ReadmeModel.findOne(
       { _id: id },
-      { content: true },
+      {
+        content: true,
+        license: true,
+        author: true,
+        year: true,
+        repoName: true,
+      },
     ).exec();
 
-    return readmeMd.content;
+    const content = `<!--
+SPDX-FileCopyrightText: ©${readmeMd.year} ${readmeMd.author} https://github.com/${readmeMd.repoName}
+SPDX-License-Identifier: ${readmeMd.license}
+-->
+
+${readmeMd.content}
+`;
+
+    return content;
   };
 
   loadGenerateReadmeMds = async (data: GetGenerateReadmeMdDto) => {

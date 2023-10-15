@@ -18,7 +18,7 @@ export class PrService {
   loadPRTemplates = async (page: number, amount: number = 20) => {
     const startAt = (page - 1) * amount;
     const prTemplates = await this.prModel
-      .find({}, { content: false })
+      .find({}, { content: false, author: false, year: false })
       .sort({ star: -1 }) // sorting with repo's star
       .skip(startAt)
       .limit(amount)
@@ -28,11 +28,28 @@ export class PrService {
   };
 
   loadPRTemplateContent = async (id: string) => {
-    const chosenOne = await this.prModel
-      .findOne({ _id: id }, { content: true })
+    const prTemplate = await this.prModel
+      .findOne(
+        { _id: id },
+        {
+          content: true,
+          license: true,
+          author: true,
+          year: true,
+          repoName: true,
+        },
+      )
       .exec();
 
-    return chosenOne.content;
+    const content = `<!--
+SPDX-FileCopyrightText: ©${prTemplate.year} ${prTemplate.author} https://github.com/${prTemplate.repoName}
+SPDX-License-Identifier: ${prTemplate.license}
+-->
+
+${prTemplate.content}
+`;
+
+    return content;
   };
 
   async loadPRTemplateCount(): Promise<number> {
