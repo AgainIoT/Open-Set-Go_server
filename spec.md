@@ -78,7 +78,7 @@
 | POST   | /repo                  | cookies + [Request Body](#repo)                 | [Response Body](#repo)                 | creating repository with description          |
 | POST   | /repo/checkDuplication | cookies + [Request Body](#repocheckduplication) | [Response Body](#repocheckduplication) | check repository is duplicate                 |
 | GET    | /repo/getPulbicRepo    | only need cookies                               | [Response Body](#repogetpublicrepo)    | get public repository that granted            |
-| POST    | /repo/getRepoDetails   | cookies + [Request Body](#repogetrepodetails)   | [Response Body](#repogetrepodetails)   | get detail information of specific repository |
+| POST   | /repo/getRepoDetails   | cookies + [Request Body](#repogetrepodetails)   | [Response Body](#repogetrepodetails)   | get detail information of specific repository |
 
 ### /repo
 
