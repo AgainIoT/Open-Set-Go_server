@@ -109,13 +109,18 @@ export class FilesController {
       );
     }
 
-    // upload all files with Octokit at selected repository
-    const result: number = await this.filesService.uploadFiles(
-      user.accessToken,
-      uploadFilesDto.owner,
-      uploadFilesDto.repoName,
-      files,
-    );
+    let result: number = 200;
+
+    if (files.length !== 0) {
+      // upload all files with Octokit at selected repository
+      result = await this.filesService.uploadFiles(
+        user.accessToken,
+        uploadFilesDto.owner,
+        uploadFilesDto.repoName,
+        files,
+      );
+    }
+
     res.sendStatus(result);
   }
 
