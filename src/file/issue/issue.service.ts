@@ -28,7 +28,7 @@ export class IssueService {
 
   loadIssueTemplates = async () => {
     const issueTemplates = await this.issueModel
-      .find({}, { content: false })
+      .find({}, { content: false, image: false })
       .exec();
 
     const formattedTemplates: issueTemplateType[] = [];
@@ -57,10 +57,10 @@ export class IssueService {
   loadIssueTemplateContent = async (id: string) => {
     const chosenOne = await this.issueModel.findOne(
       { _id: id },
-      { content: true },
+      { content: true, image: true, _id: false },
     );
 
-    return chosenOne.content;
+    return chosenOne;
   };
 }
 
