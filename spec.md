@@ -525,81 +525,11 @@ PR?)
 
 #### Response Body
 
-```plain
-body:
-- type: dropdown
-id: browsers
-attributes:
-label: "Browsers"
-description: What browsers are you seeing the problem on?
-multiple: true
-options:
-- Firefox
-- Chrome
-- Safari
-- Microsoft Edge
-- Opera
-validations:
-required: true
-
-- type: dropdown
-id: os
-attributes:
-label: "OS"
-description: What is the impacted environment?
-multiple: true
-options:
-- Windows
-- Linux
-- Mac
-validations:
-required: true
-
-- type: textarea
-id: description
-attributes:
-label: "Description"
-description: Enter an explicit description of your issue and explain the bug briefly and clearly.
-validations:
-required: true
-
-- type: input
-id: reprod-url
-attributes:
-label: "Reproduction URL"
-description: Add a URL related to the bug.
-placeholder: ex) https://github.com/USERNAME/REPO-NAME
-validations:
-required: true
-
-- type: textarea
-id: reprod-steps
-attributes:
-label: "Reproduction Steps"
-description: Explain your issue step by step.
-render: bash
-validations:
-required: true
-
-- type: textarea
-id: solution
-attributes:
-label: "Solutions"
-description: If you have a solution, please share it.
-render: bash
-validations:
-required: false
-
-- type: textarea
-id: screenshot
-attributes:
-label: "Screenshots"
-description: Add screenshots to help explain your problem.
-value: |
-![DESCRIPTION](LINK.png)
-render: bash
-validations:
-required: false
+```json
+{
+  "content": "body:\n  - type: dropdown\n    id: browsers\n    attributes:\n      label: \"Browsers\"\n      description: What browsers are you seeing the problem on?\n      multiple: true\n      options:\n        - Firefox\n        - Chrome\n        - Safari\n        - Microsoft Edge\n        - Opera\n    validations:\n      required: true\n\n  - type: dropdown\n    id: os\n    attributes:\n      label: \"OS\"\n      description: What is the impacted environment?\n      multiple: true\n      options:\n        - Windows\n        - Linux\n        - Mac\n    validations:\n      required: true\n\n  - type: textarea\n    id: description\n    attributes:\n      label: \"Description\"\n      description: Enter an explicit description of your issue and explain the bug briefly and clearly.\n    validations:\n      required: true\n\n  - type: textarea\n    id: reprod-steps\n    attributes:\n      label: \"Reproduction Steps\"\n      description: Explain your issue step by step.\n      render: bash\n    validations:\n      required: true\n\n  - type: textarea\n    id: solution\n    attributes:\n      label: \"Solutions\"\n      description: If you have a solution, please share it.\n      render: bash\n    validations:\n      required: false\n\n  - type: textarea\n    id: screenshot\n    attributes:\n      label: \"Screenshots\"\n      description: Add screenshots to help explain your problem.\n      value: |\n        ![DESCRIPTION](LINK.png)\n      render: bash\n    validations:\n      required: false",
+  "image": "Base64 string! too long..."
+}
 ```
 
 ## File/contributing Module
