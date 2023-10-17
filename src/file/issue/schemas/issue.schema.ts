@@ -18,5 +18,10 @@ export class IssueTemplate {
     required: true,
   })
   content: string;
+
+  @Prop({
+    required: true,
+  })
+  image: string;
 }
 export const IssueTemplateSchema = SchemaFactory.createForClass(IssueTemplate);
