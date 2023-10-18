@@ -100,24 +100,37 @@ export class ReviewService {
       }
     }
 
-    // check secretScan enabled
     const repoData = await octokit.repos.get({ owner, repo });
-    securityData.secretScan =
-      repoData.data.security_and_analysis.secret_scanning.status === 'enabled';
 
-    // check dependabot enabled
-    try {
-      await octokit.repos.checkVulnerabilityAlerts({
-        owner,
-        repo,
-      });
-      securityData.dependabot = true;
-    } catch (error) {
-      if (error.status === 404) {
-        securityData.dependabot = false;
-      } else {
-        Logger.error('octokit checkVulnerabilityAlerts error: ', error);
+    if (repoData.data.permissions.admin) {
+      // check secretScan enabled
+      try {
+        securityData.secretScan =
+          repoData.data.security_and_analysis.secret_scanning.status ===
+          'enabled';
+      } catch (error) {
+        console.log(error);
+        securityData.secretScan = false;
       }
+
+      // check dependabot enabled
+      try {
+        await octokit.repos.checkVulnerabilityAlerts({
+          owner,
+          repo,
+        });
+        securityData.dependabot = true;
+      } catch (error) {
+        console.log(error);
+        if (error.status === 404) {
+          securityData.dependabot = false;
+        } else {
+          Logger.error('octokit checkVulnerabilityAlerts error: ', error);
+        }
+      }
+    } else {
+      securityData.secretScan = null;
+      securityData.dependabot = null;
     }
 
     // check Security Policy enabled
