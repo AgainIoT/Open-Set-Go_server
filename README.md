@@ -1,20 +1,20 @@
 # Open-Set-Go_server
 
 <p align="center">
-<a href="https://open-set-go.netlify.app/" target="blank"><img src="https://github.com/AgainIoT/Open-Set-Go/raw/main/.github/images/Open-Set-Go.png" width="200" alt="Open-Set-Go Logo" /></a>
+<a href="https://www.open-set-go.com/" target="_blank"><img src="https://github.com/AgainIoT/Open-Set-Go/raw/main/.github/images/Open-Set-Go.png" width="200" alt="Open-Set-Go Logo" /></a>
 </p>
 
 <p align="center">
-  This is <a href="https://www.open-set-go.com" target="blank">Open-Set-Go</a>'s NestJS Server Repository! More details at <a href="https://github.com/AgainIoT/Open-Set-Go">Open-Set-Go Repository</a>!
+  This is <a href="https://www.open-set-go.com" target="_blank">Open-Set-Go</a>'s NestJS Server Repository! More details at <a href="https://github.com/AgainIoT/Open-Set-Go">Open-Set-Go Repository</a>!
 </p>
 
 <p align="center">
   <a href="https://github/AgainIoT/Open-Set-Go"><img src="https://img.shields.io/node/v-lts/%40octokit%2Frest?logo=node.js&label=node" alt="node Version" /></a>
   <a href="https://sonarcloud.io/summary/new_code?id=AgainIoT_Open-Set-Go_server" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=AgainIoT_Open-Set-Go_server&metric=alert_status" alt="Sonar Cloud Scan" /></a>
-  <a href="https://sonarcloud.io/summary/new_code?id=AgainIoT_Open-Set-Go_server"><img src="https://sonarcloud.io/api/project_badges/measure?project=AgainIoT_Open-Set-Go_server&metric=sqale_rating"></a>
-  <a href="https://sonarcloud.io/summary/new_code?id=AgainIoT_Open-Set-Go_server"><img src="https://sonarcloud.io/api/project_badges/measure?project=AgainIoT_Open-Set-Go_server&metric=reliability_rating"></a>
+  <a href="https://github.com/AgainIoT/Open-Set-Go_server/actions/workflows/github-code-scanning/codeql"><img src="https://github.com/AgainIoT/Open-Set-Go_server/actions/workflows/github-code-scanning/codeql/badge.svg"></a>
   <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server?ref=badge_shield" target="_blank"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FAgainIoT%2FOpen-Set-Go_server.svg?type=shield&issueType=license" alt="Fossa License Scan" /></a>
   <a href="https://github.com/AgainIoT/Open-Set-Go"><img src="https://img.shields.io/badge/cloud_run-deployed-brightgreen?logo=googlecloud" alt="google cloud run"></a>
+  <a href="hhttps://hub.docker.com/repository/docker/ymw0407/open-set-go_server/general"><img alt="Docker Image Version (latest semver)" src="https://img.shields.io/docker/v/ymw0407/open-set-go_server?logo=docker&label=docker&color=brightgreen"></a>
   <a href="https://join.slack.com/t/open-set-go/shared_invite/zt-21jwlzs9g-qrajfUblcCtmCqAy0Xxj8w" target="_blank"><img src="https://img.shields.io/badge/slack-online-brightgreen.svg?logo=slack" alt="Slack"/></a>
   <a href="https://github.com/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/github/v/release/AgainIoT/Open-Set-Go_server?logo=github" alt="github release" /></a>
   <a href="https://github.com/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/github/release-date/AgainIoT/Open-Set-Go_server?color=blue&logo=github" alt="github last release date" /></a>
@@ -24,7 +24,7 @@
   <a href="https://github.com/AgainIoT/Open-Set-Go_server"><img src="https://img.shields.io/github/stars/AgainIoT/Open-Set-Go_server?logo=github" alt="github stars" /></a>
   <a href="https://github.com/AgainIoT/Open-Set-Go_server/pulls?q=is%3Apr+is%3Aclosed"><img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/AgainIoT/Open-Set-Go_server?logo=github&color=blue"></a>
   <a href="https://github.com/AgainIoT/Open-Set-Go_server/issues?q=is%3Aissue+is%3Aclosed"><img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/AgainIoT/Open-Set-Go_server?logo=github&color=blue"></a>
-<br>
+</p>
 
 ## Description
 
