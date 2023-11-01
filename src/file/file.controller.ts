@@ -20,6 +20,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { UserService } from 'src/user/user.service';
 import JwtAuthenticationGuard from 'src/auth/jwt/jwt-authentication.guard';
 import { UploadFilesDto } from './dto/uploadFiles.dto';
+import { GitignoreService } from './gitignore/gitignore.service';
 
 export type file = { path: string; content: string };
 @Controller('file')
@@ -33,6 +34,7 @@ export class FilesController {
     private readonly conributingService: ContributingService,
     private readonly authService: AuthService,
     private readonly userService: UserService,
+    private readonly gitignoreService: GitignoreService,
   ) {}
 
   @Post('')
@@ -64,6 +66,7 @@ export class FilesController {
     // get License file to upload
     if (uploadFilesDto.license !== '') {
       const licenseFile = await this.licenseService.makeLicense(
+        user.accessToken,
         uploadFilesDto.license,
       );
       files.push(licenseFile);
@@ -77,20 +80,12 @@ export class FilesController {
       files.push(prTemplate);
     }
 
-    /* this service has some problem with converting yml to html...
-     * so, IssueTemplate Service stop offering for a while.
-     *
-     * if (uploadFilesDto.IssueTemplate !== undefined) {
-     *   const is = await this.issueService.makeIssueTemplate(
-     *     uploadFilesDto.IssueTemplate,
-     *   );
-     *   files.push(...is);
-     * }
-     */
-
-    // get default issue template to upload
-    const issueTemplate = await this.issueService.makeDefaultIssueTemplate();
-    files.push(...issueTemplate);
+    if (uploadFilesDto.IssueTemplate !== undefined) {
+      const issueTemplate = await this.issueService.makeIssueTemplate(
+        uploadFilesDto.IssueTemplate,
+      );
+      files.push(...issueTemplate);
+    }
 
     // convert CONTRIBUITNG.md content to file type
     if (uploadFilesDto.contributingMd !== '') {
@@ -114,13 +109,18 @@ export class FilesController {
       );
     }
 
-    // upload all files with Octokit at selected repository
-    const result: number = await this.filesService.uploadFiles(
-      user.accessToken,
-      uploadFilesDto.owner,
-      uploadFilesDto.repoName,
-      files,
-    );
+    let result: number = 200;
+
+    if (files.length !== 0) {
+      // upload all files with Octokit at selected repository
+      result = await this.filesService.uploadFiles(
+        user.accessToken,
+        uploadFilesDto.owner,
+        uploadFilesDto.repoName,
+        files,
+      );
+    }
+
     res.sendStatus(result);
   }
 
@@ -129,6 +129,16 @@ export class FilesController {
     try {
       const envTemplate = await this.filesService.getEnvTemplate();
       res.status(200).json(envTemplate);
+    } catch (error) {
+      res.sendStatus(500);
+    }
+  }
+
+  @Get('gitignore')
+  async getGitignore(@Res() res: Response) {
+    try {
+      const gitginore = await this.gitignoreService.getGitignore();
+      res.status(200).json(gitginore);
     } catch (error) {
       res.sendStatus(500);
     }

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { IssueTemplate as IssueSchema } from './schemas/issue.schema';
-import mongoose, { Model } from 'mongoose';
-import { readdir, readFile } from 'fs/promises';
+import { Model } from 'mongoose';
+import { UploadFilesDto } from '../dto/uploadFiles.dto';
 
 type file = { path: string; content: string };
 
@@ -13,51 +13,61 @@ export class IssueService {
     private issueModel: Model<IssueSchema>,
   ) {}
 
-  makeIssueTemplate = async (ids: string[]): Promise<file[]> => {
+  makeIssueTemplate = async (
+    issueTemplates: UploadFilesDto['IssueTemplate'],
+  ): Promise<file[]> => {
     const result = [];
-    for (const id of ids) {
-      const objectId = new mongoose.Types.ObjectId(id);
-      const chosenOne = await this.issueModel.findOne({ _id: objectId });
-      const title = chosenOne.title;
-      const content = chosenOne.content;
+    for await (const issueTemplate of issueTemplates) {
       result.push({
-        path: '.github/ISSUE_TEMPLATE/' + title + '.yml',
-        content: content,
+        path: '.github/ISSUE_TEMPLATE/' + issueTemplate.type + '.yml',
+        content: issueTemplate.content,
       });
     }
     return result;
   };
 
   loadIssueTemplates = async () => {
-    const issueTemplates = await this.issueModel.find().exec();
-    return issueTemplates;
+    const issueTemplates = await this.issueModel
+      .find({}, { content: false, image: false })
+      .exec();
+
+    const formattedTemplates: issueTemplateType[] = [];
+    const types = [];
+
+    for await (const issueTemplate of issueTemplates) {
+      const index = types.indexOf(issueTemplate.type);
+      const template = {
+        id: issueTemplate._id.toString(),
+        title: issueTemplate.title,
+      };
+      if (index !== -1) {
+        formattedTemplates[index].templates.push(template);
+      } else {
+        formattedTemplates.push({
+          type: issueTemplate.type,
+          templates: [template],
+        });
+        types.push(issueTemplate.type);
+      }
+    }
+
+    return formattedTemplates;
   };
 
   loadIssueTemplateContent = async (id: string) => {
-    const contentId = new mongoose.Types.ObjectId(id);
-    const chosenOne = await this.issueModel.findOne({ _id: contentId });
-    return chosenOne.content;
-  };
+    const chosenOne = await this.issueModel.findOne(
+      { _id: id },
+      { content: true, image: true, _id: false },
+    );
 
-  // get default issue template from default/ & return it!
-  makeDefaultIssueTemplate = async (): Promise<file[]> => {
-    const files = [];
-
-    const fileList = await readdir('src/file/issue/default');
-    const filePromises = fileList.map(async (path) => {
-      const content = await readFile(`src/file/issue/default/${path}`, {
-        encoding: 'utf-8',
-      });
-
-      return {
-        path: `.github/ISSUE_TEMPLATE/${path}`,
-        content,
-      };
-    });
-
-    const fileResults = await Promise.all(filePromises);
-    files.push(...fileResults);
-
-    return files;
+    return chosenOne;
   };
 }
+
+type issueTemplateType = {
+  type: string;
+  templates: {
+    id: string;
+    title: string;
+  }[];
+};

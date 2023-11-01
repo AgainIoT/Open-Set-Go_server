@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   Logger,
   Post,
   Query,
@@ -59,6 +60,12 @@ export class AuthController {
   @UseGuards(JwtAuthenticationGuard)
   async logOut(@Res() res: Response) {
     res.setHeader('Set-Cookie', this.authService.getCookieForLogOut());
+    return res.sendStatus(200);
+  }
+
+  @Get('/checkToken')
+  @UseGuards(JwtAuthenticationGuard)
+  async checkToken(@Res() res: Response) {
     return res.sendStatus(200);
   }
 }

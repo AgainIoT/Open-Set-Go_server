@@ -16,7 +16,7 @@ export class MailController {
   // getPersonalMail
   @Post('')
   @UseGuards(JwtAuthenticationGuard)
-  async test(@Req() req: Request, @Res() res: Response) {
+  async mail(@Req() req: Request, @Res() res: Response) {
     // get JWT AccessToken from cookies and decode + get GitHub Access Token
     const jwtAccessToken = this.authService.decodeToken(
       req.cookies.Authentication,

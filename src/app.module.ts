@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { MailModule } from './mail/mail.module';
+import { ReviewModule } from './review/review.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -24,20 +25,14 @@ import * as Joi from 'joi';
         JWT_EXPIRATION_TIME: Joi.string().required(),
         MAIL_USER: Joi.string().required(),
         MAIL_PASS: Joi.string().required(),
+        ORIGIN: Joi.string().required(),
       }),
     }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (config: ConfigService) => ({
-        uri: config.get('MONGODB_URI'),
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }),
-      inject: [ConfigService],
-    }),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     UserModule,
     AuthModule,
     MailModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [ConfigService],

@@ -17,16 +17,11 @@ export class IssueTemplate {
   @Prop({
     required: true,
   })
-  repoName: string;
-
-  @Prop({
-    required: true,
-  })
-  repoUrl: string;
-
-  @Prop({
-    required: true,
-  })
   content: string;
+
+  @Prop({
+    required: true,
+  })
+  image: string;
 }
 export const IssueTemplateSchema = SchemaFactory.createForClass(IssueTemplate);

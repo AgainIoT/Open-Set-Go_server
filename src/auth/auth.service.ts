@@ -22,7 +22,7 @@ export class AuthService {
         headers: {
           accept: 'application/json',
         },
-        data: {
+        params: {
           client_id: process.env.CLIENT_ID,
           client_secret: process.env.CLIENT_SECRET,
           code: authCode,

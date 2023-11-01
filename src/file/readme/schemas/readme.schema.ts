@@ -1,19 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type ReadmeMdDoc = HydratedDocument<ReadmeMd>;
+export type ReadmeDoc = HydratedDocument<Readme>;
 @Schema({ timestamps: true, _id: true })
-export class ReadmeMd {
-  @Prop({
-    required: true,
-  })
-  type: string;
-
-  @Prop({
-    required: true,
-  })
-  title: string;
-
+export class Readme {
   @Prop({
     required: true,
   })
@@ -22,11 +12,26 @@ export class ReadmeMd {
   @Prop({
     required: true,
   })
-  repoUrl: string;
+  star: number;
+
+  @Prop({
+    required: true,
+  })
+  license: string;
+
+  @Prop({
+    required: true,
+  })
+  author: string;
+
+  @Prop({
+    required: true,
+  })
+  year: string;
 
   @Prop({
     required: true,
   })
   content: string;
 }
-export const ReadmeMdSchema = SchemaFactory.createForClass(ReadmeMd);
+export const ReadmeSchema = SchemaFactory.createForClass(Readme);

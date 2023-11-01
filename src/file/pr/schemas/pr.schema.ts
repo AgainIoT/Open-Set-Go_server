@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type PrTemplateDoc = HydratedDocument<PrTemplate>;
+export type PrDoc = HydratedDocument<Pr>;
 
 @Schema({ timestamps: true, _id: true })
-export class PrTemplate {
+export class Pr {
   @Prop({
     required: true,
   })
@@ -18,7 +18,22 @@ export class PrTemplate {
   @Prop({
     required: true,
   })
-  repoUrl: string;
+  star: number;
+
+  @Prop({
+    required: true,
+  })
+  license: string;
+
+  @Prop({
+    required: true,
+  })
+  author: string;
+
+  @Prop({
+    required: true,
+  })
+  year: string;
 
   @Prop({
     required: true,
@@ -26,4 +41,4 @@ export class PrTemplate {
   content: string;
 }
 
-export const PrSchema = SchemaFactory.createForClass(PrTemplate);
+export const PrSchema = SchemaFactory.createForClass(Pr);
