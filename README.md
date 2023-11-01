@@ -92,6 +92,23 @@ You can also easily install it through [install.sh](https://github.com/AgainIoT/
      node dist/main.js
    ```
 
+## API Specification
+
+- [auth module](./spec.md#auth-module)
+- [user module](./spec.md#user-module)
+- [repo module](./spec.md#repo-module)
+- [mail module](./spec.md#mail-module)
+- [file module](./spec.md#file-module)
+  - [file/license module](./spec.md#filelicense-module)
+  - [file/pr module](./spec.md#filepr-module)
+  - [file/issue module](#./spec.md#fileissue-module)
+  - [file/contributing module](./spec.md#filecontributing-module)
+  - [file/readme module](./spec.md#filereadme-module)
+- [review module](./spec.md#review-module)
+  - [review/file module](./spec.md#reviewfile-module)
+
+See more details at [spec.md](./spec.md)
+
 ## Documentation
 
 We are conducting documentation at Open-Set-Go.io. Please refer to the following. _You can see our technical blog & showcase on Open-Set-Go.io_
