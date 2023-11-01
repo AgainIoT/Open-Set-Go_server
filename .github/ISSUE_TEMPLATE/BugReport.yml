@@ -60,3 +60,21 @@ body:
         - Only once
     validations:
       required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Solutions"
+      description: If you have a solution, please share it.
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: "Screenshots"
+      description: Add screenshots to help explain your problem.
+      value: |
+        ![DESCRIPTION](LINK.png)
+    validations:
+      required: false
