@@ -7,14 +7,6 @@ assignees: []
 
 body:
   - type: textarea
-    id: reasons
-    attributes:
-      label: "Reasons"
-      description: Explain why this function is necessary.
-    validations:
-        required: true
-
-  - type: textarea
     id: description
     attributes:
       label: "Describe"
