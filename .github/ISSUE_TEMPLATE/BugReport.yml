@@ -1,62 +1,63 @@
 ---
 name: "🐛 Bug Report"
 description: Report a bug
-title: "🐛 [BUG] - <title>"
+title: "🐛 [BUG]: "
 labels: ["bug"]
 assignees: []
 
 body:
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: "Browsers"
-      description: What browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
-        - Opera
-    validations:
-      required: true
-
-  - type: dropdown
-    id: os
-    attributes:
-      label: "OS"
-      description: What is the impacted environment?
-      multiple: true
-      options:
-        - Windows
-        - Linux
-        - Mac
-    validations:
-      required: true
-
-  - type: textarea
-    id: description
-    attributes:
-      label: "Description"
-      description: Enter an explicit description of your issue and explain the bug briefly and clearly.
-    validations:
-      required: true
-
   - type: input
-    id: reprod-url
     attributes:
-      label: "Reproduction URL"
-      description: Add a URL related to the bug.
-      placeholder: ex) https://github.com/USERNAME/REPO-NAME
+      label: "API Request"
+      description: |
+        What API requests found bugs?<br>
+      placeholder: |
+        eg. file/issue/:id
     validations:
       required: true
 
   - type: textarea
-    id: reprod-steps
     attributes:
-      label: "Reproduction Steps"
-      description: Explain your issue step by step.
-      render: bash
+      label: Repro steps
+      description: |
+        What were you doing on the website or app when the bug happened? Detailed information helps maintainers reproduce and fix bugs.<br>
+        Issues filed without repro steps will be closed.
+      placeholder: |
+        Example bug report:
+        1. Log-In with /auth/github-login?code=<auth-code>
+        2. Enter the corresponding Request Body.
+          ```json
+            {
+              "owner": "AgainIoT",
+              "repoName": "Open-Set-Go_server"
+            }
+          ```
+        3. You'll get this response.
+          ```json
+            {
+              "owner": "AgainIoT",
+              "name": "Open-Set-Go_server",
+              "fullName": "AgainIoT/Open-Set-Go_server",
+              "repoURL": "https://github.com/AgainIoT/Open-Set-Go_server",
+              "description": "'Project Starting Toolkit' for OpenSource SW developers who can easily, quickly and conveniently start an Open Source project.",
+              "language": "TypeScript",
+              "star": 8,
+              "fork": 3
+            }
+          ```
+    validations:
+      required: true
+      
+  - type: dropdown
+    attributes:
+      label: How often does this bug happen?
+      description: |
+        Following the repro steps above, how easily are you able to reproduce this bug?
+      options:
+        - Every time
+        - Often
+        - Sometimes
+        - Only once
     validations:
       required: true
 
@@ -65,7 +66,6 @@ body:
     attributes:
       label: "Solutions"
       description: If you have a solution, please share it.
-      render: bash
     validations:
       required: false
 
@@ -76,6 +76,5 @@ body:
       description: Add screenshots to help explain your problem.
       value: |
         ![DESCRIPTION](LINK.png)
-      render: bash
     validations:
       required: false
